@@ -77,7 +77,7 @@ void forgetPassword(BuildContext context) {
                                   isNetwork: false,
                                   isRow: false,
                                   borderclr: Colors.blueGrey,
-                                  color: Color.fromARGB(255, 3, 1, 9),
+                                  color: const Color.fromARGB(255, 3, 1, 9),
                                   height: 50,
                                   fontweight: FontWeight.w500,
                                   radius: 10,
@@ -88,7 +88,7 @@ void forgetPassword(BuildContext context) {
                                   width:
                                       MediaQuery.of(context).size.width / 2.5,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 11,
                                 ),
                                 CustomButton(
@@ -104,6 +104,8 @@ void forgetPassword(BuildContext context) {
                                   onTap: () {
                                     Navigator.pop(context);
                                     forgetPasswordOtp(context);
+                                    // customNavPush(
+                                    //     context, OtpScreenForgetPassword());
                                   },
                                   textsize: 20,
                                   width:
@@ -112,7 +114,7 @@ void forgetPassword(BuildContext context) {
                               ],
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                           Align(
@@ -120,7 +122,7 @@ void forgetPassword(BuildContext context) {
                             child: Text(
                               'FitPro',
                               style: GoogleFonts.orbitron(
-                                  color: Color.fromARGB(255, 11, 49, 81),
+                                  color: const Color.fromARGB(255, 11, 49, 81),
                                   fontSize: 50,
                                   fontWeight: FontWeight.bold),
                             ),

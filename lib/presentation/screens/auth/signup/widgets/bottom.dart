@@ -1,3 +1,4 @@
+import 'package:fit_pro/presentation/screens/auth/signin/signin.dart';
 import 'package:fit_pro/presentation/screens/auth/signup/signup.dart';
 import 'package:fit_pro/presentation/screens/auth/signup/widgets/policy.dart';
 import 'package:fit_pro/presentation/widgets/buttons/button.dart';
@@ -39,7 +40,11 @@ class SignUpBottom extends StatelessWidget {
             height: 60,
             radius: 9,
             textclr: Colors.black,
-            onTap: () => customNavPush(context, const SignUpScreen()),
+            onTap: () => customNavPush(
+                context,
+                SignupOrSignin(
+                  signup: true,
+                )),
             textsize: 16,
             width: double.infinity,
             name: 'Continue with Email',

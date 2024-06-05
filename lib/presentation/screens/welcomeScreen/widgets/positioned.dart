@@ -76,7 +76,11 @@ class CustomPositioned extends StatelessWidget {
               height: 60,
               radius: 9,
               textclr: const Color.fromARGB(255, 39, 153, 247),
-              onTap: () => customNavPush(context, SignupOrSignin()),
+              onTap: () => customNavPush(
+                  context,
+                  SignupOrSignin(
+                    signup: false,
+                  )),
               textsize: 17,
               width: double.infinity,
               name: 'Log In',

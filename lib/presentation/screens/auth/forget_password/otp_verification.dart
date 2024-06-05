@@ -2,34 +2,10 @@ import 'package:fit_pro/presentation/screens/auth/forget_password/change_passwor
 import 'package:fit_pro/presentation/widgets/buttons/button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:pinput/pinput.dart';
+import 'package:flutter_pin_code_fields/flutter_pin_code_fields.dart';
 
 final forgetOtpController = TextEditingController();
 void forgetPasswordOtp(context) {
-  final defaultPinTheme = PinTheme(
-    width: 56,
-    height: 56,
-    textStyle: const TextStyle(
-        fontSize: 20,
-        color: Color.fromRGBO(234, 239, 243, 1),
-        fontWeight: FontWeight.w600),
-    decoration: BoxDecoration(
-      border: Border.all(color: const Color(0xFFE8E6EA)),
-      borderRadius: BorderRadius.circular(15),
-    ),
-  );
-  final focusedPinTheme = defaultPinTheme.copyDecorationWith(
-    border: Border.all(
-      color: Colors.blue,
-    ),
-    borderRadius: BorderRadius.circular(15),
-  );
-
-  final submittedPinTheme = defaultPinTheme.copyWith(
-    decoration: defaultPinTheme.decoration?.copyWith(
-      color: Colors.transparent,
-    ),
-  );
   showModalBottomSheet(
     context: context,
     isScrollControlled: true,
@@ -105,17 +81,24 @@ void forgetPasswordOtp(context) {
                           ),
                           //otp formfield
                           Align(
-                            alignment: Alignment.center,
-                            child: Pinput(
-                              controller: forgetOtpController,
-                              length: 4,
-                              defaultPinTheme: defaultPinTheme,
-                              focusedPinTheme: focusedPinTheme,
-                              submittedPinTheme: submittedPinTheme,
-                              showCursor: true,
-                            ),
-                          ),
-                          //
+                              alignment: Alignment.center,
+                              child: Padding(
+                                padding: const EdgeInsets.all(12),
+                                child: PinCodeFields(
+                                  onComplete: (value) {},
+                                  controller: forgetOtpController,
+                                  length: 4,
+                                  fieldBorderStyle: FieldBorderStyle.square,
+                                  fieldHeight: 60,
+                                  activeBorderColor: Colors.blue,
+                                  borderRadius: BorderRadius.circular(12),
+                                  textStyle: const TextStyle(
+                                      color: Color.fromARGB(255, 255, 255, 255),
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 18),
+                                  keyboardType: TextInputType.number,
+                                ),
+                              )),
                           const SizedBox(
                             height: 13,
                           ),
@@ -146,6 +129,7 @@ void forgetPasswordOtp(context) {
                               onTap: () {
                                 Navigator.pop(context);
                                 changePassword(context);
+                                forgetOtpController.clear();
                               },
                               textsize: 20,
                               width: double.infinity,

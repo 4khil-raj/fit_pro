@@ -1,8 +1,11 @@
+import 'package:fit_pro/application/auth_bloc/auth_bloc.dart';
 import 'package:fit_pro/presentation/screens/auth/signup/signup.dart';
 import 'package:fit_pro/presentation/widgets/buttons/button.dart';
 import 'package:fit_pro/presentation/widgets/custom_nav/customnav.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class SignupTopScreen extends StatelessWidget {
   const SignupTopScreen({super.key});
@@ -33,7 +36,8 @@ class SignupTopScreen extends StatelessWidget {
           height: 65,
           radius: 9,
           textclr: Colors.white,
-          onTap: () => customNavPush(context, const SignUpScreen()),
+          onTap: () =>
+              BlocProvider.of<AuthBloc>(context).add(GoogleSigninEvent()),
           textsize: 16,
           width: double.infinity,
           name: 'Continue with Google    ',
@@ -55,7 +59,7 @@ class SignupTopScreen extends StatelessWidget {
           height: 65,
           radius: 9,
           textclr: Colors.white,
-          onTap: () => customNavPush(context, const SignUpScreen()),
+          onTap: () {},
           textsize: 16,
           width: double.infinity,
           name: 'Continue with FaceBook',

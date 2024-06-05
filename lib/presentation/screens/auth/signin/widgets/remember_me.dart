@@ -1,3 +1,4 @@
+import 'package:fit_pro/application/auth_bloc/auth_bloc.dart';
 import 'package:fit_pro/application/login_bloc/login_bloc.dart';
 import 'package:fit_pro/presentation/screens/auth/forget_password/forget.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,7 @@ class RememberMeLogIn extends StatelessWidget {
         children: [
           InkWell(
             onTap: () {
-              BlocProvider.of<LoginBloc>(context)
+              BlocProvider.of<AuthBloc>(context)
                   .add(RememberMeEvent(remember: remember));
             },
             child: Container(

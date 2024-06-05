@@ -1,10 +1,21 @@
+import 'package:fit_pro/application/auth_bloc/auth_bloc.dart';
+import 'package:fit_pro/domain/models/auth_model.dart/signup_user.dart';
+import 'package:fit_pro/presentation/screens/auth/signup/otp_screen/signup_otp.dart';
 import 'package:fit_pro/presentation/widgets/buttons/button.dart';
+import 'package:fit_pro/presentation/widgets/custom_nav/customnav.dart';
 import 'package:fit_pro/presentation/widgets/icon_button/icon_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LogInButtons extends StatelessWidget {
-  const LogInButtons({super.key});
-
+  const LogInButtons(
+      {super.key,
+      required this.signup,
+      required this.emailController,
+      required this.passwordController});
+  final bool signup;
+  final TextEditingController emailController;
+  final TextEditingController passwordController;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -19,11 +30,21 @@ class LogInButtons extends StatelessWidget {
             color: Colors.yellow,
             height: 60,
             radius: 9,
-            textclr: Colors.black,
-            onTap: () {},
+            textclr: const Color.fromRGBO(0, 0, 0, 1),
+            onTap: () {
+              final user = UserModel(
+                  email: emailController.text,
+                  password: passwordController.text);
+              signup
+                  ? BlocProvider.of<AuthBloc>(context)
+                      .add(SignUpEvent(user: user))
+                  : BlocProvider.of<AuthBloc>(context).add(LoginEvent(
+                      email: emailController.text,
+                      passcode: passwordController.text));
+            },
             textsize: 16,
             width: double.infinity,
-            name: 'LOG IN',
+            name: signup ? 'Sign Up' : 'LOG IN',
           ),
         ),
         const SizedBox(

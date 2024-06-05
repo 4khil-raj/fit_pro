@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.3.3 <4.0.0'
+  sdk: '>=3.2.6 <4.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -39,7 +39,11 @@ dependencies:
   bloc: ^8.1.4
   flutter_bloc: ^8.1.5
   bottom_sheet: ^4.0.4
-  pinput: ^4.0.0
+  flutter_pin_code_fields: ^2.2.0
+  cloud_firestore: ^5.0.0
+  firebase_auth: ^5.0.0
+  google_sign_in: ^6.2.1
+  # pinput: 
 
 dev_dependencies:
   flutter_test:

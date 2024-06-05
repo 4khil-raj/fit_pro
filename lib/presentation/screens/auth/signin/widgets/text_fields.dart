@@ -1,4 +1,6 @@
+import 'package:fit_pro/application/auth_bloc/auth_bloc.dart';
 import 'package:fit_pro/application/login_bloc/login_bloc.dart';
+import 'package:fit_pro/domain/validations/textfields.dart';
 import 'package:fit_pro/presentation/widgets/form_field/formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,6 +30,7 @@ class LoginFields extends StatelessWidget {
           height: 35,
         ),
         CustomTextFormField(
+          validator: Validations.validateEmail,
           suffixIcon: const Icon(
             Icons.email,
             color: Color.fromARGB(255, 239, 234, 234),
@@ -44,7 +47,7 @@ class LoginFields extends StatelessWidget {
         ),
         CustomTextFormField(
           onTap: () {
-            BlocProvider.of<LoginBloc>(context)
+            BlocProvider.of<AuthBloc>(context)
                 .add(ObsecureTextEvent(obsecure: obsecure));
           },
           obscureText: obsecure,
@@ -53,6 +56,7 @@ class LoginFields extends StatelessWidget {
             color: Color.fromARGB(255, 243, 238, 238),
           ),
           labelColor: Colors.white,
+          validator: Validations.validateCreatepassword,
           labelText: "Password",
           hintText: '******',
           controller: passwordController,
