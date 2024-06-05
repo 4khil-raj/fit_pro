@@ -1,4 +1,4 @@
-import 'package:fit_pro/presentation/screens/signup/signup.dart';
+import 'package:fit_pro/presentation/screens/auth/signup/signup.dart';
 import 'package:fit_pro/presentation/widgets/buttons/button.dart';
 import 'package:fit_pro/presentation/widgets/custom_nav/customnav.dart';
 import 'package:flutter/material.dart';

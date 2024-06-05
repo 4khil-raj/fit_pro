@@ -1,5 +1,5 @@
-import 'package:fit_pro/presentation/screens/signin/signin.dart';
-import 'package:fit_pro/presentation/screens/signup/signup.dart';
+import 'package:fit_pro/presentation/screens/auth/signin/signin.dart';
+import 'package:fit_pro/presentation/screens/auth/signup/signup.dart';
 import 'package:fit_pro/presentation/widgets/buttons/button.dart';
 import 'package:fit_pro/presentation/widgets/custom_nav/customnav.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +17,7 @@ class CustomPositioned extends StatelessWidget {
           Text(
             'FitPro',
             style: GoogleFonts.orbitron(
-                color: Color.fromARGB(255, 72, 173, 255),
+                color: const Color.fromARGB(255, 72, 173, 255),
                 fontSize: 50,
                 fontWeight: FontWeight.bold),
           ),
@@ -31,7 +31,7 @@ class CustomPositioned extends StatelessWidget {
                 fontSize: 35,
                 fontWeight: FontWeight.bold),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Padding(

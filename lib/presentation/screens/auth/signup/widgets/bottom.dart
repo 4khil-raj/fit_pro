@@ -1,4 +1,5 @@
-import 'package:fit_pro/presentation/screens/signup/signup.dart';
+import 'package:fit_pro/presentation/screens/auth/signup/signup.dart';
+import 'package:fit_pro/presentation/screens/auth/signup/widgets/policy.dart';
 import 'package:fit_pro/presentation/widgets/buttons/button.dart';
 import 'package:fit_pro/presentation/widgets/custom_nav/customnav.dart';
 import 'package:flutter/material.dart';
@@ -47,36 +48,7 @@ class SignUpBottom extends StatelessWidget {
         const SizedBox(
           height: 20,
         ),
-        Text(
-          'By continuing forward, you agree to FitPro’s',
-          style: GoogleFonts.roboto(fontSize: 15, color: Colors.white54),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextButton(
-              onPressed: () {},
-              child: const Text(
-                'Privacy Policy',
-                style: TextStyle(
-                    decorationColor: Color.fromARGB(255, 98, 179, 245),
-                    color: Colors.blue,
-                    decoration: TextDecoration.underline),
-              ),
-            ),
-            const Text('And', style: TextStyle(color: Colors.white54)),
-            TextButton(
-              onPressed: () {},
-              child: const Text(
-                'Terms & Conditions',
-                style: TextStyle(
-                    decorationColor: Color.fromARGB(255, 98, 179, 245),
-                    color: Colors.blue,
-                    decoration: TextDecoration.underline),
-              ),
-            ),
-          ],
-        )
+        const AuthPrivacyPolicy()
       ],
     );
   }

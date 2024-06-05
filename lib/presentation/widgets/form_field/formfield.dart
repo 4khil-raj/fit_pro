@@ -6,8 +6,14 @@ class CustomTextFormField extends StatelessWidget {
   final TextInputType keyboardType;
   final bool obscureText;
   final Function(String)? onChanged;
-  final String? Function(String?)? validator; // Validator function
+  final String? Function(String?)? validator;
   final int? maxlength;
+  final Color? inputTextcolor;
+  final Color? hintTextcolor;
+  final String? labelText;
+  final Icon? suffixIcon;
+  final Color? labelColor;
+  final Function()? onTap;
 
   const CustomTextFormField({
     super.key,
@@ -17,12 +23,19 @@ class CustomTextFormField extends StatelessWidget {
     this.keyboardType = TextInputType.text,
     this.obscureText = false,
     this.onChanged,
-    this.validator, // Validator function
+    this.validator,
+    this.inputTextcolor,
+    this.hintTextcolor,
+    this.labelText,
+    this.suffixIcon,
+    this.labelColor,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      style: TextStyle(color: inputTextcolor),
       maxLength: maxlength,
       onTapOutside: (event) {
         FocusManager.instance.primaryFocus?.unfocus();
@@ -32,9 +45,25 @@ class CustomTextFormField extends StatelessWidget {
       keyboardType: keyboardType,
       obscureText: obscureText,
       onChanged: onChanged,
-      validator: validator, // Set validator function
+      validator: validator,
       decoration: InputDecoration(
+        suffixIcon: obscureText
+            ? IconButton(
+                onPressed: onTap,
+                icon: const Icon(
+                  Icons.visibility_off,
+                  color: Colors.white,
+                ))
+            : IconButton(
+                onPressed: onTap, icon: suffixIcon ?? const SizedBox()),
+        label: Text(
+          '$labelText',
+          style: TextStyle(color: labelColor),
+        ),
         hintText: hintText,
+        hintStyle: TextStyle(color: hintTextcolor),
+        fillColor: Colors.transparent,
+        filled: true,
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
       ),
     );
