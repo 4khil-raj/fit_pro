@@ -25,6 +25,7 @@ class AuthPrivacyPolicy extends StatelessWidget {
                     decoration: TextDecoration.underline),
               ),
             ),
+            //
             const Text('And', style: TextStyle(color: Colors.white54)),
             TextButton(
               onPressed: () {},
