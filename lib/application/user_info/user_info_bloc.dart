@@ -28,5 +28,9 @@ class UserInfoBloc extends Bloc<UserInfoEvent, UserInfoState> {
 
     on<ExperenceSelectEvent>(
         (event, emit) => emit(UserExperienceSuccessState()));
+    on<CurrentlyWorkoutEvent>(
+        (event, emit) => emit(UserCurrentlyWorkoutState()));
+
+    on<WorkoutDaysEvent>((event, emit) => emit(UserWorkoutDayState()));
   }
 }

@@ -20,3 +20,7 @@ class UserHeightSuccessState extends UserInfoState {}
 class UserWeightSuccessState extends UserInfoState {}
 
 class UserExperienceSuccessState extends UserInfoState {}
+
+class UserCurrentlyWorkoutState extends UserInfoState {}
+
+class UserWorkoutDayState extends UserInfoState {}

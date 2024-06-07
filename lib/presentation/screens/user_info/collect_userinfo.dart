@@ -2,10 +2,14 @@ import 'package:fit_pro/application/user_info/user_info_bloc.dart';
 import 'package:fit_pro/presentation/screens/user_info/age/user_age.dart';
 import 'package:fit_pro/presentation/screens/user_info/appbar.dart';
 import 'package:fit_pro/presentation/screens/user_info/experience/experience.dart';
+import 'package:fit_pro/presentation/screens/user_info/finish/finish.dart';
 import 'package:fit_pro/presentation/screens/user_info/gender/gender.dart';
 import 'package:fit_pro/presentation/screens/user_info/goal/goal.dart';
 import 'package:fit_pro/presentation/screens/user_info/height/height.dart';
 import 'package:fit_pro/presentation/screens/user_info/weight/weight.dart';
+import 'package:fit_pro/presentation/screens/user_info/workout/currently_workout.dart';
+import 'package:fit_pro/presentation/screens/user_info/workout/days_workout.dart';
+import 'package:fit_pro/presentation/widgets/custom_nav/customnav.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -64,15 +68,27 @@ class _UserInfoCollectingScreenState extends State<UserInfoCollectingScreen> {
           } else if (state is UserWeightSuccessState) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
               setState(() {
-                progressValue = .6;
+                progressValue = .7;
               });
             });
             return const ExperienceSelectScreen();
           } else if (state is UserExperienceSuccessState) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
               setState(() {
-                progressValue = .7;
+                progressValue = .8;
               });
+            });
+            return const CurrentlyWorkoutScreen();
+          } else if (state is UserCurrentlyWorkoutState) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              setState(() {
+                progressValue = 1;
+              });
+            });
+            return const WorkoutDaysCollecterScreen();
+          } else if (state is UserWorkoutDayState) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              customNavRemoveuntil(context, const UserInfoFinishPage());
             });
           }
           return const GenderSelectScreen();

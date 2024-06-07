@@ -20,3 +20,7 @@ class HeightSelectEvent extends UserInfoEvent {}
 class WeightSelectEvent extends UserInfoEvent {}
 
 class ExperenceSelectEvent extends UserInfoEvent {}
+
+class CurrentlyWorkoutEvent extends UserInfoEvent {}
+
+class WorkoutDaysEvent extends UserInfoEvent {}

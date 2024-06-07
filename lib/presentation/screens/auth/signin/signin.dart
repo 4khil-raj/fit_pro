@@ -6,6 +6,7 @@ import 'package:fit_pro/presentation/screens/auth/signin/widgets/remember_me.dar
 import 'package:fit_pro/presentation/screens/auth/signin/widgets/text_fields.dart';
 import 'package:fit_pro/presentation/screens/auth/signup/widgets/policy.dart';
 import 'package:fit_pro/presentation/screens/tempHome/tempHome.dart';
+import 'package:fit_pro/presentation/screens/user_info/collect_userinfo.dart';
 import 'package:fit_pro/presentation/widgets/alerts/alerts.dart';
 import 'package:fit_pro/presentation/widgets/custom_nav/customnav.dart';
 import 'package:flutter/material.dart';
@@ -35,7 +36,8 @@ class SignupOrSignin extends StatelessWidget {
                 obsecure = state.obsecureText;
               } else if (state is SignUpAuthSuccessState) {
                 WidgetsBinding.instance.addPostFrameCallback((_) {
-                  customNavRemoveuntil(context, const TempHome());
+                  customNavRemoveuntil(
+                      context, const UserInfoCollectingScreen());
                 });
               } else if (state is Authenticated) {
                 WidgetsBinding.instance.addPostFrameCallback((_) {

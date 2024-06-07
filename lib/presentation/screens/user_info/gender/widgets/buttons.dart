@@ -59,7 +59,7 @@ class CustomGenderButtons extends StatelessWidget {
         const SizedBox(
           height: 10,
         ),
-        Text('Male',
+        Text('Female',
             style: GoogleFonts.urbanist(
                 color: Colors.white,
                 fontSize: 16,

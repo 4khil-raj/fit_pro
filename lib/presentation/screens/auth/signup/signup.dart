@@ -23,11 +23,11 @@ class SignUpScreen extends StatelessWidget {
           builder: (context, state) {
             if (state is SignUpAuthSuccessState) {
               WidgetsBinding.instance.addPostFrameCallback((_) {
-                customNavPush(context, UserInfoCollectingScreen());
+                customNavPush(context, const UserInfoCollectingScreen());
               });
             } else if (state is Authenticated) {
               WidgetsBinding.instance.addPostFrameCallback((_) {
-                customNavPush(context, UserInfoCollectingScreen());
+                customNavPush(context, const UserInfoCollectingScreen());
               });
             } else if (state is AuthError) {
               WidgetsBinding.instance.addPostFrameCallback((_) {
