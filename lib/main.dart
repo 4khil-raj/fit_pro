@@ -1,5 +1,5 @@
 import 'package:fit_pro/application/auth_bloc/auth_bloc.dart';
-import 'package:fit_pro/application/login_bloc/login_bloc.dart';
+import 'package:fit_pro/application/user_info/user_info_bloc.dart';
 import 'package:fit_pro/firebase_options.dart';
 import 'package:fit_pro/presentation/screens/welcomeScreen/welcome.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +24,9 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
           create: (context) => AuthBloc(),
+        ),
+        BlocProvider(
+          create: (context) => UserInfoBloc(),
         ),
       ],
       child: MaterialApp(

@@ -1,7 +1,6 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:fit_pro/application/auth_bloc/auth_bloc.dart';
-import 'package:fit_pro/application/login_bloc/login_bloc.dart';
 import 'package:fit_pro/presentation/screens/auth/signin/widgets/buttons.dart';
 import 'package:fit_pro/presentation/screens/auth/signin/widgets/remember_me.dart';
 import 'package:fit_pro/presentation/screens/auth/signin/widgets/text_fields.dart';

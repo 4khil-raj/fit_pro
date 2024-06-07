@@ -1,7 +1,7 @@
 import 'package:fit_pro/application/auth_bloc/auth_bloc.dart';
 import 'package:fit_pro/presentation/screens/auth/signup/widgets/bottom.dart';
 import 'package:fit_pro/presentation/screens/auth/signup/widgets/top.dart';
-import 'package:fit_pro/presentation/screens/tempHome/tempHome.dart';
+import 'package:fit_pro/presentation/screens/user_info/collect_userinfo.dart';
 import 'package:fit_pro/presentation/widgets/alerts/alerts.dart';
 import 'package:fit_pro/presentation/widgets/custom_nav/customnav.dart';
 import 'package:flutter/material.dart';
@@ -23,11 +23,11 @@ class SignUpScreen extends StatelessWidget {
           builder: (context, state) {
             if (state is SignUpAuthSuccessState) {
               WidgetsBinding.instance.addPostFrameCallback((_) {
-                customNavRemoveuntil(context, const TempHome());
+                customNavPush(context, UserInfoCollectingScreen());
               });
             } else if (state is Authenticated) {
               WidgetsBinding.instance.addPostFrameCallback((_) {
-                customNavRemoveuntil(context, const TempHome());
+                customNavPush(context, UserInfoCollectingScreen());
               });
             } else if (state is AuthError) {
               WidgetsBinding.instance.addPostFrameCallback((_) {

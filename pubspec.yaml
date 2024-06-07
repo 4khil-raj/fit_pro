@@ -43,6 +43,9 @@ dependencies:
   cloud_firestore: ^5.0.0
   firebase_auth: ^5.0.0
   google_sign_in: ^6.2.1
+  numberpicker: ^2.1.2
+  ruler_scale_picker: ^0.1.0
+  animated_weight_picker: ^1.0.3
   # pinput: 
 
 dev_dependencies:
