@@ -1,11 +1,15 @@
+import 'package:fit_pro/application/auth_bloc/auth_bloc.dart';
 import 'package:fit_pro/presentation/screens/auth/forget_password/change_password.dart';
+import 'package:fit_pro/presentation/screens/auth/forget_password/forget.dart';
 import 'package:fit_pro/presentation/widgets/buttons/button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_pin_code_fields/flutter_pin_code_fields.dart';
 
-final forgetOtpController = TextEditingController();
-void forgetPasswordOtp(context) {
+// final forgetOtpController = TextEditingController();
+void forgetPasswordOtp(context, enterdvalue) {
+  forgetPasswordController.clear();
   showModalBottomSheet(
     context: context,
     isScrollControlled: true,
@@ -68,7 +72,7 @@ void forgetPasswordOtp(context) {
                                         fontSize: 14),
                                   ),
                                   Text(
-                                    'akhil.gmail.com',
+                                    enterdvalue ?? '*****.gmail.com',
                                     style: GoogleFonts.poppins(
                                         color: Colors.blue, fontSize: 14),
                                   )
@@ -85,9 +89,15 @@ void forgetPasswordOtp(context) {
                               child: Padding(
                                 padding: const EdgeInsets.all(12),
                                 child: PinCodeFields(
-                                  onComplete: (value) {},
-                                  controller: forgetOtpController,
-                                  length: 4,
+                                  onComplete: (value) {
+                                    print(value);
+                                    BlocProvider.of<AuthBloc>(context).add(
+                                        VerifySentOtp(
+                                            otpCode: value,
+                                            verificationId: verificationId));
+                                  },
+                                  // controller: forgetOtpController,
+                                  length: 6,
                                   fieldBorderStyle: FieldBorderStyle.square,
                                   fieldHeight: 60,
                                   activeBorderColor: Colors.blue,
@@ -129,7 +139,7 @@ void forgetPasswordOtp(context) {
                               onTap: () {
                                 Navigator.pop(context);
                                 changePassword(context);
-                                forgetOtpController.clear();
+                                // forgetOtpController.clear();
                               },
                               textsize: 20,
                               width: double.infinity,

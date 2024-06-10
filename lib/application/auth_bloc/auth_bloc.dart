@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:fit_pro/domain/models/auth_model.dart/signup_user.dart';
+import 'package:fit_pro/infrastructure/otp_auth/repo.dart';
 import 'package:fit_pro/infrastructure/repository/google_auth/repo.dart';
 import 'package:meta/meta.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -10,6 +11,10 @@ part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(AuthInitial()) {
+    String loginResult = '';
+    OtpAuthModel authModel = OtpAuthModel();
+    bool? usercheck;
+    UserCredential? userCredential;
     final FirebaseAuth auth = FirebaseAuth.instance;
     on<AuthEvent>((event, emit) {
       emit(AuthInitial());
@@ -17,11 +22,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 //--------------->sign up<-----------------
     on<SignUpEvent>((event, emit) async {
       try {
+        emit(AuthLoading(google: false, other: true));
+
         final userCredential = await auth.createUserWithEmailAndPassword(
             email: event.user.email.toString(),
             password: event.user.password.toString());
 
-        emit(AuthLoading());
+        emit(AuthLoading(google: false, other: true));
         final user = userCredential.user;
         if (user != null) {
           FirebaseFirestore.instance.collection('users').doc(user.uid).set({
@@ -30,7 +37,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             'uid': user.uid
           });
 
-          emit(SignUpAuthSuccessState(user: user));
+          emit(SignUpAuthSuccessState(user: user, other: false, google: false));
         } else {
           emit(AuthError(message: 'Fill All details'));
         }
@@ -61,7 +68,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<LoginEvent>((event, emit) async {
       try {
         if (event.email.isNotEmpty && event.passcode.isNotEmpty) {
-          emit(AuthLoading());
+          emit(AuthLoading(google: false, other: true));
           UserCredential? userCredential =
               await auth.signInWithEmailAndPassword(
                   email: event.email, password: event.passcode);
@@ -92,7 +99,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     on<GoogleSigninEvent>((event, emit) async {
       try {
-        emit(AuthLoading());
+        emit(AuthLoading(google: true, other: false));
         final user = await AuthRepository().signUpWithGoogle();
         if (user == null) {
           emit(AuthError(message: 'Can\'t find Your GoogleAccount'));
@@ -113,8 +120,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             'following': 0,
             'post': 0
           });
-
-          emit(Authenticated());
+//ivite authenticated aa emit  cheyyande ippo thalkkalam signupAuthSuccess cheythunne ollu
+          emit(SignUpAuthSuccessState(
+            google: false,
+            other: false,
+            user: user,
+          ));
           await Future.delayed(const Duration(seconds: 2), () {
             emit(AuthInitial());
           });
@@ -123,5 +134,71 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(AuthError(message: e.toString()));
       }
     });
+//otp
+    on<SendOtpPhoneEvent>((event, emit) async {
+      usercheck = await authModel.checkUser(event.phone);
+      emit(OtpLoadingScreen());
+      try {
+        if (event.phone.isNotEmpty) {
+          await authModel.loginWithPhone(
+              phoneNumber: event.phone,
+              verificationCompleted: (PhoneAuthCredential credential) {
+                add(OnOtpAuthenticatedEvent(credential: credential));
+              },
+              verificationFailed: (FirebaseAuthException e) {
+                add(OnOtpErrorEvent(msg: e.message.toString()));
+              },
+              codeSent: (String verificationId, int? refreshToken) {
+                add(OnphoneOtpSend(
+                    token: refreshToken, verifiactionId: verificationId));
+              },
+              codeAutoRetrievalTimeout: (String verifiacationId) {});
+        } else {
+          emit(OtpScreenErrorState(error: 'Enter Your Phone Number'));
+        }
+      } on FirebaseAuthException catch (e) {
+        emit(OtpScreenErrorState(error: e.message.toString()));
+      }
+    });
+
+    on<OnphoneOtpSend>((event, emit) {
+      emit(PhoneAuthCodeSentSuccess(verificationId: event.verifiactionId));
+    });
+
+    on<VerifySentOtp>((event, emit) {
+      try {
+        PhoneAuthCredential credential = PhoneAuthProvider.credential(
+            verificationId: event.verificationId, smsCode: event.otpCode);
+        add(OnOtpAuthenticatedEvent(credential: credential));
+      } on FirebaseAuthException catch (e) {
+        emit(OtpScreenErrorState(error: e.message.toString()));
+      }
+    });
+
+    on<OnOtpErrorEvent>((event, emit) {
+      emit(OtpScreenErrorState(error: event.msg));
+    });
+
+    on<OnOtpAuthenticatedEvent>((event, emit) async {
+      try {
+        await authModel.authentication
+            .signInWithCredential(event.credential)
+            .then((value) {
+          emit(SignUpScreenOtpSuccessState());
+
+          if (usercheck == true) {
+            emit(OtpDonegotoHome());
+          } else {
+            emit(OtpLoadedState());
+          }
+        });
+      } on FirebaseAuthException catch (e) {
+        emit(OtpScreenErrorState(error: e.message.toString()));
+      }
+    });
+
+    // on<OtpinitialEvent>((event, emit) {
+    //   emit(OtpInitialState());
+    // });
   }
 }

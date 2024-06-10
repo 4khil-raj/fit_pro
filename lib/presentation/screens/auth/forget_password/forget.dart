@@ -1,11 +1,18 @@
+import 'package:fit_pro/application/auth_bloc/auth_bloc.dart';
 import 'package:fit_pro/presentation/screens/auth/forget_password/otp_verification.dart';
+import 'package:fit_pro/presentation/screens/user_info/collect_userinfo.dart';
+import 'package:fit_pro/presentation/widgets/alerts/alerts.dart';
 import 'package:fit_pro/presentation/widgets/buttons/button.dart';
+import 'package:fit_pro/presentation/widgets/custom_nav/customnav.dart';
 import 'package:fit_pro/presentation/widgets/form_field/formfield.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 
+var verificationId;
 final forgetPasswordController = TextEditingController();
-void forgetPassword(BuildContext context) {
+void forgetPassword(BuildContext context, bool email) {
   showModalBottomSheet(
     context: context,
     isScrollControlled: true,
@@ -46,25 +53,76 @@ void forgetPassword(BuildContext context) {
                             ),
                           ),
                           Text(
-                            'Forget Password?',
+                            email ? 'Forget Password?' : 'Enter Phonenumber',
                             style: GoogleFonts.poppins(
                                 color: Colors.white, fontSize: 18),
                           ),
                           const SizedBox(
                             height: 13,
                           ),
-                          CustomTextFormField(
-                            suffixIcon: const Icon(
-                              Icons.email,
-                              color: Color.fromARGB(255, 239, 234, 234),
-                            ),
-                            labelColor: Colors.white,
-                            labelText: "Email",
-                            hintText: '******@gmail.com',
-                            controller: forgetPasswordController,
-                            hintTextcolor: Colors.white,
-                            inputTextcolor: Colors.white,
-                          ),
+                          email
+                              ? CustomTextFormField(
+                                  suffixIcon: const Icon(
+                                    Icons.email,
+                                    color: Color.fromARGB(255, 239, 234, 234),
+                                  ),
+                                  labelColor: Colors.white,
+                                  labelText: "Email",
+                                  hintText: '******@gmail.com',
+                                  controller: forgetPasswordController,
+                                  hintTextcolor: Colors.white,
+                                  inputTextcolor: Colors.white,
+                                )
+                              : BlocBuilder<AuthBloc, AuthState>(
+                                  builder: (context, state) {
+                                    if (state is PhoneAuthCodeSentSuccess) {
+                                      verificationId = state.verificationId;
+                                      WidgetsBinding.instance
+                                          .addPostFrameCallback((_) {
+                                        forgetPasswordOtp(context,
+                                            forgetPasswordController.text);
+                                        return;
+                                      });
+                                      BlocProvider.of<AuthBloc>(context)
+                                          .add(AuthEvent());
+                                    } else if (state is OtpLoadedState) {
+                                      WidgetsBinding.instance
+                                          .addPostFrameCallback((_) {
+                                        customNavPush(context,
+                                            UserInfoCollectingScreen());
+                                      });
+                                    } else if (state is OtpScreenErrorState) {
+                                      WidgetsBinding.instance
+                                          .addPostFrameCallback((_) {
+                                        alerts(context, state.error.toString());
+                                        return;
+                                      });
+                                    }
+                                    return IntlPhoneField(
+                                      controller: forgetPasswordController,
+                                      decoration: const InputDecoration(
+                                        fillColor: Colors.white,
+                                        filled: true,
+                                        hintText: 'Phone Number',
+                                        border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10)),
+                                          borderSide: BorderSide(),
+                                        ),
+                                        prefixIcon: Text('+'),
+                                      ),
+                                      initialCountryCode: 'IN',
+                                      // onChanged: (phone) {
+                                      //   // setState(() {
+                                      //   //   phonecontroller = phone.completeNumber;
+                                      //   // });
+
+                                      //   // forgetPasswordController.text =
+                                      //   //     phone.toString();
+                                      // },
+                                    );
+                                  },
+                                ),
                           const SizedBox(
                             height: 10,
                           ),
@@ -102,10 +160,10 @@ void forgetPassword(BuildContext context) {
                                   textclr: Colors.black,
                                   name: 'Send OTP',
                                   onTap: () {
-                                    Navigator.pop(context);
-                                    forgetPasswordOtp(context);
-                                    // customNavPush(
-                                    //     context, OtpScreenForgetPassword());
+                                    email ? emailfn(context) : otp(context);
+
+                                    // // customNavPush(
+                                    // //     context, OtpScreenForgetPassword());
                                   },
                                   textsize: 20,
                                   width:
@@ -139,4 +197,17 @@ void forgetPassword(BuildContext context) {
       );
     },
   );
+}
+
+void otp(context) {
+  print(('+91') + (forgetPasswordController.text));
+  BlocProvider.of<AuthBloc>(context)
+      .add(SendOtpPhoneEvent(phone: ('+91') + (forgetPasswordController.text)));
+}
+
+void emailfn(context) {
+  {
+    Navigator.pop(context);
+    forgetPasswordOtp(context, forgetPasswordController.text);
+  }
 }

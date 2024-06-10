@@ -46,6 +46,8 @@ dependencies:
   numberpicker: ^2.1.2
   ruler_scale_picker: ^0.1.0
   animated_weight_picker: ^1.0.3
+  loading_animation_widget: ^1.2.1
+  intl_phone_field: ^3.2.0
   # pinput: 
 
 dev_dependencies:

@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:fit_pro/application/auth_bloc/auth_bloc.dart';
+import 'package:fit_pro/application/user_info/user_info_bloc.dart';
 import 'package:fit_pro/presentation/screens/auth/signin/widgets/buttons.dart';
 import 'package:fit_pro/presentation/screens/auth/signin/widgets/remember_me.dart';
 import 'package:fit_pro/presentation/screens/auth/signin/widgets/text_fields.dart';
@@ -18,9 +19,12 @@ class SignupOrSignin extends StatelessWidget {
   final passwordController = TextEditingController();
   bool rememberme = false;
   bool obsecure = false;
+  bool social = false;
+  bool other = false;
   bool signup;
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<UserInfoBloc>(context).add(UserInfoEvent());
     return SafeArea(
         child: Scaffold(
             backgroundColor: const Color.fromARGB(255, 6, 2, 19),
@@ -35,18 +39,26 @@ class SignupOrSignin extends StatelessWidget {
               } else if (state is ObsecureTextState) {
                 obsecure = state.obsecureText;
               } else if (state is SignUpAuthSuccessState) {
+                social = state.google;
+                other = state.other;
                 WidgetsBinding.instance.addPostFrameCallback((_) {
-                  customNavRemoveuntil(
-                      context, const UserInfoCollectingScreen());
+                  customNavPush(context, const UserInfoCollectingScreen());
                 });
               } else if (state is Authenticated) {
+                social = false;
+                other = false;
                 WidgetsBinding.instance.addPostFrameCallback((_) {
                   customNavRemoveuntil(context, const TempHome());
                 });
               } else if (state is AuthError) {
+                social = false;
+                other = false;
                 WidgetsBinding.instance.addPostFrameCallback((_) {
                   alerts(context, state.message.toString());
                 });
+              } else if (state is AuthLoading) {
+                social = state.google;
+                other = state.other;
               }
               return Padding(
                   padding: const EdgeInsets.all(10.0),
@@ -66,6 +78,8 @@ class SignupOrSignin extends StatelessWidget {
                           remember: rememberme,
                         ),
                         LogInButtons(
+                          other: other,
+                          social: social,
                           emailController: emailController,
                           passwordController: passwordController,
                           signup: signup,

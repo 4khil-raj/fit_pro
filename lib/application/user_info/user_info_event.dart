@@ -1,7 +1,7 @@
 part of 'user_info_bloc.dart';
 
 @immutable
-sealed class UserInfoEvent {}
+class UserInfoEvent {}
 
 class GenderSelectEvent extends UserInfoEvent {}
 

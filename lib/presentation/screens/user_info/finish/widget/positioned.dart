@@ -1,9 +1,11 @@
+import 'package:fit_pro/application/user_info/user_info_bloc.dart';
 import 'package:fit_pro/presentation/screens/auth/signin/signin.dart';
 import 'package:fit_pro/presentation/screens/auth/signup/signup.dart';
 import 'package:fit_pro/presentation/screens/tempHome/tempHome.dart';
 import 'package:fit_pro/presentation/widgets/buttons/button.dart';
 import 'package:fit_pro/presentation/widgets/custom_nav/customnav.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CustomFinishPositioned extends StatelessWidget {
@@ -55,7 +57,10 @@ class CustomFinishPositioned extends StatelessWidget {
               height: 60,
               radius: 9,
               textclr: Colors.black,
-              onTap: () => customNavRemoveuntil(context, const TempHome()),
+              onTap: () {
+                BlocProvider.of<UserInfoBloc>(context).add(UserInfoEvent());
+                customNavRemoveuntil(context, const TempHome());
+              },
               textsize: 16,
               width: double.infinity,
               name: 'Finish',

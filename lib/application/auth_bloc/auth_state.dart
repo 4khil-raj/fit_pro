@@ -5,7 +5,12 @@ sealed class AuthState {}
 
 final class AuthInitial extends AuthState {}
 
-class AuthLoading extends AuthState {}
+class AuthLoading extends AuthState {
+  final bool google;
+  final bool other;
+
+  AuthLoading({required this.google, required this.other});
+}
 
 class Authenticated extends AuthState {
   final User? user;
@@ -14,7 +19,10 @@ class Authenticated extends AuthState {
 
 class SignUpAuthSuccessState extends AuthState {
   final User? user;
-  SignUpAuthSuccessState({required this.user});
+  final bool google;
+  final bool other;
+  SignUpAuthSuccessState(
+      {required this.google, required this.other, required this.user});
 }
 
 final class RemembermeState extends AuthState {
@@ -38,3 +46,26 @@ class AuthError extends AuthState {
 }
 
 class AuthInitalState extends AuthState {}
+
+class OtpLoadingScreen extends AuthState {}
+
+class OtpLoadedState extends AuthState {}
+
+class OtpScreenErrorState extends AuthState {
+  String error;
+  OtpScreenErrorState({required this.error});
+}
+
+class PhoneAuthCodeSentSuccess extends AuthState {
+  final String verificationId;
+
+  PhoneAuthCodeSentSuccess({required this.verificationId});
+}
+
+class SignUpScreenOtpSuccessState extends AuthState {}
+
+class Loadinghome extends AuthState {}
+
+class Otploadingstate extends AuthState {}
+
+class OtpDonegotoHome extends AuthState {}

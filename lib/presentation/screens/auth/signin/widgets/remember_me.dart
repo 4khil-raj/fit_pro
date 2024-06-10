@@ -39,7 +39,7 @@ class RememberMeLogIn extends StatelessWidget {
           ),
           const Spacer(),
           TextButton(
-            onPressed: () => forgetPassword(context),
+            onPressed: () => forgetPassword(context, true),
             child: const Text(
               'Forget Password ?',
               style: TextStyle(

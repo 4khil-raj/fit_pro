@@ -8,8 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SignUpScreen extends StatelessWidget {
-  const SignUpScreen({super.key});
-
+  SignUpScreen({super.key});
+  bool googleauth = false;
+  bool other = false;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -22,6 +23,8 @@ class SignUpScreen extends StatelessWidget {
         body: BlocBuilder<AuthBloc, AuthState>(
           builder: (context, state) {
             if (state is SignUpAuthSuccessState) {
+              googleauth = state.google;
+              other = state.other;
               WidgetsBinding.instance.addPostFrameCallback((_) {
                 customNavPush(context, const UserInfoCollectingScreen());
               });
@@ -30,15 +33,25 @@ class SignUpScreen extends StatelessWidget {
                 customNavPush(context, const UserInfoCollectingScreen());
               });
             } else if (state is AuthError) {
+              googleauth = false;
+              other = false;
               WidgetsBinding.instance.addPostFrameCallback((_) {
                 alerts(context, state.message.toString());
               });
+            } else if (state is AuthLoading) {
+              googleauth = state.google;
+              other = state.other;
             }
-            return const Center(
+            return Center(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [SignupTopScreen(), SignUpBottom()],
+                children: [
+                  SignupTopScreen(
+                    google: googleauth,
+                  ),
+                  SignUpBottom()
+                ],
               ),
             );
           },
