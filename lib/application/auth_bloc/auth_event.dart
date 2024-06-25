@@ -13,7 +13,7 @@ class LoginEvent extends AuthEvent {
 }
 
 class SignUpEvent extends AuthEvent {
-  final UserModel user;
+  final SignUpModel user;
   SignUpEvent({required this.user});
 }
 

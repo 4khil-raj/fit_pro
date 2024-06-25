@@ -13,6 +13,7 @@ class SignUpScreen extends StatelessWidget {
   bool other = false;
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<AuthBloc>(context).add(AuthEvent());
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -28,16 +29,19 @@ class SignUpScreen extends StatelessWidget {
               WidgetsBinding.instance.addPostFrameCallback((_) {
                 customNavPush(context, const UserInfoCollectingScreen());
               });
+              BlocProvider.of<AuthBloc>(context).add(AuthEvent());
             } else if (state is Authenticated) {
               WidgetsBinding.instance.addPostFrameCallback((_) {
                 customNavPush(context, const UserInfoCollectingScreen());
               });
+              BlocProvider.of<AuthBloc>(context).add(AuthEvent());
             } else if (state is AuthError) {
               googleauth = false;
               other = false;
               WidgetsBinding.instance.addPostFrameCallback((_) {
                 alerts(context, state.message.toString());
               });
+              BlocProvider.of<AuthBloc>(context).add(AuthEvent());
             } else if (state is AuthLoading) {
               googleauth = state.google;
               other = state.other;

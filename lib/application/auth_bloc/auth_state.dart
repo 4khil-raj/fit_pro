@@ -22,7 +22,7 @@ class SignUpAuthSuccessState extends AuthState {
   final bool google;
   final bool other;
   SignUpAuthSuccessState(
-      {required this.google, required this.other, required this.user});
+      {required this.google, required this.other, this.user});
 }
 
 final class RemembermeState extends AuthState {
@@ -69,3 +69,5 @@ class Loadinghome extends AuthState {}
 class Otploadingstate extends AuthState {}
 
 class OtpDonegotoHome extends AuthState {}
+
+class LoginSuccessState extends AuthState {}

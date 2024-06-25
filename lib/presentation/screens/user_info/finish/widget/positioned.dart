@@ -1,6 +1,7 @@
 import 'package:fit_pro/application/user_info/user_info_bloc.dart';
 import 'package:fit_pro/presentation/screens/auth/signin/signin.dart';
 import 'package:fit_pro/presentation/screens/auth/signup/signup.dart';
+import 'package:fit_pro/presentation/screens/bottom_nav/bottom_nav.dart';
 import 'package:fit_pro/presentation/screens/tempHome/tempHome.dart';
 import 'package:fit_pro/presentation/widgets/buttons/button.dart';
 import 'package:fit_pro/presentation/widgets/custom_nav/customnav.dart';
@@ -59,7 +60,7 @@ class CustomFinishPositioned extends StatelessWidget {
               textclr: Colors.black,
               onTap: () {
                 BlocProvider.of<UserInfoBloc>(context).add(UserInfoEvent());
-                customNavRemoveuntil(context, const TempHome());
+                customNavRemoveuntil(context, const BottomNavBar());
               },
               textsize: 16,
               width: double.infinity,

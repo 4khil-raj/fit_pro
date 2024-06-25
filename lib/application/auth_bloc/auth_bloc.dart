@@ -1,7 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:fit_pro/domain/models/auth_model.dart/signup_user.dart';
+import 'package:fit_pro/domain/models/signup/model.dart';
+import 'package:fit_pro/infrastructure/login/repo.dart';
 import 'package:fit_pro/infrastructure/otp_auth/repo.dart';
 import 'package:fit_pro/infrastructure/repository/google_auth/repo.dart';
+import 'package:fit_pro/infrastructure/signUp/repo.dart';
 import 'package:meta/meta.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -20,29 +23,48 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(AuthInitial());
     });
 //--------------->sign up<-----------------
+    // on<SignUpEvent>((event, emit) async {
+    //   try {
+    //     emit(AuthLoading(google: false, other: true));
+
+    //     final userCredential = await auth.createUserWithEmailAndPassword(
+    //         email: event.user.email.toString(),
+    //         password: event.user.password.toString());
+
+    //     emit(AuthLoading(google: false, other: true));
+    //     final user = userCredential.user;
+    //     if (user != null) {
+    //       FirebaseFirestore.instance.collection('users').doc(user.uid).set({
+    //         'email': event.user.email,
+    //         'passcode': event.user.password,
+    //         'uid': user.uid
+    //       });
+
+    //       emit(SignUpAuthSuccessState(user: user, other: false, google: false));
+    //     } else {
+    //       emit(AuthError(message: 'Fill All details'));
+    //     }
+    //   } catch (e) {
+    //     emit(AuthError(message: e.toString()));
+    //   }
+    // });
+
+    // api sign in
+
     on<SignUpEvent>((event, emit) async {
+      // SignUpModel model = SignUpModel(
+      //     useremail: event.user.email, password: event.user.password);
+      emit(AuthLoading(google: false, other: true));
       try {
-        emit(AuthLoading(google: false, other: true));
-
-        final userCredential = await auth.createUserWithEmailAndPassword(
-            email: event.user.email.toString(),
-            password: event.user.password.toString());
-
-        emit(AuthLoading(google: false, other: true));
-        final user = userCredential.user;
-        if (user != null) {
-          FirebaseFirestore.instance.collection('users').doc(user.uid).set({
-            'email': event.user.email,
-            'passcode': event.user.password,
-            'uid': user.uid
-          });
-
-          emit(SignUpAuthSuccessState(user: user, other: false, google: false));
+        final response = await SignUpRepo.signupRequest(event.user);
+        if (response == "done") {
+          print("keri");
+          emit(SignUpAuthSuccessState(other: false, google: false));
         } else {
-          emit(AuthError(message: 'Fill All details'));
+          emit(AuthError(message: response));
         }
       } catch (e) {
-        emit(AuthError(message: e.toString()));
+        print(e);
       }
     });
     //remember me
@@ -65,24 +87,39 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     //login buttonclick
 
+    // on<LoginEvent>((event, emit) async {
+    //   try {
+    //     if (event.email.isNotEmpty && event.passcode.isNotEmpty) {
+    //       emit(AuthLoading(google: false, other: true));
+    //       UserCredential? userCredential =
+    //           await auth.signInWithEmailAndPassword(
+    //               email: event.email, password: event.passcode);
+    //       final user = userCredential.user;
+    //       if (user != null) {
+    //         emit(Authenticated(user: user));
+    //       } else {
+    //         emit(UnAuthenticated());
+    //       }
+    //     } else {
+    //       emit(AuthError(message: 'Enter Valid info!!!'));
+    //     }
+    //   } on FirebaseAuthException catch (e) {
+    //     emit(AuthError(message: e.message.toString()));
+    //   }
+    // });
+
+    //  api login is under if you want you can clear the top code
     on<LoginEvent>((event, emit) async {
+      emit(AuthLoading(google: false, other: true));
       try {
-        if (event.email.isNotEmpty && event.passcode.isNotEmpty) {
-          emit(AuthLoading(google: false, other: true));
-          UserCredential? userCredential =
-              await auth.signInWithEmailAndPassword(
-                  email: event.email, password: event.passcode);
-          final user = userCredential.user;
-          if (user != null) {
-            emit(Authenticated(user: user));
-          } else {
-            emit(UnAuthenticated());
-          }
+        final response = await LoginRepo.loginReq(event.passcode, event.email);
+        if (response == "done") {
+          emit(Authenticated());
         } else {
-          emit(AuthError(message: 'Enter Valid info!!!'));
+          emit(AuthError(message: response));
         }
-      } on FirebaseAuthException catch (e) {
-        emit(AuthError(message: e.message.toString()));
+      } catch (e) {
+        emit(AuthError(message: e.toString()));
       }
     });
 //sign out

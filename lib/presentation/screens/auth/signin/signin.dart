@@ -6,6 +6,7 @@ import 'package:fit_pro/presentation/screens/auth/signin/widgets/buttons.dart';
 import 'package:fit_pro/presentation/screens/auth/signin/widgets/remember_me.dart';
 import 'package:fit_pro/presentation/screens/auth/signin/widgets/text_fields.dart';
 import 'package:fit_pro/presentation/screens/auth/signup/widgets/policy.dart';
+import 'package:fit_pro/presentation/screens/bottom_nav/bottom_nav.dart';
 import 'package:fit_pro/presentation/screens/tempHome/tempHome.dart';
 import 'package:fit_pro/presentation/screens/user_info/collect_userinfo.dart';
 import 'package:fit_pro/presentation/widgets/alerts/alerts.dart';
@@ -43,12 +44,14 @@ class SignupOrSignin extends StatelessWidget {
                 other = state.other;
                 WidgetsBinding.instance.addPostFrameCallback((_) {
                   customNavPush(context, const UserInfoCollectingScreen());
+                  BlocProvider.of<AuthBloc>(context).add(AuthEvent());
                 });
               } else if (state is Authenticated) {
                 social = false;
                 other = false;
                 WidgetsBinding.instance.addPostFrameCallback((_) {
-                  customNavRemoveuntil(context, const TempHome());
+                  customNavRemoveuntil(context, const BottomNavBar());
+                  BlocProvider.of<AuthBloc>(context).add(AuthEvent());
                 });
               } else if (state is AuthError) {
                 social = false;
@@ -56,6 +59,7 @@ class SignupOrSignin extends StatelessWidget {
                 WidgetsBinding.instance.addPostFrameCallback((_) {
                   alerts(context, state.message.toString());
                 });
+                BlocProvider.of<AuthBloc>(context).add(AuthEvent());
               } else if (state is AuthLoading) {
                 social = state.google;
                 other = state.other;

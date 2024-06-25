@@ -1,6 +1,8 @@
 import 'package:fit_pro/application/auth_bloc/auth_bloc.dart';
+import 'package:fit_pro/application/bloc/bottom_nav_bloc.dart';
 import 'package:fit_pro/application/user_info/user_info_bloc.dart';
 import 'package:fit_pro/firebase_options.dart';
+import 'package:fit_pro/presentation/screens/bottom_nav/bottom_nav.dart';
 import 'package:fit_pro/presentation/screens/welcomeScreen/welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,6 +30,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => UserInfoBloc(),
         ),
+        BlocProvider(
+          create: (context) => BottomNavBloc(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -37,6 +42,7 @@ class MyApp extends StatelessWidget {
           useMaterial3: true,
         ),
         home: const WelcomeScreen(),
+        // home: const BottomNavBar(),
       ),
     );
   }

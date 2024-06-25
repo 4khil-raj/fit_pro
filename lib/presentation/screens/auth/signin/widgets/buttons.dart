@@ -1,5 +1,6 @@
 import 'package:fit_pro/application/auth_bloc/auth_bloc.dart';
 import 'package:fit_pro/domain/models/auth_model.dart/signup_user.dart';
+import 'package:fit_pro/domain/models/signup/model.dart';
 import 'package:fit_pro/presentation/screens/auth/signup/otp_screen/signup_otp.dart';
 import 'package:fit_pro/presentation/widgets/buttons/button.dart';
 import 'package:fit_pro/presentation/widgets/custom_nav/customnav.dart';
@@ -53,8 +54,8 @@ class LogInButtons extends StatelessWidget {
                   radius: 9,
                   textclr: const Color.fromRGBO(0, 0, 0, 1),
                   onTap: () {
-                    final user = UserModel(
-                        email: emailController.text,
+                    final user = SignUpModel(
+                        useremail: emailController.text,
                         password: passwordController.text);
                     signup
                         ? BlocProvider.of<AuthBloc>(context)
