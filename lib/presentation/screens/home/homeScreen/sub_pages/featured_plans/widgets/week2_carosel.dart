@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/sub_pages/featured_plans/featured_plans.dart';
+import 'package:fit_pro/presentation/screens/home/homeScreen/sub_pages/featured_plans/widgets/carosel_container.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/widget/bottom_caro_container1.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/widget/bottom_caro_container2.dart';
 import 'package:fit_pro/presentation/widgets/custom_nav/customnav.dart';
@@ -7,17 +8,27 @@ import 'package:fit_pro/presentation/widgets/custom_nav/customnav.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class BottomCaroselSlider extends StatefulWidget {
-  const BottomCaroselSlider({super.key});
+class WeekTwoCarouselSlider extends StatefulWidget {
+  const WeekTwoCarouselSlider({super.key});
 
   @override
-  State<BottomCaroselSlider> createState() => _BottomCaroselSliderState();
+  State<WeekTwoCarouselSlider> createState() => _BottomCaroselSliderState();
 }
 
-class _BottomCaroselSliderState extends State<BottomCaroselSlider> {
+class _BottomCaroselSliderState extends State<WeekTwoCarouselSlider> {
   List containers = [
-    BottomCaroselContainer1(),
-    BottomCaroselcontainer2(),
+    FeaturedCaroselContainer1(
+      image: "assets/images/week2.jpg",
+      text: "Day 08",
+      text2: "Luteal Week: Booty Burner",
+      text3: "",
+    ),
+    FeaturedCaroselContainer1(
+      image: "assets/images/week1.3.jpg",
+      text: "Day 09",
+      text2: "Luteal Week: Booty Burner",
+      text3: "",
+    ),
     // const HomeCaroselcontainer3()
   ];
   int sliderIndex = 0;
@@ -32,7 +43,7 @@ class _BottomCaroselSliderState extends State<BottomCaroselSlider> {
           child: Row(
             children: [
               Text(
-                "Featured Plans",
+                "Week 02",
                 style: GoogleFonts.urbanist(
                     fontSize: 20,
                     fontWeight: FontWeight.w600,
@@ -40,10 +51,9 @@ class _BottomCaroselSliderState extends State<BottomCaroselSlider> {
               ),
               const Spacer(),
               TextButton(
-                  onPressed: () =>
-                      customNavPush(context, FeturedPlansSubScreen()),
+                  onPressed: () => customNavPush(context, ()),
                   child: const Text(
-                    "See all",
+                    "see more",
                     style: TextStyle(color: Colors.blue),
                   ))
             ],

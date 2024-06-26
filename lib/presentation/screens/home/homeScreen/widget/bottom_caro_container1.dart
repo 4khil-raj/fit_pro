@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class BottomCaroselContainer1 extends StatelessWidget {
-  const BottomCaroselContainer1({super.key});
+  BottomCaroselContainer1({this.image1, super.key});
+  String? image1;
 
   @override
   Widget build(BuildContext context) {
@@ -12,10 +13,10 @@ class BottomCaroselContainer1 extends StatelessWidget {
         width: MediaQuery.of(context).size.width,
         // height: 200,
         decoration: BoxDecoration(
-            image: const DecorationImage(
+            image: DecorationImage(
                 fit: BoxFit.cover,
                 image: AssetImage(
-                  "assets/icons/workout.jpg",
+                  image1 ?? "assets/icons/workout.jpg",
                 )),
             borderRadius: BorderRadius.circular(8)),
       ),

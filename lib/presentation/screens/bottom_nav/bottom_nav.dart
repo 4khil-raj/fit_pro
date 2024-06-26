@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+const Color constBottomnavColor = const Color.fromARGB(255, 81, 37, 114);
+
 class BottomNavBar extends StatelessWidget {
   const BottomNavBar({super.key});
   static final List<Widget> _widgetOptions = <Widget>[

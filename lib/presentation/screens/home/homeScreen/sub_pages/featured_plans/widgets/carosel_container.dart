@@ -2,9 +2,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class BottomCaroselcontainer2 extends StatelessWidget {
-  BottomCaroselcontainer2({this.image, super.key});
+class FeaturedCaroselContainer1 extends StatelessWidget {
+  FeaturedCaroselContainer1(
+      {this.image,
+      super.key,
+      required this.text,
+      required this.text2,
+      required this.text3});
   String? image;
+  final String text;
+  final String text2;
+  final String text3;
+
   @override
   Widget build(BuildContext context) {
     return Stack(children: [
@@ -15,7 +24,7 @@ class BottomCaroselcontainer2 extends StatelessWidget {
             image: DecorationImage(
                 fit: BoxFit.cover,
                 image: AssetImage(
-                  image ?? "assets/images/carosel.jpg",
+                  image ?? "assets/icons/workout.jpg",
                 )),
             borderRadius: BorderRadius.circular(8)),
       ),
@@ -26,24 +35,27 @@ class BottomCaroselcontainer2 extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Weightligting",
+                text,
                 style: GoogleFonts.poppins(
                     fontWeight: FontWeight.w900,
-                    fontSize: 14,
+                    fontSize: 18,
                     color: const Color.fromARGB(255, 12, 144, 252)),
               ),
               const SizedBox(
                 height: 6,
               ),
-              Text(
-                "14 Day Challenge",
-                style: GoogleFonts.poppins(
-                    fontWeight: FontWeight.w800,
-                    fontSize: 17,
-                    color: Colors.white),
+              SizedBox(
+                width: 300,
+                child: Text(
+                  text2,
+                  style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w800,
+                      fontSize: 17,
+                      color: Colors.white),
+                ),
               ),
               Text(
-                "2 Week | GYM",
+                text3,
                 style: GoogleFonts.poppins(
                     fontWeight: FontWeight.w600,
                     fontSize: 14,

@@ -1,5 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/sub_pages/featured_plans/featured_plans.dart';
+import 'package:fit_pro/presentation/screens/home/homeScreen/sub_pages/featured_plans/widgets/carosel_container.dart';
+import 'package:fit_pro/presentation/screens/home/homeScreen/sub_pages/featured_plans/widgets/week1.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/widget/bottom_caro_container1.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/widget/bottom_caro_container2.dart';
 import 'package:fit_pro/presentation/widgets/custom_nav/customnav.dart';
@@ -7,17 +9,27 @@ import 'package:fit_pro/presentation/widgets/custom_nav/customnav.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class BottomCaroselSlider extends StatefulWidget {
-  const BottomCaroselSlider({super.key});
+class WeekOneCarouselSlider extends StatefulWidget {
+  const WeekOneCarouselSlider({super.key});
 
   @override
-  State<BottomCaroselSlider> createState() => _BottomCaroselSliderState();
+  State<WeekOneCarouselSlider> createState() => _BottomCaroselSliderState();
 }
 
-class _BottomCaroselSliderState extends State<BottomCaroselSlider> {
+class _BottomCaroselSliderState extends State<WeekOneCarouselSlider> {
   List containers = [
-    BottomCaroselContainer1(),
-    BottomCaroselcontainer2(),
+    FeaturedCaroselContainer1(
+      text: "Day 01",
+      text2: "Ovulation Week: Metabolic Booster",
+      text3: "",
+      image: "assets/images/week1.2.webp",
+    ),
+    FeaturedCaroselContainer1(
+      text: "Day 02",
+      text2: "Ovulation Week: Metabolic Booster",
+      text3: "",
+      image: "assets/images/carosel.jpg",
+    ),
     // const HomeCaroselcontainer3()
   ];
   int sliderIndex = 0;
@@ -32,7 +44,7 @@ class _BottomCaroselSliderState extends State<BottomCaroselSlider> {
           child: Row(
             children: [
               Text(
-                "Featured Plans",
+                "Week 01 ",
                 style: GoogleFonts.urbanist(
                     fontSize: 20,
                     fontWeight: FontWeight.w600,
@@ -41,9 +53,9 @@ class _BottomCaroselSliderState extends State<BottomCaroselSlider> {
               const Spacer(),
               TextButton(
                   onPressed: () =>
-                      customNavPush(context, FeturedPlansSubScreen()),
+                      customNavPush(context, const WeekOneScreen()),
                   child: const Text(
-                    "See all",
+                    "see more",
                     style: TextStyle(color: Colors.blue),
                   ))
             ],
