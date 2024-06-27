@@ -1,8 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:fit_pro/presentation/screens/home/homeScreen/sub_pages/featured_plans/featured_plans.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/sub_pages/featured_plans/widgets/carosel_container.dart';
-import 'package:fit_pro/presentation/screens/home/homeScreen/widget/bottom_caro_container1.dart';
-import 'package:fit_pro/presentation/screens/home/homeScreen/widget/bottom_caro_container2.dart';
+import 'package:fit_pro/presentation/screens/home/homeScreen/sub_pages/featured_plans/widgets/week1.dart';
+
 import 'package:fit_pro/presentation/widgets/custom_nav/customnav.dart';
 
 import 'package:flutter/material.dart';
@@ -51,7 +50,8 @@ class _BottomCaroselSliderState extends State<WeekTwoCarouselSlider> {
               ),
               const Spacer(),
               TextButton(
-                  onPressed: () => customNavPush(context, ()),
+                  onPressed: () =>
+                      customNavPush(context, const WeekOneScreen()),
                   child: const Text(
                     "see more",
                     style: TextStyle(color: Colors.blue),

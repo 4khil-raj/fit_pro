@@ -1,3 +1,5 @@
+import 'package:fit_pro/presentation/screens/home/profile/widget/personal_info.dart';
+import 'package:fit_pro/presentation/widgets/custom_nav/customnav.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -56,10 +58,15 @@ class ContactDetailsProfile extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ListtileBasicDetails(
-                lock: true,
-                icon: Icon(Icons.person_2_outlined, color: Colors.white),
-                text1: 'Personal Info',
+              InkWell(
+                onTap: () {
+                  customNavPush(context, PersonalInfomatiocEditScreen());
+                },
+                child: ListtileBasicDetails(
+                  lock: true,
+                  icon: Icon(Icons.person_2_outlined, color: Colors.white),
+                  text1: 'Personal Info',
+                ),
               ),
               Divider(
                 thickness: .3,
