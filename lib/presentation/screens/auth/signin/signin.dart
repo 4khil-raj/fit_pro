@@ -13,6 +13,9 @@ import 'package:fit_pro/presentation/widgets/alerts/alerts.dart';
 import 'package:fit_pro/presentation/widgets/custom_nav/customnav.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+const loginTocken = '';
 
 class SignupOrSignin extends StatelessWidget {
   SignupOrSignin({super.key, required this.signup});
@@ -43,6 +46,7 @@ class SignupOrSignin extends StatelessWidget {
                 social = state.google;
                 other = state.other;
                 WidgetsBinding.instance.addPostFrameCallback((_) {
+                  saveinfo('user');
                   customNavPush(context, const UserInfoCollectingScreen());
                   BlocProvider.of<AuthBloc>(context).add(AuthEvent());
                 });
@@ -50,6 +54,7 @@ class SignupOrSignin extends StatelessWidget {
                 social = false;
                 other = false;
                 WidgetsBinding.instance.addPostFrameCallback((_) {
+                  saveinfo('user');
                   customNavRemoveuntil(context, const BottomNavBar());
                   BlocProvider.of<AuthBloc>(context).add(AuthEvent());
                 });
@@ -92,4 +97,14 @@ class SignupOrSignin extends StatelessWidget {
                       ])));
             }))));
   }
+}
+
+void saveinfo(String value) async {
+  SharedPreferences preferences = await SharedPreferences.getInstance();
+  await preferences.setString(loginTocken, value);
+}
+
+Future<void> clearLoginInfo() async {
+  final SharedPreferences prefs = await SharedPreferences.getInstance();
+  prefs.clear();
 }

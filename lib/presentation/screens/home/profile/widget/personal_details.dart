@@ -58,14 +58,57 @@ class ContactDetailsProfile extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 11.0, top: 10),
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child: Text('Notifications',
+                      style: GoogleFonts.poppins(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold)),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 8),
+                child: ListTile(
+                  trailing: Text("07:30AM",
+                      style: TextStyle(
+                          fontSize: 13,
+                          color: Color.fromARGB(255, 213, 205, 205))),
+                  leading: CircleAvatar(
+                    backgroundColor: Colors.transparent,
+                    child: Icon(
+                      Icons.alarm,
+                      color: Colors.white,
+                    ),
+                  ),
+                  title: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Workout Reminder",
+                        style: TextStyle(
+                            fontSize: 13,
+                            color: Color.fromARGB(255, 255, 255, 255)),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Divider(
+                thickness: .3,
+                color: Colors.white,
+              ),
               InkWell(
                 onTap: () {
-                  customNavPush(context, PersonalInfomatiocEditScreen());
+                  // customNavPush(context, PersonalInfomatiocEditScreen());
                 },
                 child: ListtileBasicDetails(
                   lock: true,
-                  icon: Icon(Icons.person_2_outlined, color: Colors.white),
-                  text1: 'Personal Info',
+                  icon: Icon(Icons.notifications_active_outlined,
+                      color: Colors.white),
+                  text1: 'Challenge Notification',
                 ),
               ),
               Divider(
@@ -74,17 +117,39 @@ class ContactDetailsProfile extends StatelessWidget {
               ),
               ListtileBasicDetails(
                 lock: true,
-                icon: Icon(Icons.image_outlined, color: Colors.white),
-                text1: 'Photos',
+                icon: Icon(Icons.warning_amber, color: Colors.white),
+                text1: 'Progress Alert',
               ),
               Divider(
                 thickness: .3,
                 color: Colors.white,
               ),
-              ListtileBasicDetails(
-                lock: true,
-                icon: Icon(Icons.book, color: Colors.white),
-                text1: 'Subscription',
+              Padding(
+                padding: const EdgeInsets.only(top: 8),
+                child: ListTile(
+                  trailing: Text("10:00PM",
+                      style: TextStyle(
+                          fontSize: 13,
+                          color: Color.fromARGB(255, 213, 205, 205))),
+                  leading: CircleAvatar(
+                    backgroundColor: Colors.transparent,
+                    child: Icon(
+                      Icons.alarm,
+                      color: Colors.white,
+                    ),
+                  ),
+                  title: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Task To-Do Reminder",
+                        style: TextStyle(
+                            fontSize: 13,
+                            color: Color.fromARGB(255, 255, 255, 255)),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ],
           ),

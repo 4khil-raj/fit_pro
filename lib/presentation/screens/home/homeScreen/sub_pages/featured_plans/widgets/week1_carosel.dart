@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/sub_pages/featured_plans/featured_plans.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/sub_pages/featured_plans/widgets/carosel_container.dart';
+import 'package:fit_pro/presentation/screens/home/homeScreen/sub_pages/featured_plans/widgets/day_task.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/sub_pages/featured_plans/widgets/week1.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/widget/bottom_caro_container1.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/widget/bottom_caro_container2.dart';
@@ -52,8 +53,16 @@ class _BottomCaroselSliderState extends State<WeekOneCarouselSlider> {
               ),
               const Spacer(),
               TextButton(
-                  onPressed: () =>
-                      customNavPush(context, const WeekOneScreen()),
+                  onPressed: () => customNavPush(
+                      context,
+//ee screen figmayil illah ahh thanna pottane pattikkan commentcheythaya ee screennine just call cheytha mmathi vere onnum cheyyanda aa screen cheytholum
+                      //  const WeekOneScreen()
+
+                      DayTaskScreen(
+                        title: "Day 01",
+                        subtitle: "Day 1 | Metabolic Booster",
+                        appbarTitle: "Week 1 | Day1",
+                      )),
                   child: const Text(
                     "see more",
                     style: TextStyle(color: Colors.blue),

@@ -1,4 +1,5 @@
 import 'package:fit_pro/application/auth_bloc/auth_bloc.dart';
+import 'package:fit_pro/presentation/screens/auth/signin/signin.dart';
 import 'package:fit_pro/presentation/screens/auth/signup/widgets/bottom.dart';
 import 'package:fit_pro/presentation/screens/auth/signup/widgets/top.dart';
 import 'package:fit_pro/presentation/screens/user_info/collect_userinfo.dart';
