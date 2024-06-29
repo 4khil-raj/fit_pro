@@ -1,4 +1,8 @@
+import 'package:fit_pro/presentation/screens/auth/signin/signin.dart';
 import 'package:fit_pro/presentation/screens/home/profile/widget/personal_details.dart';
+import 'package:fit_pro/presentation/screens/welcomeScreen/welcome.dart';
+import 'package:fit_pro/presentation/widgets/alerts/alerts.dart';
+import 'package:fit_pro/presentation/widgets/custom_nav/customnav.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -46,6 +50,14 @@ class AccountButtonsProfile extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(top: 8),
                 child: ListTile(
+                  onTap: () => alertsWithButtons(
+                    context,
+                    'Are you sure want to logout?',
+                    () {
+                      clearLoginInfo();
+                      customNavRemoveuntil(context, WelcomeScreen());
+                    },
+                  ),
                   trailing: Icon(Icons.logout, color: Colors.red),
                   // leading: CircleAvatar(
                   //   backgroundColor: Colors.transparent,

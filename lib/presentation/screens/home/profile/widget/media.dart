@@ -35,9 +35,7 @@ class MediaProfileCustomListView extends StatelessWidget {
                 ),
               ),
               InkWell(
-                onTap: () {
-                  customNavPush(context, PersonalInfomatiocEditScreen());
-                },
+                onTap: () {},
                 child: ListtileBasicDetails(
                   lock: true,
                   icon: Icon(Icons.photo_outlined, color: Colors.white),

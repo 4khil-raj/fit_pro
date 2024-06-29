@@ -13,8 +13,8 @@ class WeightCollectScreen extends StatefulWidget {
 }
 
 class _WeightCollectScreenState extends State<WeightCollectScreen> {
-  final double min = 0;
-  final double max = 100;
+  final double min = 40;
+  final double max = 200;
   String selectedValue = '';
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class _WeightCollectScreenState extends State<WeightCollectScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 35,
             ),
             Text(
@@ -34,7 +34,7 @@ class _WeightCollectScreenState extends State<WeightCollectScreen> {
                   color: Colors.white,
                   fontWeight: FontWeight.w700),
             ),
-            Spacer(),
+            const Spacer(),
             AnimatedWeightPicker(
               showSuffix: true,
               selectedValueColor: Colors.blue,
@@ -49,7 +49,7 @@ class _WeightCollectScreenState extends State<WeightCollectScreen> {
                 });
               },
             ),
-            Spacer(),
+            const Spacer(),
             Padding(
               padding: const EdgeInsets.all(13.0),
               child: CustomButton(

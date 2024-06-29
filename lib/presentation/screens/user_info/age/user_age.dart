@@ -13,7 +13,7 @@ class AgeSelectScreen extends StatefulWidget {
 }
 
 class _AgeSelectScreenState extends State<AgeSelectScreen> {
-  int _currentIntValue = 10;
+  int _currentIntValue = 14;
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -42,7 +42,7 @@ class _AgeSelectScreenState extends State<AgeSelectScreen> {
                     color: const Color.fromARGB(255, 225, 217, 217),
                     fontSize: 25),
                 value: _currentIntValue,
-                minValue: 0,
+                minValue: 14,
                 maxValue: 100,
                 itemWidth: double.infinity,
                 step: 1,
