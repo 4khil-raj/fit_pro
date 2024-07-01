@@ -1,3 +1,4 @@
+import 'package:fit_pro/presentation/screens/home/progress/widget/stats/widget/add_photo.dart';
 import 'package:fit_pro/presentation/widgets/dotted_container/dotted.dart';
 import 'package:flutter/material.dart';
 
@@ -37,32 +38,37 @@ class BeforeAfterImageAddingProgress extends StatelessWidget {
                           dashLength: 10.0,
                           spaceLength: 3.0,
                         ),
-                        child: Container(
-                          // width: 200,
-                          height: 230,
-                          alignment: Alignment.center,
-                          child: const Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.add_a_photo_outlined,
-                                size: 35,
-                                color: Color.fromARGB(255, 80, 168, 240),
-                              ),
-                              SizedBox(
-                                height: 8,
-                              ),
-                              Text(
-                                " Add",
-                                style: TextStyle(
-                                    color: Color.fromARGB(255, 208, 202, 202)),
-                              ),
-                              Text(
-                                " before image",
-                                style: TextStyle(
-                                    color: Color.fromARGB(255, 208, 202, 202)),
-                              ),
-                            ],
+                        child: InkWell(
+                          onTap: () => addImage(context),
+                          child: Container(
+                            // width: 200,
+                            height: 230,
+                            alignment: Alignment.center,
+                            child: const Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.add_a_photo_outlined,
+                                  size: 35,
+                                  color: Color.fromARGB(255, 80, 168, 240),
+                                ),
+                                SizedBox(
+                                  height: 8,
+                                ),
+                                Text(
+                                  " Add",
+                                  style: TextStyle(
+                                      color:
+                                          Color.fromARGB(255, 208, 202, 202)),
+                                ),
+                                Text(
+                                  " before image",
+                                  style: TextStyle(
+                                      color:
+                                          Color.fromARGB(255, 208, 202, 202)),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -78,35 +84,40 @@ class BeforeAfterImageAddingProgress extends StatelessWidget {
                           dashLength: 10.0,
                           spaceLength: 3.0,
                         ),
-                        child: Container(
-                          clipBehavior: Clip.antiAlias,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10)),
-                          // width: 200,
-                          height: 230,
-                          alignment: Alignment.center,
-                          child: const Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.add_a_photo_outlined,
-                                size: 35,
-                                color: Color.fromARGB(255, 80, 168, 240),
-                              ),
-                              SizedBox(
-                                height: 8,
-                              ),
-                              Text(
-                                " Add",
-                                style: TextStyle(
-                                    color: Color.fromARGB(255, 208, 202, 202)),
-                              ),
-                              Text(
-                                " after image",
-                                style: TextStyle(
-                                    color: Color.fromARGB(255, 208, 202, 202)),
-                              ),
-                            ],
+                        child: InkWell(
+                          onTap: () => addImage(context),
+                          child: Container(
+                            clipBehavior: Clip.antiAlias,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10)),
+                            // width: 200,
+                            height: 230,
+                            alignment: Alignment.center,
+                            child: const Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.add_a_photo_outlined,
+                                  size: 35,
+                                  color: Color.fromARGB(255, 80, 168, 240),
+                                ),
+                                SizedBox(
+                                  height: 8,
+                                ),
+                                Text(
+                                  " Add",
+                                  style: TextStyle(
+                                      color:
+                                          Color.fromARGB(255, 208, 202, 202)),
+                                ),
+                                Text(
+                                  " after image",
+                                  style: TextStyle(
+                                      color:
+                                          Color.fromARGB(255, 208, 202, 202)),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),

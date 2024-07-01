@@ -1,5 +1,7 @@
 // ignore_for_file: avoid_unnecessary_containers, prefer_const_constructors
 
+import 'package:fit_pro/presentation/screens/home/progress/widget/stats/widget/all_achievement.dart';
+import 'package:fit_pro/presentation/widgets/custom_nav/customnav.dart';
 import 'package:fit_pro/presentation/widgets/hexogon/custom_shape.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -32,7 +34,8 @@ class AchievementsWidgetProgressScreen extends StatelessWidget {
                     ),
                     const Spacer(),
                     TextButton(
-                        onPressed: () {},
+                        onPressed: () =>
+                            customNavPush(context, AchievementsScreenstats()),
                         child: Text(
                           "See all",
                           style: TextStyle(

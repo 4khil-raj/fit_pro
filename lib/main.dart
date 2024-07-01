@@ -5,7 +5,6 @@ import 'package:fit_pro/firebase_options.dart';
 import 'package:fit_pro/presentation/screens/auth/signin/signin.dart';
 import 'package:fit_pro/presentation/screens/bottom_nav/bottom_nav.dart';
 import 'package:fit_pro/presentation/screens/welcomeScreen/welcome.dart';
-import 'package:fit_pro/presentation/widgets/custom_nav/customnav.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -64,3 +63,56 @@ Future<void> checkUserLogin(context) async {
   //   customNavRemoveuntil(context, const WelcomeScreen());
   // }
 }
+// import 'package:d_chart/commons/data_model.dart';
+// import 'package:d_chart/ordinal/bar.dart';
+// import 'package:flutter/material.dart';
+
+// void main() {
+//   runApp(MyApp());
+// }
+
+// class MyApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       debugShowCheckedModeBanner: false,
+//       home: Home(),
+//     );
+//   }
+// }
+
+// class Home extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(title: Text('D\'Chart')),
+//       backgroundColor: const Color.fromARGB(255, 0, 0, 0),
+//       body: ListView(
+//         padding: EdgeInsets.all(16),
+//         children: [
+//           AspectRatio(
+//             aspectRatio: 16 / 13,
+//             child: DChartBarO(
+//               groupList: [
+//                 OrdinalGroup(
+//                   color: Colors.white,
+//                   id: '1',
+//                   data: [
+//                     // OrdinalData(domain: 'Mon', measure: 2),
+//                     OrdinalData(
+//                         domain: 'gfyfytdytd',
+//                         measure: 6,
+//                         color: Colors.amber,
+//                         other: 0),
+//                     OrdinalData(domain: 'Wed', measure: 3),
+//                     OrdinalData(domain: 'Thu', measure: 7),
+//                   ],
+//                 ),
+//               ],
+//             ),
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }

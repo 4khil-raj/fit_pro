@@ -1,3 +1,6 @@
+import 'package:fit_pro/presentation/screens/home/progress/widget/stats/widget/weight_graph.dart';
+import 'package:fit_pro/presentation/screens/home/progress/widget/stats/widget/weight_graph_widget.dart';
+import 'package:fit_pro/presentation/widgets/custom_nav/customnav.dart';
 import 'package:flutter/material.dart';
 
 class ProgressScreenTopButtons extends StatefulWidget {
@@ -19,20 +22,24 @@ class _WorkOutScreenTopButtonsState extends State<ProgressScreenTopButtons> {
           padding: const EdgeInsets.all(8.0),
           child: Row(
             children: [
-              Container(
-                height: 40,
-                width: 120,
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.white),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: const Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: Text(
-                      "Last Week",
-                      style: TextStyle(color: Colors.white),
+              InkWell(
+                onTap: () => weightGraph(context),
+                // onTap: () => customNavPush(context, WeightGraphWidget()),
+                child: Container(
+                  height: 40,
+                  width: 120,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.white),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: const Padding(
+                    padding: EdgeInsets.all(10.0),
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        "Last Week",
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ),
                   ),
                 ),

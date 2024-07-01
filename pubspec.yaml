@@ -55,6 +55,8 @@ dependencies:
   cupertino_tabbar: ^2.0.0
   youtube_player_flutter: ^9.0.1
   shared_preferences: ^2.2.3
+  d_chart: ^2.6.9
+  charts_painter: ^3.1.1
   # pinput: 
 
 dev_dependencies:
