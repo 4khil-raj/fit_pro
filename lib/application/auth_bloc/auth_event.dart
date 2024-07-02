@@ -62,3 +62,5 @@ class OnOtpAuthenticatedEvent extends AuthEvent {
 
   OnOtpAuthenticatedEvent({required this.credential});
 }
+
+final class FacebookAuthRequstEvent extends AuthEvent {}

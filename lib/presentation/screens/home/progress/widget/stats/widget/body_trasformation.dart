@@ -1,3 +1,6 @@
+import 'package:fit_pro/presentation/screens/home/progress/widget/stats/widget/add_body_part.dart';
+import 'package:fit_pro/presentation/screens/home/progress/widget/stats/widget/body_trsformataion.dart';
+import 'package:fit_pro/presentation/widgets/custom_nav/customnav.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -22,7 +25,8 @@ class BodyTrasformationWidgetProgressScreen extends StatelessWidget {
             ),
             const Spacer(),
             TextButton(
-                onPressed: () {},
+                onPressed: () =>
+                    customNavPush(context, BodyTrasformationScreen()),
                 child: const Text(
                   "+ Add Photo",
                   style: TextStyle(color: Color.fromARGB(255, 80, 172, 248)),

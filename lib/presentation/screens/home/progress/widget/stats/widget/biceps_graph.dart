@@ -1,9 +1,10 @@
+import 'package:fit_pro/presentation/screens/home/progress/widget/stats/widget/biceps_graph_widget.dart';
 import 'package:fit_pro/presentation/screens/home/progress/widget/stats/widget/weight_graph_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-void weightGraph(context) {
+void bicepsGraph(context) {
   showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -73,10 +74,10 @@ void weightGraph(context) {
                                             ],
                                           ),
                                         ),
-                                        WeightGraphWidget(),
+                                        BicepsGraphWidget(),
                                       ]),
                                 ),
-                                WeightPickerInProgressScreen()
+                                BicepsPickerInProgressScreen()
                               ],
                             ))));
               });

@@ -1,3 +1,4 @@
+import 'package:fit_pro/infrastructure/facebook/repo.dart';
 import 'package:fit_pro/presentation/screens/home/profile/profile.dart';
 import 'package:fit_pro/presentation/widgets/custom_nav/customnav.dart';
 import 'package:flutter/material.dart';
@@ -53,6 +54,7 @@ class HomeScreenAppBar extends StatelessWidget {
                   width:
                       10), // Add some spacing between the search bar and avatar
               GestureDetector(
+                // onTap: () => FaceBookAuthRepo().signInWithFacebook(),
                 onTap: () => customNavPush(context, ProfileScreen()),
                 child: const CircleAvatar(
                   radius: 25,

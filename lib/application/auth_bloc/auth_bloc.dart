@@ -233,9 +233,5 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(OtpScreenErrorState(error: e.message.toString()));
       }
     });
-
-    // on<OtpinitialEvent>((event, emit) {
-    //   emit(OtpInitialState());
-    // });
   }
 }
