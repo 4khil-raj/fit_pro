@@ -1,7 +1,5 @@
 import 'package:fit_pro/presentation/screens/home/profile/widget/personal_details.dart';
-import 'package:fit_pro/presentation/screens/home/profile/widget/personal_info.dart';
-import 'package:fit_pro/presentation/widgets/custom_nav/customnav.dart';
-import 'package:flutter/cupertino.dart';
+// import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -81,10 +79,6 @@ class SupporButtonsProfile extends StatelessWidget {
                 icon:
                     Icon(Icons.settings_suggest_outlined, color: Colors.white),
                 text1: ' Suggest a Feature',
-              ),
-              Divider(
-                thickness: .3,
-                color: Colors.white,
               ),
             ],
           ),

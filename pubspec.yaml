@@ -57,7 +57,10 @@ dependencies:
   shared_preferences: ^2.2.3
   d_chart: ^2.6.9
   charts_painter: ^3.1.1
-  flutter_facebook_auth: ^7.0.1
+  flutter_facebook_auth: ^6.0.2
+  sign_in_with_apple: ^6.1.1
+  meta: ^1.11.0
+  table_calendar: ^3.1.2
   # pinput: 
 
 dev_dependencies:

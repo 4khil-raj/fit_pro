@@ -89,7 +89,7 @@
 //     );
 //   }
 // }
-import 'package:fit_pro/application/bloc/bottom_nav_bloc.dart';
+import 'package:fit_pro/application/bottom_nav/bottom_nav_bloc.dart';
 import 'package:fit_pro/presentation/screens/bottom_nav/widget/plan_mode.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/home.dart';
 import 'package:fit_pro/presentation/screens/home/profile/profile.dart';

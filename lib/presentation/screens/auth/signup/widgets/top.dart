@@ -91,7 +91,7 @@ class SignupTopScreen extends StatelessWidget {
         padding: const EdgeInsets.all(13.0),
         child: CustomButton(
           iconradius: 20,
-          image: 'assets/icons/apple.png',
+          image: 'assets/icons/facebook_logos.png',
           fontweight: FontWeight.w600,
           isNetwork: false,
           isRow: true,
@@ -100,10 +100,11 @@ class SignupTopScreen extends StatelessWidget {
           height: 65,
           radius: 9,
           textclr: Colors.white,
-          onTap: () => customNavPush(context, SignUpScreen()),
+          onTap: () =>
+              BlocProvider.of<AuthBloc>(context).add(FacebookAuthRequstEvent()),
           textsize: 16,
           width: double.infinity,
-          name: 'Continue with Apple       ',
+          name: 'Continue with FaceBook       ',
         ),
       ),
       // SizedBox(

@@ -1,6 +1,8 @@
 import 'package:fit_pro/presentation/screens/bottom_nav/bottom_nav.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/sub_pages/featured_plans/widgets/daily_task_builder.dart';
+import 'package:fit_pro/presentation/screens/start_workout/start_workout.dart';
 import 'package:fit_pro/presentation/widgets/buttons/button.dart';
+import 'package:fit_pro/presentation/widgets/custom_nav/customnav.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
@@ -134,7 +136,9 @@ class _DayTaskScreenState extends State<DayTaskScreen> {
                       radius: 10,
                       textclr: Colors.black,
                       textsize: 14,
-                      onTap: () {},
+                      onTap: () {
+                        customNavRemoveuntil(context, StartWorkoutScreen());
+                      },
                     ),
                   ),
                 )

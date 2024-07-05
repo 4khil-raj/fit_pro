@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:fit_pro/domain/models/auth_model.dart/signup_user.dart';
 import 'package:fit_pro/domain/models/signup/model.dart';
+import 'package:fit_pro/infrastructure/facebook/repo.dart';
 import 'package:fit_pro/infrastructure/login/repo.dart';
 import 'package:fit_pro/infrastructure/otp_auth/repo.dart';
 import 'package:fit_pro/infrastructure/repository/google_auth/repo.dart';
@@ -231,6 +232,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         });
       } on FirebaseAuthException catch (e) {
         emit(OtpScreenErrorState(error: e.message.toString()));
+      }
+    });
+
+    on<FacebookAuthRequstEvent>((event, emit) async {
+      final user = await FaceBookAuthRepo().signInWithFacebook();
+      if (user != null) {
+        emit(SignUpAuthSuccessState(google: false, other: false));
+      } else {
+        emit(AuthError(message: "Check Connection"));
       }
     });
   }

@@ -1,7 +1,8 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, prefer_const_constructors
 
+import 'package:fit_pro/presentation/screens/home/progress/widget/calender/calender.dart';
+import 'package:fit_pro/presentation/screens/home/progress/widget/plan_progress/plan_progress.dart';
 import 'package:fit_pro/presentation/screens/home/progress/widget/stats/stats.dart';
-import 'package:fit_pro/presentation/screens/home/progress/widget/stats/widget/top_buttons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -36,12 +37,8 @@ class ProgressScreen extends StatelessWidget {
         body: TabBarView(
           children: [
             StatsScreenProgress(),
-            Center(
-                child: Text("Content for Tab 2",
-                    style: TextStyle(color: Colors.white))),
-            Center(
-                child: Text("Content for Tab 3",
-                    style: TextStyle(color: Colors.white))),
+            PlanProgressScreen(),
+            CalenderScreenProgress(),
           ],
         ),
       ),

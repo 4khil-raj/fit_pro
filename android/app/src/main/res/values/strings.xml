@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="facebook_app_id">486900870558732</string>
+    <string name="fb_login_protocol_scheme">fb486900870558732</string>
+    <string name="facebook_client_token">c62db9a2d5d9d5c05e41d2dd74fe3f19</string>
+    <string name="app_name">"Fit Pro"</string>
+
+</resources>
+
+
+

@@ -1,5 +1,6 @@
 import 'package:fit_pro/presentation/screens/home/profile/widget/personal_details.dart';
 import 'package:fit_pro/presentation/screens/home/profile/widget/personal_info.dart';
+import 'package:fit_pro/presentation/screens/home/profile/widget/photos_gallery.dart';
 import 'package:fit_pro/presentation/widgets/custom_nav/customnav.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -35,7 +36,8 @@ class MediaProfileCustomListView extends StatelessWidget {
                 ),
               ),
               InkWell(
-                onTap: () {},
+                onTap: () =>
+                    customNavPush(context, PhotosGalleryProfileScreen()),
                 child: ListtileBasicDetails(
                   lock: true,
                   icon: Icon(Icons.photo_outlined, color: Colors.white),
