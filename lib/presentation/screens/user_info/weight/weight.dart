@@ -1,4 +1,5 @@
 import 'package:fit_pro/application/user_info/user_info_bloc.dart';
+import 'package:fit_pro/presentation/screens/user_info/weight/widget/picker1.dart';
 import 'package:fit_pro/presentation/widgets/buttons/button.dart';
 import 'package:flutter/material.dart';
 import 'package:animated_weight_picker/animated_weight_picker.dart';
@@ -34,21 +35,21 @@ class _WeightCollectScreenState extends State<WeightCollectScreen> {
                   color: Colors.white,
                   fontWeight: FontWeight.w700),
             ),
-            const Spacer(),
-            AnimatedWeightPicker(
-              showSuffix: true,
-              selectedValueColor: Colors.blue,
-              // majorIntervalTextColor: Colors.blue,
-              suffixTextColor: Colors.blue,
-              dialColor: Colors.blue,
-              min: min,
-              max: max,
-              onChange: (newValue) {
-                setState(() {
-                  selectedValue = newValue;
-                });
-              },
-            ),
+            const Spacer(), HeightPickerInUserInfo(),
+            // AnimatedWeightPicker(
+            //   showSuffix: true,
+            //   selectedValueColor: Colors.blue,
+            //   // majorIntervalTextColor: Colors.blue,
+            //   suffixTextColor: Colors.blue,
+            //   dialColor: Colors.blue,
+            //   min: min,
+            //   max: max,
+            //   onChange: (newValue) {
+            //     setState(() {
+            //       selectedValue = newValue;
+            //     });
+            //   },
+            // ),
             const Spacer(),
             Padding(
               padding: const EdgeInsets.all(13.0),
