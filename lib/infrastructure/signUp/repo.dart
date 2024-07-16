@@ -18,11 +18,10 @@ class SignUpRepo {
         },
         body: jsonEncode(request),
       );
-      if (response.statusCode == 201) {
+      if (response.statusCode == 200) {
         return "done";
       } else {
         final responseBody = jsonDecode(response.body);
-
         return responseBody["message"];
       }
     } catch (e) {

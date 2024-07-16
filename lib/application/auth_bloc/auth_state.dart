@@ -37,6 +37,12 @@ class ObsecureTextState extends AuthState {
   ObsecureTextState({required this.obsecureText});
 }
 
+final class SignUpOtpState extends AuthState {
+  final String email;
+
+  SignUpOtpState({required this.email});
+}
+
 class UnAuthenticated extends AuthState {}
 
 class AuthError extends AuthState {

@@ -52,6 +52,13 @@ class VerifySentOtp extends AuthEvent {
   VerifySentOtp({required this.otpCode, required this.verificationId});
 }
 
+class SignUpOtpValidate extends AuthEvent {
+  final String otp;
+  final String email;
+
+  SignUpOtpValidate({required this.otp, required this.email});
+}
+
 class OnOtpErrorEvent extends AuthEvent {
   final String msg;
   OnOtpErrorEvent({required this.msg});

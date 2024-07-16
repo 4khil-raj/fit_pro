@@ -5,7 +5,9 @@ import 'package:fit_pro/infrastructure/facebook/repo.dart';
 import 'package:fit_pro/infrastructure/login/repo.dart';
 import 'package:fit_pro/infrastructure/otp_auth/repo.dart';
 import 'package:fit_pro/infrastructure/repository/google_auth/repo.dart';
+import 'package:fit_pro/infrastructure/signUp/otp_repo.dart';
 import 'package:fit_pro/infrastructure/signUp/repo.dart';
+import 'package:fit_pro/presentation/screens/auth/signin/signin.dart';
 import 'package:meta/meta.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -59,8 +61,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       try {
         final response = await SignUpRepo.signupRequest(event.user);
         if (response == "done") {
-          print("keri");
-          emit(SignUpAuthSuccessState(other: false, google: false));
+          emit(SignUpOtpState(email: event.user.useremail));
+          // emit(SignUpAuthSuccessState(other: false, google: false));
         } else {
           emit(AuthError(message: response));
         }
@@ -74,6 +76,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(RemembermeState(rememberme: false));
       } else {
         emit(RemembermeState(rememberme: true));
+      }
+    });
+
+    on<SignUpOtpValidate>((event, emit) async {
+      final respose = await SignUpOtpRepo().signupOtp(event.email, event.otp);
+      if (respose == "faild") {
+        emit(AuthError(message: "Invalid OTP"));
+      } else {
+        saveJWStocken(respose);
+        emit(SignUpAuthSuccessState(google: false, other: false));
       }
     });
 

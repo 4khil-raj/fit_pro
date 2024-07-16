@@ -16,6 +16,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 const loginTocken = '';
+const accessTocken = '';
 
 class SignupOrSignin extends StatelessWidget {
   SignupOrSignin({super.key, required this.signup});
@@ -107,4 +108,9 @@ void saveinfo(String value) async {
 Future<void> clearLoginInfo() async {
   final SharedPreferences prefs = await SharedPreferences.getInstance();
   prefs.clear();
+}
+
+void saveJWStocken(String value) async {
+  SharedPreferences preferences = await SharedPreferences.getInstance();
+  await preferences.setString(accessTocken, value);
 }

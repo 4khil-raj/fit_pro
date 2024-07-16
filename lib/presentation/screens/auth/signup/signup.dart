@@ -1,9 +1,8 @@
 import 'package:fit_pro/application/auth_bloc/auth_bloc.dart';
-import 'package:fit_pro/presentation/screens/auth/signin/signin.dart';
+import 'package:fit_pro/presentation/screens/auth/signup/otp.dart';
 import 'package:fit_pro/presentation/screens/auth/signup/widgets/bottom.dart';
 import 'package:fit_pro/presentation/screens/auth/signup/widgets/top.dart';
 import 'package:fit_pro/presentation/screens/user_info/collect_userinfo.dart';
-import 'package:fit_pro/presentation/widgets/alerts/alerts.dart';
 import 'package:fit_pro/presentation/widgets/custom_nav/customnav.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -36,11 +35,12 @@ class SignUpScreen extends StatelessWidget {
                 customNavPush(context, const UserInfoCollectingScreen());
               });
               BlocProvider.of<AuthBloc>(context).add(AuthEvent());
-            } else if (state is AuthError) {
+            } else if (state is SignUpOtpState) {
               googleauth = false;
               other = false;
               WidgetsBinding.instance.addPostFrameCallback((_) {
-                alerts(context, state.message.toString());
+                // alerts(context, state.message.toString());
+                signUpOtp(context, state.email);
               });
               BlocProvider.of<AuthBloc>(context).add(AuthEvent());
             } else if (state is AuthLoading) {
