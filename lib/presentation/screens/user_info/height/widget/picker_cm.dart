@@ -1,3 +1,4 @@
+import 'package:fit_pro/presentation/screens/user_info/height/height.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:numberpicker/numberpicker.dart';
@@ -41,15 +42,14 @@ class _CmPickerWeightState extends State<CmPickerWeight> {
                   textStyle: GoogleFonts.urbanist(
                       color: const Color.fromARGB(255, 225, 217, 217),
                       fontSize: 25),
-                  value: _currentIntValue,
+                  value: heightF,
                   minValue: 1,
                   maxValue: 200,
                   itemWidth: double.infinity,
                   step: 1,
                   axis: Axis.vertical,
                   haptics: true,
-                  onChanged: (value) =>
-                      setState(() => _currentIntValue = value),
+                  onChanged: (value) => setState(() => heightF = value),
                 ),
               ),
               Flexible(
@@ -62,14 +62,14 @@ class _CmPickerWeightState extends State<CmPickerWeight> {
                   textStyle: GoogleFonts.urbanist(
                       color: const Color.fromARGB(255, 225, 217, 217),
                       fontSize: 25),
-                  value: _currentLbValue,
+                  value: heightL,
                   minValue: 0,
                   maxValue: 100,
                   itemWidth: double.infinity,
                   step: 1,
                   axis: Axis.vertical,
                   haptics: true,
-                  onChanged: (value) => setState(() => _currentLbValue = value),
+                  onChanged: (value) => setState(() => heightL = value),
                 ),
               ),
               // Text('data'),

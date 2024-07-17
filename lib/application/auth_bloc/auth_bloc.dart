@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:fit_pro/domain/models/auth_model.dart/signup_user.dart';
 import 'package:fit_pro/domain/models/signup/model.dart';
 import 'package:fit_pro/infrastructure/facebook/repo.dart';
 import 'package:fit_pro/infrastructure/login/repo.dart';
@@ -26,43 +25,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(AuthInitial());
     });
 //--------------->sign up<-----------------
-    // on<SignUpEvent>((event, emit) async {
-    //   try {
-    //     emit(AuthLoading(google: false, other: true));
-
-    //     final userCredential = await auth.createUserWithEmailAndPassword(
-    //         email: event.user.email.toString(),
-    //         password: event.user.password.toString());
-
-    //     emit(AuthLoading(google: false, other: true));
-    //     final user = userCredential.user;
-    //     if (user != null) {
-    //       FirebaseFirestore.instance.collection('users').doc(user.uid).set({
-    //         'email': event.user.email,
-    //         'passcode': event.user.password,
-    //         'uid': user.uid
-    //       });
-
-    //       emit(SignUpAuthSuccessState(user: user, other: false, google: false));
-    //     } else {
-    //       emit(AuthError(message: 'Fill All details'));
-    //     }
-    //   } catch (e) {
-    //     emit(AuthError(message: e.toString()));
-    //   }
-    // });
-
-    // api sign in
 
     on<SignUpEvent>((event, emit) async {
-      // SignUpModel model = SignUpModel(
-      //     useremail: event.user.email, password: event.user.password);
       emit(AuthLoading(google: false, other: true));
       try {
         final response = await SignUpRepo.signupRequest(event.user);
         if (response == "done") {
           emit(SignUpOtpState(email: event.user.useremail));
-          // emit(SignUpAuthSuccessState(other: false, google: false));
         } else {
           emit(AuthError(message: response));
         }
@@ -98,30 +67,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       }
     });
 
-    //login buttonclick
+//----------login event---------
 
-    // on<LoginEvent>((event, emit) async {
-    //   try {
-    //     if (event.email.isNotEmpty && event.passcode.isNotEmpty) {
-    //       emit(AuthLoading(google: false, other: true));
-    //       UserCredential? userCredential =
-    //           await auth.signInWithEmailAndPassword(
-    //               email: event.email, password: event.passcode);
-    //       final user = userCredential.user;
-    //       if (user != null) {
-    //         emit(Authenticated(user: user));
-    //       } else {
-    //         emit(UnAuthenticated());
-    //       }
-    //     } else {
-    //       emit(AuthError(message: 'Enter Valid info!!!'));
-    //     }
-    //   } on FirebaseAuthException catch (e) {
-    //     emit(AuthError(message: e.message.toString()));
-    //   }
-    // });
-
-    //  api login is under if you want you can clear the top code
     on<LoginEvent>((event, emit) async {
       emit(AuthLoading(google: false, other: true));
       try {
@@ -135,7 +82,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(AuthError(message: e.toString()));
       }
     });
-//sign out
+    //sign out
     on<SignoutEvent>((event, emit) async {
       try {
         await auth.signOut();
@@ -151,6 +98,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       try {
         emit(AuthLoading(google: true, other: false));
         final user = await AuthRepository().signUpWithGoogle();
+
         if (user == null) {
           emit(AuthError(message: 'Can\'t find Your GoogleAccount'));
         } else {

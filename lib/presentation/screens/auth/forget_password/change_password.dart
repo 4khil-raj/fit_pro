@@ -1,4 +1,6 @@
 import 'package:fit_pro/application/auth_bloc/auth_bloc.dart';
+import 'package:fit_pro/application/forget_password/forgetpassword_bloc.dart';
+import 'package:fit_pro/presentation/widgets/alerts/alerts.dart';
 import 'package:fit_pro/presentation/widgets/buttons/button.dart';
 import 'package:fit_pro/presentation/widgets/form_field/formfield.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 final resetPasswordController1 = TextEditingController();
 final resetPasswordController2 = TextEditingController();
-void changePassword(context) {
+void changePassword(context, String email) {
   bool obsecure1 = false;
   bool obasecure2 = false;
   showModalBottomSheet(
@@ -44,138 +46,183 @@ void changePassword(context) {
                               padding: const EdgeInsets.all(12.0),
                               child: SingleChildScrollView(
                                   controller: scrollController,
-                                  child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const Padding(
-                                          padding: EdgeInsets.only(
-                                              left: 170,
-                                              right: 170,
-                                              top: 8,
-                                              bottom: 8),
-                                          child: Divider(
-                                            thickness: 4,
-                                          ),
-                                        ),
-                                        Text(
-                                          'Reset Password',
-                                          style: GoogleFonts.poppins(
-                                              color: Colors.white,
-                                              fontSize: 18),
-                                        ),
-                                        const SizedBox(
-                                          height: 13,
-                                        ),
-                                        CustomTextFormField(
-                                          onTap: () {
-                                            BlocProvider.of<AuthBloc>(context)
-                                                .add(ObsecureTextEvent(
-                                                    obsecure: obsecure1));
-                                          },
-                                          obscureText: obsecure1,
-                                          suffixIcon: const Icon(
-                                            Icons.visibility,
-                                            color: Color.fromARGB(
-                                                255, 243, 238, 238),
-                                          ),
-                                          labelColor: Colors.white,
-                                          labelText: "New Password",
-                                          hintText: '******',
-                                          controller: resetPasswordController2,
-                                          hintTextcolor: Colors.white,
-                                          inputTextcolor: Colors.white,
-                                        ),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
-                                        CustomTextFormField(
-                                          onTap: () {
-                                            BlocProvider.of<AuthBloc>(context)
-                                                .add(ObsecureTextEvent(
-                                                    obsecure: obasecure2));
-                                          },
-                                          obscureText: obasecure2,
-                                          suffixIcon: const Icon(
-                                            Icons.visibility,
-                                            color: Color.fromARGB(
-                                                255, 243, 238, 238),
-                                          ),
-                                          labelColor: Colors.white,
-                                          labelText: "Confirm New Password",
-                                          hintText: '******',
-                                          controller: resetPasswordController1,
-                                          hintTextcolor: Colors.white,
-                                          inputTextcolor: Colors.white,
-                                        ),
-                                        const SizedBox(
-                                          height: 10,
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(11.0),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              CustomButton(
-                                                isNetwork: false,
-                                                isRow: false,
-                                                borderclr: Colors.blueGrey,
-                                                color: const Color.fromARGB(
-                                                    255, 3, 1, 9),
-                                                height: 50,
-                                                fontweight: FontWeight.w500,
-                                                radius: 10,
-                                                textclr: Colors.white,
-                                                name: 'Cancel',
-                                                onTap: () {
-                                                  Navigator.pop(context);
-                                                },
-                                                textsize: 20,
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    2.5,
+                                  child: BlocBuilder<ForgetpasswordBloc,
+                                      ForgetpasswordState>(
+                                    builder: (context, state) {
+                                      if (state is ChangePasswordSuccess) {
+                                        WidgetsBinding.instance
+                                            .addPostFrameCallback((_) {
+                                          Navigator.pop(context);
+                                          alerts(context, "Password Changed");
+                                          BlocProvider.of<ForgetpasswordBloc>(
+                                                  context)
+                                              .add(ForgetpasswordEvent());
+                                        });
+                                      }
+                                      return Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            const Padding(
+                                              padding: EdgeInsets.only(
+                                                  left: 170,
+                                                  right: 170,
+                                                  top: 8,
+                                                  bottom: 8),
+                                              child: Divider(
+                                                thickness: 4,
                                               ),
-                                              const SizedBox(
-                                                width: 11,
+                                            ),
+                                            Text(
+                                              'Reset Password',
+                                              style: GoogleFonts.poppins(
+                                                  color: Colors.white,
+                                                  fontSize: 18),
+                                            ),
+                                            const SizedBox(
+                                              height: 13,
+                                            ),
+                                            CustomTextFormField(
+                                              onTap: () {
+                                                BlocProvider.of<AuthBloc>(
+                                                        context)
+                                                    .add(ObsecureTextEvent(
+                                                        obsecure: obsecure1));
+                                              },
+                                              obscureText: obsecure1,
+                                              suffixIcon: const Icon(
+                                                Icons.visibility,
+                                                color: Color.fromARGB(
+                                                    255, 243, 238, 238),
                                               ),
-                                              CustomButton(
-                                                isNetwork: false,
-                                                isRow: false,
-                                                borderclr: Colors.blueGrey,
-                                                color: Colors.yellow,
-                                                height: 50,
-                                                fontweight: FontWeight.w500,
-                                                radius: 10,
-                                                textclr: Colors.black,
-                                                name: 'Reset Password',
-                                                onTap: () {
-                                                  Navigator.pop(context);
-                                                },
-                                                textsize: 18,
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    2.5,
+                                              labelColor: Colors.white,
+                                              labelText: "New Password",
+                                              hintText: '******',
+                                              controller:
+                                                  resetPasswordController2,
+                                              hintTextcolor: Colors.white,
+                                              inputTextcolor: Colors.white,
+                                            ),
+                                            const SizedBox(
+                                              height: 10,
+                                            ),
+                                            CustomTextFormField(
+                                              onTap: () {
+                                                BlocProvider.of<AuthBloc>(
+                                                        context)
+                                                    .add(ObsecureTextEvent(
+                                                        obsecure: obasecure2));
+                                              },
+                                              obscureText: obasecure2,
+                                              suffixIcon: const Icon(
+                                                Icons.visibility,
+                                                color: Color.fromARGB(
+                                                    255, 243, 238, 238),
                                               ),
-                                            ],
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 20,
-                                        ),
-                                        Align(
-                                            alignment: Alignment.center,
-                                            child: Text(
-                                              'FitPro',
-                                              style: GoogleFonts.orbitron(
-                                                  color: const Color.fromARGB(
-                                                      255, 11, 49, 81),
-                                                  fontSize: 50,
-                                                  fontWeight: FontWeight.bold),
-                                            ))
-                                      ]))));
+                                              labelColor: Colors.white,
+                                              labelText: "Confirm New Password",
+                                              hintText: '******',
+                                              controller:
+                                                  resetPasswordController1,
+                                              hintTextcolor: Colors.white,
+                                              inputTextcolor: Colors.white,
+                                            ),
+                                            const SizedBox(
+                                              height: 10,
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(11.0),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  CustomButton(
+                                                    isNetwork: false,
+                                                    isRow: false,
+                                                    borderclr: Colors.blueGrey,
+                                                    color: const Color.fromARGB(
+                                                        255, 3, 1, 9),
+                                                    height: 50,
+                                                    fontweight: FontWeight.w500,
+                                                    radius: 10,
+                                                    textclr: Colors.white,
+                                                    name: 'Cancel',
+                                                    onTap: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                    textsize: 20,
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width /
+                                                            2.5,
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 11,
+                                                  ),
+                                                  CustomButton(
+                                                    isNetwork: false,
+                                                    isRow: false,
+                                                    borderclr: Colors.blueGrey,
+                                                    color: Colors.yellow,
+                                                    height: 50,
+                                                    fontweight: FontWeight.w500,
+                                                    radius: 10,
+                                                    textclr: Colors.black,
+                                                    name: 'Reset Password',
+                                                    onTap: () {
+                                                      if (resetPasswordController1
+                                                                  .text ==
+                                                              resetPasswordController2
+                                                                  .text &&
+                                                          resetPasswordController1
+                                                              .text
+                                                              .isNotEmpty &&
+                                                          resetPasswordController2
+                                                              .text
+                                                              .isNotEmpty) {
+                                                        BlocProvider.of<
+                                                                    ForgetpasswordBloc>(
+                                                                context)
+                                                            .add(ChangePasswordEvent(
+                                                                email: email,
+                                                                password:
+                                                                    resetPasswordController2
+                                                                        .text));
+                                                      } else {
+                                                        alerts(context,
+                                                            "Wrong inputs");
+                                                      }
+                                                    },
+                                                    textsize: 18,
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width /
+                                                            2.5,
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              height: 20,
+                                            ),
+                                            Align(
+                                                alignment: Alignment.center,
+                                                child: Text(
+                                                  'FitPro',
+                                                  style: GoogleFonts.orbitron(
+                                                      color:
+                                                          const Color.fromARGB(
+                                                              255, 11, 49, 81),
+                                                      fontSize: 50,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                ))
+                                          ]);
+                                    },
+                                  ))));
                     }));
               });
             });

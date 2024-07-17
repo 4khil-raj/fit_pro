@@ -1,8 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:fit_pro/presentation/screens/user_info/height/height.dart';
 import 'package:fit_pro/presentation/screens/user_info/height/widget/ft_cm.dart';
 import 'package:fit_pro/presentation/screens/user_info/height/widget/picker_cm.dart';
-import 'package:fit_pro/presentation/widgets/buttons/button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,8 +17,8 @@ class WeightPickerInUserInfo extends StatefulWidget {
 }
 
 class _WeightPickerInProgressScreenState extends State<WeightPickerInUserInfo> {
-  int _currentIntValue = 14;
-  int _currentLbValue = 1;
+  // int _currentIntValue = 14;
+  // int _currentLbValue = 1;
   bool cm = true;
   @override
   Widget build(BuildContext context) {
@@ -67,15 +67,14 @@ class _WeightPickerInProgressScreenState extends State<WeightPickerInUserInfo> {
                         textStyle: GoogleFonts.urbanist(
                             color: const Color.fromARGB(255, 225, 217, 217),
                             fontSize: 25),
-                        value: _currentIntValue,
+                        value: heightF,
                         minValue: 1,
                         maxValue: 100,
                         itemWidth: double.infinity,
                         step: 1,
                         axis: Axis.vertical,
                         haptics: true,
-                        onChanged: (value) =>
-                            setState(() => _currentIntValue = value),
+                        onChanged: (value) => setState(() => heightF = value),
                       ),
                     ),
                     Flexible(
@@ -88,15 +87,14 @@ class _WeightPickerInProgressScreenState extends State<WeightPickerInUserInfo> {
                         textStyle: GoogleFonts.urbanist(
                             color: const Color.fromARGB(255, 225, 217, 217),
                             fontSize: 25),
-                        value: _currentLbValue,
+                        value: heightL,
                         minValue: 0,
                         maxValue: 100,
                         itemWidth: double.infinity,
                         step: 1,
                         axis: Axis.vertical,
                         haptics: true,
-                        onChanged: (value) =>
-                            setState(() => _currentLbValue = value),
+                        onChanged: (value) => setState(() => heightL = value),
                       ),
                     ),
                     // Text('data'),

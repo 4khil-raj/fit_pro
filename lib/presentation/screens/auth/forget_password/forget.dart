@@ -1,4 +1,6 @@
 import 'package:fit_pro/application/auth_bloc/auth_bloc.dart';
+import 'package:fit_pro/application/forget_password/forgetpassword_bloc.dart';
+import 'package:fit_pro/presentation/screens/auth/forget_password/change_password.dart';
 import 'package:fit_pro/presentation/screens/auth/forget_password/otp_verification.dart';
 import 'package:fit_pro/presentation/screens/user_info/collect_userinfo.dart';
 import 'package:fit_pro/presentation/widgets/alerts/alerts.dart';
@@ -61,17 +63,43 @@ void forgetPassword(BuildContext context, bool email) {
                             height: 13,
                           ),
                           email
-                              ? CustomTextFormField(
-                                  suffixIcon: const Icon(
-                                    Icons.email,
-                                    color: Color.fromARGB(255, 239, 234, 234),
-                                  ),
-                                  labelColor: Colors.white,
-                                  labelText: "Email",
-                                  hintText: '******@gmail.com',
-                                  controller: forgetPasswordController,
-                                  hintTextcolor: Colors.white,
-                                  inputTextcolor: Colors.white,
+                              ? BlocBuilder<ForgetpasswordBloc,
+                                  ForgetpasswordState>(
+                                  builder: (context, state) {
+                                    if (state is ForgetErrorState) {
+                                      WidgetsBinding.instance
+                                          .addPostFrameCallback((_) {
+                                        // Navigator.pop(context);
+                                        alerts(context, state.message);
+                                        BlocProvider.of<ForgetpasswordBloc>(
+                                                context)
+                                            .add(ForgetpasswordEvent());
+                                      });
+                                    } else if (state is OTPsendSuccessState) {
+                                      WidgetsBinding.instance
+                                          .addPostFrameCallback((_) {
+                                        Navigator.pop(context);
+                                        forgetPasswordOtp(
+                                            context,
+                                            forgetPasswordController.text,
+                                            true);
+                                      });
+                                    }
+
+                                    return CustomTextFormField(
+                                      suffixIcon: const Icon(
+                                        Icons.email,
+                                        color:
+                                            Color.fromARGB(255, 239, 234, 234),
+                                      ),
+                                      labelColor: Colors.white,
+                                      labelText: "Email",
+                                      hintText: '******@gmail.com',
+                                      controller: forgetPasswordController,
+                                      hintTextcolor: Colors.white,
+                                      inputTextcolor: Colors.white,
+                                    );
+                                  },
                                 )
                               : BlocBuilder<AuthBloc, AuthState>(
                                   builder: (context, state) {
@@ -79,8 +107,10 @@ void forgetPassword(BuildContext context, bool email) {
                                       verificationId = state.verificationId;
                                       WidgetsBinding.instance
                                           .addPostFrameCallback((_) {
-                                        forgetPasswordOtp(context,
-                                            forgetPasswordController.text);
+                                        forgetPasswordOtp(
+                                            context,
+                                            forgetPasswordController.text,
+                                            false);
                                         return;
                                       });
                                       BlocProvider.of<AuthBloc>(context)
@@ -206,8 +236,11 @@ void otp(context) {
 }
 
 void emailfn(context) {
-  {
-    Navigator.pop(context);
-    forgetPasswordOtp(context, forgetPasswordController.text);
-  }
+  // {
+  //   Navigator.pop(context);
+  //   forgetPasswordOtp(context, forgetPasswordController.text);
+  // }
+
+  BlocProvider.of<ForgetpasswordBloc>(context)
+      .add(GetOtpForget(email: forgetPasswordController.text));
 }

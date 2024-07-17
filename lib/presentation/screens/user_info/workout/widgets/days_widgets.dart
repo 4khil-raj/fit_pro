@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+dynamic workoutFrequency;
+
 class DaysWorkoutButtons extends StatefulWidget {
   const DaysWorkoutButtons({super.key});
 
@@ -13,10 +15,10 @@ class _DaysWorkoutButtonsState extends State<DaysWorkoutButtons> {
   bool remember2 = false;
   bool remember3 = false;
   bool remember4 = false;
-  dynamic selectedOption1;
-  dynamic selectedOption2;
-  dynamic selectedOption3;
-  dynamic selectedOption4;
+  // dynamic selectedOption1;
+  // dynamic selectedOption2;
+  // dynamic selectedOption3;
+  // dynamic selectedOption4;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -29,7 +31,8 @@ class _DaysWorkoutButtonsState extends State<DaysWorkoutButtons> {
                 remember1 = true;
                 remember2 = false;
                 remember3 = false;
-                selectedOption1 = '3 days / week';
+                remember4 = false;
+                workoutFrequency = '3 days / week';
               });
             },
             child: Container(
@@ -75,7 +78,8 @@ class _DaysWorkoutButtonsState extends State<DaysWorkoutButtons> {
                 remember2 = true;
                 remember1 = false;
                 remember3 = false;
-                selectedOption2 = '4 days / week';
+                remember4 = false;
+                workoutFrequency = '4 days / week';
               });
             },
             child: Container(
@@ -116,10 +120,11 @@ class _DaysWorkoutButtonsState extends State<DaysWorkoutButtons> {
           child: InkWell(
             onTap: () {
               setState(() {
-                remember2 = true;
+                remember2 = false;
                 remember1 = false;
-                remember3 = false;
-                selectedOption2 = '5 days / week';
+                remember3 = true;
+                remember4 = false;
+                workoutFrequency = '5 days / week';
               });
             },
             child: Container(
@@ -138,14 +143,14 @@ class _DaysWorkoutButtonsState extends State<DaysWorkoutButtons> {
                   height: 18,
                   width: 18,
                   decoration: BoxDecoration(
-                      color: remember2 ? Colors.blue : Colors.transparent,
-                      image: remember2
+                      color: remember3 ? Colors.blue : Colors.transparent,
+                      image: remember3
                           ? const DecorationImage(
                               image: AssetImage('assets/icons/tickIcon.png'))
                           : null,
                       border: Border.all(
                           width: 2,
-                          color: remember2 ? Colors.transparent : Colors.white),
+                          color: remember3 ? Colors.transparent : Colors.white),
                       borderRadius: BorderRadius.circular(100)),
                 ),
               ),
@@ -162,10 +167,11 @@ class _DaysWorkoutButtonsState extends State<DaysWorkoutButtons> {
           child: InkWell(
             onTap: () {
               setState(() {
-                remember3 = true;
+                remember3 = false;
+                remember4 = true;
                 remember1 = false;
                 remember2 = false;
-                selectedOption3 = '6 days / week';
+                workoutFrequency = '6 days / week';
               });
             },
             child: Container(
@@ -184,14 +190,14 @@ class _DaysWorkoutButtonsState extends State<DaysWorkoutButtons> {
                   height: 18,
                   width: 18,
                   decoration: BoxDecoration(
-                      color: remember3 ? Colors.blue : Colors.transparent,
-                      image: remember3
+                      color: remember4 ? Colors.blue : Colors.transparent,
+                      image: remember4
                           ? const DecorationImage(
                               image: AssetImage('assets/icons/tickIcon.png'))
                           : null,
                       border: Border.all(
                           width: 2,
-                          color: remember3 ? Colors.transparent : Colors.white),
+                          color: remember4 ? Colors.transparent : Colors.white),
                       borderRadius: BorderRadius.circular(100)),
                 ),
               ),

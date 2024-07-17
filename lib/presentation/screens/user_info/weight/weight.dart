@@ -2,9 +2,11 @@ import 'package:fit_pro/application/user_info/user_info_bloc.dart';
 import 'package:fit_pro/presentation/screens/user_info/weight/widget/picker1.dart';
 import 'package:fit_pro/presentation/widgets/buttons/button.dart';
 import 'package:flutter/material.dart';
-import 'package:animated_weight_picker/animated_weight_picker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+dynamic weightF = 14;
+dynamic weightL = 1;
 
 class WeightCollectScreen extends StatefulWidget {
   const WeightCollectScreen({super.key});

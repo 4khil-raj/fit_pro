@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+dynamic selectedOptionExperience;
+
 class CustomExperienceRadioButton extends StatefulWidget {
   const CustomExperienceRadioButton({super.key});
 
@@ -14,9 +16,9 @@ class _CustomExperienceRadioButtonState
   bool remember1 = false;
   bool remember2 = false;
   bool remember3 = false;
-  dynamic selectedOption1;
-  dynamic selectedOption2;
-  dynamic selectedOption3;
+  // dynamic selectedOption1;
+  // dynamic selectedOption2;
+  // dynamic selectedOption3;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -29,7 +31,7 @@ class _CustomExperienceRadioButtonState
                 remember1 = true;
                 remember2 = false;
                 remember3 = false;
-                selectedOption1 = 'Beginner';
+                selectedOptionExperience = 'Beginner';
               });
             },
             child: Container(
@@ -47,7 +49,7 @@ class _CustomExperienceRadioButtonState
                           fontSize: 18,
                           fontWeight: FontWeight.w700),
                     ),
-                    Text(
+                    const Text(
                       'New to Weight lifting',
                       style: TextStyle(
                           fontWeight: FontWeight.w500,
@@ -74,8 +76,6 @@ class _CustomExperienceRadioButtonState
             ),
           ),
         ),
-
-        //
         const SizedBox(
           height: 10,
         ),
@@ -87,7 +87,7 @@ class _CustomExperienceRadioButtonState
                 remember2 = true;
                 remember1 = false;
                 remember3 = false;
-                selectedOption2 = 'Intermediate';
+                selectedOptionExperience = 'Intermediate';
               });
             },
             child: Container(
@@ -105,7 +105,7 @@ class _CustomExperienceRadioButtonState
                           fontSize: 18,
                           fontWeight: FontWeight.w700),
                     ),
-                    Text(
+                    const Text(
                       'Can handle myself at the gym',
                       style: TextStyle(
                           fontWeight: FontWeight.w500,
@@ -145,7 +145,7 @@ class _CustomExperienceRadioButtonState
                 remember3 = true;
                 remember1 = false;
                 remember2 = false;
-                selectedOption3 = 'Expert';
+                selectedOptionExperience = 'Expert';
               });
             },
             child: Container(
@@ -163,7 +163,7 @@ class _CustomExperienceRadioButtonState
                           fontSize: 18,
                           fontWeight: FontWeight.w700),
                     ),
-                    Text(
+                    const Text(
                       'Know my way around the gym',
                       style: TextStyle(
                           fontWeight: FontWeight.w500,

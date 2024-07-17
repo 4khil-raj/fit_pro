@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+dynamic currentlyWorkout;
+
 class CurrentlyWorkoutRadioButtons extends StatefulWidget {
   const CurrentlyWorkoutRadioButtons({super.key});
 
@@ -14,9 +16,9 @@ class _CurrentlyWorkoutRadioButtonsState
   bool remember1 = false;
   bool remember2 = false;
   bool remember3 = false;
-  dynamic selectedOption1;
-  dynamic selectedOption2;
-  dynamic selectedOption3;
+  // dynamic selectedOption1;
+  // dynamic selectedOption2;
+  // dynamic selectedOption3;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -29,7 +31,7 @@ class _CurrentlyWorkoutRadioButtonsState
                 remember1 = true;
                 remember2 = false;
                 remember3 = false;
-                selectedOption1 = 'Commercial Gym';
+                currentlyWorkout = 'Commercial Gym';
               });
             },
             child: Container(
@@ -75,7 +77,7 @@ class _CurrentlyWorkoutRadioButtonsState
                 remember2 = true;
                 remember1 = false;
                 remember3 = false;
-                selectedOption2 = 'Home Gym';
+                currentlyWorkout = 'Home Gym';
               });
             },
             child: Container(
@@ -121,7 +123,7 @@ class _CurrentlyWorkoutRadioButtonsState
                 remember3 = true;
                 remember1 = false;
                 remember2 = false;
-                selectedOption3 = 'Body Weight';
+                currentlyWorkout = 'Body Weight';
               });
             },
             child: Container(

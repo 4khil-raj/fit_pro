@@ -14,6 +14,9 @@ class AuthRepository {
             accessToken: googleAuth.accessToken, idToken: googleAuth.idToken);
         final userCredential = await auth.signInWithCredential(creds);
         user = userCredential.user;
+
+        // print(userCredential.credential!.);
+        print("===================================+++++++");
       }
     } catch (e) {
       print('Error during Google sign in: ${e.toString()}');

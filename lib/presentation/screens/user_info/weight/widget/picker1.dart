@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:fit_pro/presentation/screens/user_info/weight/weight.dart';
 import 'package:fit_pro/presentation/screens/user_info/weight/widget/kg_lb.dart';
 import 'package:fit_pro/presentation/screens/user_info/weight/widget/picker_lb.dart';
 import 'package:flutter/material.dart';
@@ -66,15 +67,14 @@ class _WeightPickerInProgressScreenState extends State<HeightPickerInUserInfo> {
                         textStyle: GoogleFonts.urbanist(
                             color: const Color.fromARGB(255, 225, 217, 217),
                             fontSize: 25),
-                        value: _currentIntValue,
+                        value: weightF,
                         minValue: 1,
                         maxValue: 100,
                         itemWidth: double.infinity,
                         step: 1,
                         axis: Axis.vertical,
                         haptics: true,
-                        onChanged: (value) =>
-                            setState(() => _currentIntValue = value),
+                        onChanged: (value) => setState(() => weightF = value),
                       ),
                     ),
                     Flexible(
@@ -87,15 +87,14 @@ class _WeightPickerInProgressScreenState extends State<HeightPickerInUserInfo> {
                         textStyle: GoogleFonts.urbanist(
                             color: const Color.fromARGB(255, 225, 217, 217),
                             fontSize: 25),
-                        value: _currentLbValue,
+                        value: weightL,
                         minValue: 0,
                         maxValue: 100,
                         itemWidth: double.infinity,
                         step: 1,
                         axis: Axis.vertical,
                         haptics: true,
-                        onChanged: (value) =>
-                            setState(() => _currentLbValue = value),
+                        onChanged: (value) => setState(() => weightL = value),
                       ),
                     ),
                     // Text('data'),

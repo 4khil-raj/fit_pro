@@ -14,8 +14,8 @@ class GoalSelectScreen extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Spacer(),
-          SizedBox(
+          const Spacer(),
+          const SizedBox(
             height: 10,
           ),
           Text(
@@ -27,8 +27,7 @@ class GoalSelectScreen extends StatelessWidget {
             height: 40,
           ),
           const CustomRadioButtons(),
-          Spacer(),
-          //ee button ividunn matti custom_radioil akkanam alle aa values kittulla imp
+          const Spacer(),
           Padding(
             padding: const EdgeInsets.all(13.0),
             child: CustomButton(

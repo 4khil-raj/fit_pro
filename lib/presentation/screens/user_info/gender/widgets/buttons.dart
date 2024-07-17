@@ -1,19 +1,27 @@
 import 'package:fit_pro/application/user_info/user_info_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class CustomGenderButtons extends StatelessWidget {
+dynamic gender;
+
+class CustomGenderButtons extends StatefulWidget {
   const CustomGenderButtons({super.key});
 
+  @override
+  State<CustomGenderButtons> createState() => _CustomGenderButtonsState();
+}
+
+class _CustomGenderButtonsState extends State<CustomGenderButtons> {
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         GestureDetector(
-          onTap: () =>
-              BlocProvider.of<UserInfoBloc>(context).add(GenderSelectEvent()),
+          onTap: () => setState(() {
+            gender = "Male";
+            BlocProvider.of<UserInfoBloc>(context).add(GenderSelectEvent());
+          }),
           child: Container(
             height: 130,
             width: 130,
@@ -40,8 +48,10 @@ class CustomGenderButtons extends StatelessWidget {
           height: 25,
         ),
         GestureDetector(
-          onTap: () =>
-              BlocProvider.of<UserInfoBloc>(context).add(GenderSelectEvent()),
+          onTap: () => setState(() {
+            gender = 'Female';
+            BlocProvider.of<UserInfoBloc>(context).add(GenderSelectEvent());
+          }),
           child: Container(
             height: 130,
             width: 130,

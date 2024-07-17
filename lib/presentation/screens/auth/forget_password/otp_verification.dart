@@ -1,6 +1,8 @@
 import 'package:fit_pro/application/auth_bloc/auth_bloc.dart';
+import 'package:fit_pro/application/forget_password/forgetpassword_bloc.dart';
 import 'package:fit_pro/presentation/screens/auth/forget_password/change_password.dart';
 import 'package:fit_pro/presentation/screens/auth/forget_password/forget.dart';
+import 'package:fit_pro/presentation/widgets/alerts/alerts.dart';
 import 'package:fit_pro/presentation/widgets/buttons/button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,7 +10,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_pin_code_fields/flutter_pin_code_fields.dart';
 
 // final forgetOtpController = TextEditingController();
-void forgetPasswordOtp(context, enterdvalue) {
+void forgetPasswordOtp(context, enterdvalue, bool email) {
   forgetPasswordController.clear();
   showModalBottomSheet(
     context: context,
@@ -84,31 +86,57 @@ void forgetPasswordOtp(context, enterdvalue) {
                             height: 20,
                           ),
                           //otp formfield
-                          Align(
-                              alignment: Alignment.center,
-                              child: Padding(
-                                padding: const EdgeInsets.all(12),
-                                child: PinCodeFields(
-                                  onComplete: (value) {
-                                    print(value);
-                                    BlocProvider.of<AuthBloc>(context).add(
-                                        VerifySentOtp(
-                                            otpCode: value,
-                                            verificationId: verificationId));
-                                  },
-                                  // controller: forgetOtpController,
-                                  length: 6,
-                                  fieldBorderStyle: FieldBorderStyle.square,
-                                  fieldHeight: 60,
-                                  activeBorderColor: Colors.blue,
-                                  borderRadius: BorderRadius.circular(12),
-                                  textStyle: const TextStyle(
-                                      color: Color.fromARGB(255, 255, 255, 255),
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 18),
-                                  keyboardType: TextInputType.number,
-                                ),
-                              )),
+                          BlocBuilder<ForgetpasswordBloc, ForgetpasswordState>(
+                            builder: (context, state) {
+                              if (state is ForgetErrorState) {
+                                WidgetsBinding.instance
+                                    .addPostFrameCallback((_) {
+                                  // Navigator.pop(context);
+                                  alerts(context, state.message);
+                                  BlocProvider.of<ForgetpasswordBloc>(context)
+                                      .add(ForgetpasswordEvent());
+                                });
+                              } else if (state is OtpValidateSuccess) {
+                                WidgetsBinding.instance
+                                    .addPostFrameCallback((_) {
+                                  Navigator.pop(context);
+                                  changePassword(context, state.email);
+                                });
+                              }
+                              return Align(
+                                  alignment: Alignment.center,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(12),
+                                    child: PinCodeFields(
+                                      onComplete: (value) {
+                                        email
+                                            ? BlocProvider.of<
+                                                    ForgetpasswordBloc>(context)
+                                                .add(ValidateOtp(
+                                                    otp: value,
+                                                    email: enterdvalue))
+                                            : BlocProvider.of<AuthBloc>(context)
+                                                .add(VerifySentOtp(
+                                                    otpCode: value,
+                                                    verificationId:
+                                                        verificationId));
+                                      },
+                                      // controller: forgetOtpController,
+                                      length: 6,
+                                      fieldBorderStyle: FieldBorderStyle.square,
+                                      fieldHeight: 60,
+                                      activeBorderColor: Colors.blue,
+                                      borderRadius: BorderRadius.circular(12),
+                                      textStyle: const TextStyle(
+                                          color: Color.fromARGB(
+                                              255, 255, 255, 255),
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 18),
+                                      keyboardType: TextInputType.number,
+                                    ),
+                                  ));
+                            },
+                          ),
                           const SizedBox(
                             height: 13,
                           ),
@@ -137,8 +165,11 @@ void forgetPasswordOtp(context, enterdvalue) {
                               textclr: Colors.black,
                               name: 'Verify OTP',
                               onTap: () {
+                                BlocProvider.of<ForgetpasswordBloc>(context)
+                                    .add(ValidateOtp(
+                                        otp: "", email: enterdvalue));
                                 Navigator.pop(context);
-                                changePassword(context);
+
                                 // forgetOtpController.clear();
                               },
                               textsize: 20,

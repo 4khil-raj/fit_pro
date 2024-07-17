@@ -9,6 +9,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ruler_scale_picker/ruler_scale_picker.dart';
 
+dynamic heightF = 14;
+dynamic heightL = 1;
+
 class HeightSelectScreen extends StatelessWidget {
   const HeightSelectScreen({super.key, required this.values});
   final int values;
@@ -26,48 +29,7 @@ class HeightSelectScreen extends StatelessWidget {
           style: GoogleFonts.urbanist(
               fontSize: 24, color: Colors.white, fontWeight: FontWeight.w700),
         ),
-        Stack(children: [
-          // Positioned(
-          //     top: 240,
-          //     left: 175,
-          //     child: Column(
-          //       children: [
-          //         Text(
-          //           '$values Feet',
-          //           style: TextStyle(color: Colors.white, fontSize: 15),
-          //         ),
-          //         Divider(
-          //           color: const Color.fromARGB(255, 255, 255, 255),
-          //           thickness: 10,
-          //         )
-          //       ],
-          //     )),
-          WeightPickerInUserInfo()
-          // SizedBox(
-          //     height: 500,
-          //     child: NumericRulerScalePicker(
-          //       decreaseButtonBuilder: (context, action) {
-          //         return Container();
-          //       },
-          //       increaseButtonBuilder: (context, action) => Container(),
-          //       valueDisplayBuilder: (context, value) {
-          //         BlocProvider.of<UserInfoBloc>(context)
-          //             .add(WeightPickerEvent(value: value));
-          //         return Text(
-          //           '$value',
-          //           style: GoogleFonts.urbanist(
-          //               color: Colors.transparent,
-          //               fontSize: 20,
-          //               fontWeight: FontWeight.w600),
-          //         );
-          //       },
-          //       options: RulerScalePickerOptions(
-          //         orientation: Axis.vertical,
-          //         majorIndicatorInterval: 3,
-          //         indicatorExtend: 100,
-          //       ),
-          //     )),
-        ]),
+        Stack(children: [WeightPickerInUserInfo()]),
         Spacer(),
         Padding(
           padding: const EdgeInsets.all(13.0),

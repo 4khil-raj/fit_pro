@@ -1,5 +1,6 @@
 import 'package:fit_pro/application/auth_bloc/auth_bloc.dart';
 import 'package:fit_pro/application/bottom_nav/bottom_nav_bloc.dart';
+import 'package:fit_pro/application/forget_password/forgetpassword_bloc.dart';
 import 'package:fit_pro/application/start_workout/start_workout_bloc.dart';
 import 'package:fit_pro/application/user_info/user_info_bloc.dart';
 import 'package:fit_pro/firebase_options.dart';
@@ -41,6 +42,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => BottomNavBloc(),
         ),
+        BlocProvider(create: (context) => ForgetpasswordBloc())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

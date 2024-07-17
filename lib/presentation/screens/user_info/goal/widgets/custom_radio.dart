@@ -1,8 +1,7 @@
-import 'package:fit_pro/application/user_info/user_info_bloc.dart';
-import 'package:fit_pro/presentation/widgets/buttons/button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+dynamic goal;
 
 class CustomRadioButtons extends StatefulWidget {
   const CustomRadioButtons({super.key});
@@ -15,9 +14,9 @@ class _CustomRadioButtonsState extends State<CustomRadioButtons> {
   bool remember1 = false;
   bool remember2 = false;
   bool remember3 = false;
-  dynamic selectedOption1;
-  dynamic selectedOption2;
-  dynamic selectedOption3;
+  // dynamic selectedOption1;
+  // dynamic selectedOption2;
+  // dynamic selectedOption3;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -30,7 +29,7 @@ class _CustomRadioButtonsState extends State<CustomRadioButtons> {
                 remember1 = true;
                 remember2 = false;
                 remember3 = false;
-                selectedOption1 = 'Be Healtheir';
+                goal = 'Be Healtheir';
               });
             },
             child: Container(
@@ -76,7 +75,7 @@ class _CustomRadioButtonsState extends State<CustomRadioButtons> {
                 remember2 = true;
                 remember1 = false;
                 remember3 = false;
-                selectedOption2 = 'Loose Weight';
+                goal = 'Loose Weight';
               });
             },
             child: Container(
@@ -122,7 +121,7 @@ class _CustomRadioButtonsState extends State<CustomRadioButtons> {
                 remember3 = true;
                 remember1 = false;
                 remember2 = false;
-                selectedOption3 = 'Build Muscles';
+                goal = 'Build Muscles';
               });
             },
             child: Container(
