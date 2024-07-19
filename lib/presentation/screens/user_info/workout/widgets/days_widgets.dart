@@ -32,7 +32,7 @@ class _DaysWorkoutButtonsState extends State<DaysWorkoutButtons> {
                 remember2 = false;
                 remember3 = false;
                 remember4 = false;
-                workoutFrequency = '3 days / week';
+                workoutFrequency = '3';
               });
             },
             child: Container(
@@ -79,7 +79,7 @@ class _DaysWorkoutButtonsState extends State<DaysWorkoutButtons> {
                 remember1 = false;
                 remember3 = false;
                 remember4 = false;
-                workoutFrequency = '4 days / week';
+                workoutFrequency = '4';
               });
             },
             child: Container(
@@ -124,7 +124,7 @@ class _DaysWorkoutButtonsState extends State<DaysWorkoutButtons> {
                 remember1 = false;
                 remember3 = true;
                 remember4 = false;
-                workoutFrequency = '5 days / week';
+                workoutFrequency = '5';
               });
             },
             child: Container(
@@ -171,7 +171,7 @@ class _DaysWorkoutButtonsState extends State<DaysWorkoutButtons> {
                 remember4 = true;
                 remember1 = false;
                 remember2 = false;
-                workoutFrequency = '6 days / week';
+                workoutFrequency = '6';
               });
             },
             child: Container(

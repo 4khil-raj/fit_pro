@@ -1,13 +1,17 @@
+import 'package:fit_pro/domain/models/workout_plans/model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class BottomCaroselContainer1 extends StatelessWidget {
-  BottomCaroselContainer1({this.image1, super.key});
+  final List<WorkoutPlanModel> list;
+
+  BottomCaroselContainer1({this.image1, super.key, required this.list});
   String? image1;
 
   @override
   Widget build(BuildContext context) {
+    print(list[0].bannerImage);
     return Stack(children: [
       Container(
         width: MediaQuery.of(context).size.width,
@@ -27,7 +31,7 @@ class BottomCaroselContainer1 extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Weightligting",
+                list[0].planName ?? "Weightligting",
                 style: GoogleFonts.poppins(
                     fontWeight: FontWeight.w900,
                     fontSize: 14,

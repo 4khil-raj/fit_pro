@@ -3,7 +3,9 @@ import 'package:fit_pro/application/bottom_nav/bottom_nav_bloc.dart';
 import 'package:fit_pro/application/forget_password/forgetpassword_bloc.dart';
 import 'package:fit_pro/application/start_workout/start_workout_bloc.dart';
 import 'package:fit_pro/application/user_info/user_info_bloc.dart';
+import 'package:fit_pro/application/workout_plans/workoutplans_bloc.dart';
 import 'package:fit_pro/firebase_options.dart';
+import 'package:fit_pro/infrastructure/workoutp_plans/repo.dart';
 import 'package:fit_pro/presentation/screens/auth/signin/signin.dart';
 import 'package:fit_pro/presentation/screens/bottom_nav/bottom_nav.dart';
 import 'package:fit_pro/presentation/screens/welcomeScreen/welcome.dart';
@@ -14,6 +16,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 void main(context) async {
   WidgetsFlutterBinding.ensureInitialized();
+  getAccessTocken();
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -27,7 +31,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    checkUserLogin(context);
+    WorkoutPlansFetchRepo.fetchWorkoutPlans();
+    // checkUserLogin(context);
+    // getAccessTocken();
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -42,7 +48,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => BottomNavBloc(),
         ),
-        BlocProvider(create: (context) => ForgetpasswordBloc())
+        BlocProvider(create: (context) => ForgetpasswordBloc()),
+        BlocProvider(create: (context) => WorkoutplansBloc())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -51,7 +58,7 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: userlogin == "user" ? BottomNavBar() : WelcomeScreen(),
+        home: accesstocken != null ? BottomNavBar() : WelcomeScreen(),
         // home: const BottomNavBar(),
       ),
     );
@@ -61,7 +68,7 @@ class MyApp extends StatelessWidget {
 dynamic userlogin;
 Future<void> checkUserLogin(context) async {
   final sharedpreference = await SharedPreferences.getInstance();
-  userlogin = sharedpreference.getString(loginTocken);
+  userlogin = sharedpreference.getString(loginTockenkey);
 
   // if (userlogin == 'user') {
   //   customNavRemoveuntil(context, const BottomNavBar());

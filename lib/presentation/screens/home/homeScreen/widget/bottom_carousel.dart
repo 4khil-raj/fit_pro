@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:fit_pro/domain/models/workout_plans/model.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/sub_pages/featured_plans/featured_plans.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/widget/bottom_caro_container1.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/widget/bottom_caro_container2.dart';
@@ -8,22 +9,26 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class BottomCaroselSlider extends StatefulWidget {
-  const BottomCaroselSlider({super.key});
+  final List<WorkoutPlanModel> list;
+  const BottomCaroselSlider({super.key, required this.list});
 
   @override
   State<BottomCaroselSlider> createState() => _BottomCaroselSliderState();
 }
 
 class _BottomCaroselSliderState extends State<BottomCaroselSlider> {
-  List containers = [
-    BottomCaroselContainer1(),
-    BottomCaroselcontainer2(),
-    // const HomeCaroselcontainer3()
-  ];
   int sliderIndex = 0;
   final CarouselController _carouselController = CarouselController();
+
   @override
   Widget build(BuildContext context) {
+    List containers = [
+      BottomCaroselContainer1(
+        list: widget.list,
+      ),
+      BottomCaroselcontainer2(),
+      // const HomeCaroselcontainer3()
+    ];
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

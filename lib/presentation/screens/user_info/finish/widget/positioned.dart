@@ -35,7 +35,7 @@ class CustomFinishPositioned extends StatelessWidget {
                 Text(
                   'You\'re all set for now. Now go make it happen!',
                   style: GoogleFonts.urbanist(
-                      color: Color.fromARGB(255, 255, 255, 255),
+                      color: const Color.fromARGB(255, 255, 255, 255),
                       fontSize: 18,
                       fontWeight: FontWeight.bold),
                 ),
@@ -58,7 +58,8 @@ class CustomFinishPositioned extends StatelessWidget {
               textclr: Colors.black,
               onTap: () {
                 BlocProvider.of<UserInfoBloc>(context).add(UserInfoEvent());
-                saveinfo('user');
+                // saveinfo('user');
+                // print(accesstocken);
                 customNavRemoveuntil(context, const BottomNavBar());
               },
               textsize: 16,

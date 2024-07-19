@@ -8,6 +8,8 @@ import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:numberpicker/numberpicker.dart';
 
+bool cm = true;
+
 class WeightPickerInUserInfo extends StatefulWidget {
   const WeightPickerInUserInfo({super.key});
 
@@ -19,7 +21,6 @@ class WeightPickerInUserInfo extends StatefulWidget {
 class _WeightPickerInProgressScreenState extends State<WeightPickerInUserInfo> {
   // int _currentIntValue = 14;
   // int _currentLbValue = 1;
-  bool cm = true;
   @override
   Widget build(BuildContext context) {
     return Column(

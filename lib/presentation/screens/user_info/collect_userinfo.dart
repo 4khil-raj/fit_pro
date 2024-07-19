@@ -95,7 +95,7 @@ class _UserInfoCollectingScreenState extends State<UserInfoCollectingScreen> {
             return const WorkoutDaysCollecterScreen();
           } else if (state is UserWorkoutDayState) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
-              // collectUserInfo();
+              collectUserInfo();
               customNavRemoveuntil(context, const UserInfoFinishPage());
             });
           }

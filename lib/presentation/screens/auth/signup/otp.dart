@@ -125,7 +125,7 @@ void signUpOtp(context, enterdvalue) {
                               name: 'Verify OTP',
                               onTap: () {
                                 Navigator.pop(context);
-                                changePassword(context, enterdvalue);
+                                // changePassword(context, enterdvalue);
                                 // forgetOtpController.clear();
                               },
                               textsize: 20,

@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:fit_pro/core/apis/apis.dart';
 
 class LoginRepo {
-  static Future<String> loginReq(String password, String email) async {
+  static Future loginReq(String password, String email) async {
     Map<String, dynamic> request = {"email": email, "password": password};
     try {
       final response = await http.post(
@@ -13,11 +13,11 @@ class LoginRepo {
         },
         body: jsonEncode(request),
       );
-      if (response.statusCode == 200) {
-        return "done";
-      } else {
-        final responseBody = jsonDecode(response.body);
+      final responseBody = jsonDecode(response.body);
 
+      if (response.statusCode == 200) {
+        return responseBody;
+      } else {
         return responseBody["message"];
       }
     } catch (e) {

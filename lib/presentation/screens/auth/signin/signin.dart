@@ -15,8 +15,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-const loginTocken = '';
-const accessTocken = '';
+const loginTockenkey = '';
+const accessTockenkey = '';
 
 class SignupOrSignin extends StatelessWidget {
   SignupOrSignin({super.key, required this.signup});
@@ -47,7 +47,7 @@ class SignupOrSignin extends StatelessWidget {
                 social = state.google;
                 other = state.other;
                 WidgetsBinding.instance.addPostFrameCallback((_) {
-                  saveinfo('user');
+                  // saveinfo('user');
                   customNavPush(context, const UserInfoCollectingScreen());
                   BlocProvider.of<AuthBloc>(context).add(AuthEvent());
                 });
@@ -55,7 +55,7 @@ class SignupOrSignin extends StatelessWidget {
                 social = false;
                 other = false;
                 WidgetsBinding.instance.addPostFrameCallback((_) {
-                  saveinfo('user');
+                  // saveinfo('user');
                   customNavRemoveuntil(context, const BottomNavBar());
                   BlocProvider.of<AuthBloc>(context).add(AuthEvent());
                 });
@@ -102,7 +102,7 @@ class SignupOrSignin extends StatelessWidget {
 
 void saveinfo(String value) async {
   SharedPreferences preferences = await SharedPreferences.getInstance();
-  await preferences.setString(loginTocken, value);
+  await preferences.setString(loginTockenkey, value);
 }
 
 Future<void> clearLoginInfo() async {
@@ -112,5 +112,21 @@ Future<void> clearLoginInfo() async {
 
 void saveJWStocken(String value) async {
   SharedPreferences preferences = await SharedPreferences.getInstance();
-  await preferences.setString(accessTocken, value);
+  await preferences.setString(accessTockenkey, value);
+  await getAccessTocken();
+}
+
+dynamic accesstocken;
+Future<void> getAccessTocken() async {
+  final sharedpreference = await SharedPreferences.getInstance();
+  accesstocken = sharedpreference.getString(accessTockenkey);
+
+  print("===================+++========");
+  print(accesstocken);
+  print("====================this is tocken======");
+  // if (userlogin == 'user') {
+  //   customNavRemoveuntil(context, const BottomNavBar());
+  // } else {
+  //   customNavRemoveuntil(context, const WelcomeScreen());
+  // }
 }

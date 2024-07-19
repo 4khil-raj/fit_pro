@@ -8,6 +8,8 @@ import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:numberpicker/numberpicker.dart';
 
+bool kg = true;
+
 class HeightPickerInUserInfo extends StatefulWidget {
   const HeightPickerInUserInfo({super.key});
 
@@ -19,7 +21,6 @@ class HeightPickerInUserInfo extends StatefulWidget {
 class _WeightPickerInProgressScreenState extends State<HeightPickerInUserInfo> {
   int _currentIntValue = 14;
   int _currentLbValue = 1;
-  bool cm = true;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -36,23 +37,23 @@ class _WeightPickerInProgressScreenState extends State<HeightPickerInUserInfo> {
         //         color: Colors.white, fontSize: 18, fontWeight: FontWeight.w700),
         //   ),
         // ),
-        cm
+        kg
             ? GestureDetector(
                 onTap: () {
-                  cm = false;
+                  kg = false;
                   setState(() {});
                 },
                 child: KgorlbcontainerWidget())
             : GestureDetector(
                 onTap: () {
-                  cm = true;
+                  kg = true;
                   setState(() {});
                 },
                 child: KgorLbcontainerWidget2()),
         SizedBox(
           height: 20,
         ),
-        cm
+        kg
             ? Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Row(

@@ -53,7 +53,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       if (respose == "faild") {
         emit(AuthError(message: "Invalid OTP"));
       } else {
+        print(respose);
         saveJWStocken(respose);
+
         emit(SignUpAuthSuccessState(google: false, other: false));
       }
     });
@@ -68,15 +70,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     });
 
 //----------login event---------
-
     on<LoginEvent>((event, emit) async {
       emit(AuthLoading(google: false, other: true));
       try {
         final response = await LoginRepo.loginReq(event.passcode, event.email);
-        if (response == "done") {
+        if (response['status'] == 200) {
+          saveJWStocken(response['accessToken']);
           emit(Authenticated());
+          // print(response['message']);
         } else {
-          emit(AuthError(message: response));
+          // emit(AuthError(message: response));
         }
       } catch (e) {
         emit(AuthError(message: e.toString()));
