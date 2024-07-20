@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:bloc/bloc.dart';
+import 'package:fit_pro/core/apis/apis.dart';
 import 'package:fit_pro/domain/models/signup/model.dart';
 import 'package:fit_pro/infrastructure/facebook/repo.dart';
 import 'package:fit_pro/infrastructure/login/repo.dart';
@@ -8,6 +11,8 @@ import 'package:fit_pro/infrastructure/signUp/otp_repo.dart';
 import 'package:fit_pro/infrastructure/signUp/repo.dart';
 import 'package:fit_pro/presentation/screens/auth/signin/signin.dart';
 import 'package:meta/meta.dart';
+import 'package:http/http.dart' as http;
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -105,31 +110,58 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         if (user == null) {
           emit(AuthError(message: 'Can\'t find Your GoogleAccount'));
         } else {
-          FirebaseFirestore.instance.collection('users').doc(user.uid).set({
-            'email': user.email,
-            'name': user.displayName,
-            // 'profilepicture': user.photoURL,
-          });
-          FirebaseFirestore.instance.collection('Profile').doc(user.uid).set({
-            'email': user.email,
-            'name': user.displayName,
-            'profile_pic': user.photoURL,
-            'phone': user.phoneNumber,
-            'bio': 'Edit the bio',
-            'uid': user.uid,
-            'followers': 0,
-            'following': 0,
-            'post': 0
-          });
+          final resposne = await AuthRepository().googleSignupRequst(user);
+          Map<String, dynamic> req = {
+            "email": user.email,
+            "name": user.displayName,
+            "profilePic": user.photoURL
+          };
+          final response = await http.post(
+            Uri.parse(Apis.googleSignUp),
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: jsonEncode(req),
+          );
+          final responseBody = jsonDecode(response.body);
+          if (response.statusCode == 200) {
+            emit(SignUpAuthSuccessState(
+              google: false,
+              other: false,
+              user: user,
+            ));
+            await Future.delayed(const Duration(seconds: 2), () {
+              emit(AuthInitial());
+            });
+          } else {
+            emit(AuthError(message: responseBody["message"]));
+          }
+
+          // FirebaseFirestore.instance.collection('users').doc(user.uid).set({
+          //   'email': user.email,
+          //   'name': user.displayName,
+          //   // 'profilepicture': user.photoURL,
+          // });
+          // FirebaseFirestore.instance.collection('Profile').doc(user.uid).set({
+          //   'email': user.email,
+          //   'name': user.displayName,
+          //   'profile_pic': user.photoURL,
+          //   'phone': user.phoneNumber,
+          //   'bio': 'Edit the bio',
+          //   'uid': user.uid,
+          //   'followers': 0,
+          //   'following': 0,
+          //   'post': 0
+          // });
 //ivite authenticated aa emit  cheyyande ippo thalkkalam signupAuthSuccess cheythunne ollu
-          emit(SignUpAuthSuccessState(
-            google: false,
-            other: false,
-            user: user,
-          ));
-          await Future.delayed(const Duration(seconds: 2), () {
-            emit(AuthInitial());
-          });
+          // emit(SignUpAuthSuccessState(
+          //   google: false,
+          //   other: false,
+          //   user: user,
+          // ));
+          // await Future.delayed(const Duration(seconds: 2), () {
+          //   emit(AuthInitial());
+          // });
         }
       } catch (e) {
         emit(AuthError(message: e.toString()));
