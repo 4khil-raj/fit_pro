@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fit_pro/core/apis/apis.dart';
+import 'package:fit_pro/presentation/screens/auth/signin/signin.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:google_sign_in/google_sign_in.dart';
@@ -20,7 +22,7 @@ class AuthRepository {
         user = userCredential.user;
       }
     } catch (e) {
-      print('Error during Google sign in: ${e.toString()}');
+      log('Error during Google sign in: ${e.toString()}');
     }
     return user;
   }
@@ -39,8 +41,11 @@ class AuthRepository {
       body: jsonEncode(req),
     );
     final responseBody = jsonDecode(response.body);
+    print(responseBody);
     if (response.statusCode == 200) {
-      return responseBody;
+      print(responseBody['accessToken']);
+      saveJWStocken(responseBody['accessToken']);
+      return responseBody["status"];
     } else {
       return responseBody["message"];
     }

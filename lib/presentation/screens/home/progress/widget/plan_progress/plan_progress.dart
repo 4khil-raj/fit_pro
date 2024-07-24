@@ -76,9 +76,9 @@ class _PlanProgressScreenState extends State<PlanProgressScreen> {
                   ? SizedBox()
                   : SizedBox(
                       height: 400,
-                      child: DailyTaskBuilderScreen(
-                        youtubePlayerController: youtubePlayerController,
-                      ),
+                      // child: DailyTaskBuilderScreen(
+                      //   youtubePlayerController: youtubePlayerController,
+                      // ),
                     ),
               PlanProgressScreenButtons(
                 value: value,

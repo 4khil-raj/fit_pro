@@ -3,19 +3,16 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:fit_pro/core/apis/apis.dart';
 import 'package:fit_pro/domain/models/signup/model.dart';
-import 'package:fit_pro/infrastructure/facebook/repo.dart';
-import 'package:fit_pro/infrastructure/login/repo.dart';
-import 'package:fit_pro/infrastructure/otp_auth/repo.dart';
+import 'package:fit_pro/infrastructure/repository/facebook/repo.dart';
+import 'package:fit_pro/infrastructure/repository/otp_auth/login/repo.dart';
+import 'package:fit_pro/infrastructure/repository/otp_auth/repo.dart';
 import 'package:fit_pro/infrastructure/repository/google_auth/repo.dart';
-import 'package:fit_pro/infrastructure/signUp/otp_repo.dart';
-import 'package:fit_pro/infrastructure/signUp/repo.dart';
+import 'package:fit_pro/infrastructure/repository/signUp/otp_repo.dart';
+import 'package:fit_pro/infrastructure/repository/signUp/repo.dart';
 import 'package:fit_pro/presentation/screens/auth/signin/signin.dart';
 import 'package:meta/meta.dart';
 import 'package:http/http.dart' as http;
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 part 'auth_event.dart';
 part 'auth_state.dart';
 
@@ -82,7 +79,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         if (response['status'] == 200) {
           saveJWStocken(response['accessToken']);
           emit(Authenticated());
-          // print(response['message']);
+          //   // print(response['message']);
         } else {
           // emit(AuthError(message: response));
         }
@@ -111,20 +108,22 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           emit(AuthError(message: 'Can\'t find Your GoogleAccount'));
         } else {
           final resposne = await AuthRepository().googleSignupRequst(user);
-          Map<String, dynamic> req = {
-            "email": user.email,
-            "name": user.displayName,
-            "profilePic": user.photoURL
-          };
-          final response = await http.post(
-            Uri.parse(Apis.googleSignUp),
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: jsonEncode(req),
-          );
-          final responseBody = jsonDecode(response.body);
-          if (response.statusCode == 200) {
+
+          // Map<String, dynamic> req = {
+          //   "email": user.email,
+          //   "name": user.displayName,
+          //   "profilePic": user.photoURL
+          // };
+          // final response = await http.post(
+          //   Uri.parse(Apis.googleSignUp),
+          //   headers: {
+          //     'Content-Type': 'application/json',
+          //   },
+          //   body: jsonEncode(req),
+          // );
+          // final responseBody = jsonDecode(response.body);
+
+          if (resposne == 200) {
             emit(SignUpAuthSuccessState(
               google: false,
               other: false,
@@ -134,7 +133,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
               emit(AuthInitial());
             });
           } else {
-            emit(AuthError(message: responseBody["message"]));
+            emit(AuthError(message: resposne));
           }
 
           // FirebaseFirestore.instance.collection('users').doc(user.uid).set({

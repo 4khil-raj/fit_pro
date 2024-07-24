@@ -50,7 +50,7 @@ class _AgeSelectScreenState extends State<AgeSelectScreen> {
                 axis: Axis.vertical,
                 haptics: true,
                 onChanged: (value) =>
-                    setState(() => currentIntValueAge = value.toString()),
+                    setState(() => currentIntValueAge = value),
               ),
               Positioned(
                 top: 135,

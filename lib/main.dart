@@ -1,11 +1,13 @@
 import 'package:fit_pro/application/auth_bloc/auth_bloc.dart';
 import 'package:fit_pro/application/bottom_nav/bottom_nav_bloc.dart';
+import 'package:fit_pro/application/fetch_week/fetchweek_bloc.dart';
 import 'package:fit_pro/application/forget_password/forgetpassword_bloc.dart';
+import 'package:fit_pro/application/plan_overview/plan_overview_bloc.dart';
 import 'package:fit_pro/application/start_workout/start_workout_bloc.dart';
 import 'package:fit_pro/application/user_info/user_info_bloc.dart';
 import 'package:fit_pro/application/workout_plans/workoutplans_bloc.dart';
 import 'package:fit_pro/firebase_options.dart';
-import 'package:fit_pro/infrastructure/workoutp_plans/repo.dart';
+import 'package:fit_pro/infrastructure/repository/workoutp_plans/repo.dart';
 import 'package:fit_pro/presentation/screens/auth/signin/signin.dart';
 import 'package:fit_pro/presentation/screens/bottom_nav/bottom_nav.dart';
 import 'package:fit_pro/presentation/screens/welcomeScreen/welcome.dart';
@@ -49,7 +51,13 @@ class MyApp extends StatelessWidget {
           create: (context) => BottomNavBloc(),
         ),
         BlocProvider(create: (context) => ForgetpasswordBloc()),
-        BlocProvider(create: (context) => WorkoutplansBloc())
+        BlocProvider(create: (context) => WorkoutplansBloc()),
+        BlocProvider(
+          create: (context) => PlanOverviewBloc(),
+        ),
+        BlocProvider(
+          create: (context) => FetchweekBloc(),
+        )
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

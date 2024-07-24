@@ -1,3 +1,4 @@
+import 'package:fit_pro/application/plan_overview/plan_overview_bloc.dart';
 import 'package:fit_pro/presentation/screens/bottom_nav/bottom_nav.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/sub_pages/featured_plans/widgets/daily_task_builder.dart';
 import 'package:fit_pro/presentation/screens/start_workout/start_workout.dart';
@@ -8,38 +9,39 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class DayTaskScreen extends StatefulWidget {
-  DayTaskScreen(
+  const DayTaskScreen(
       {super.key,
-      this.detail,
       required this.appbarTitle,
-      required this.title,
-      required this.subtitle});
+      required this.state,
+      required this.weekIndex,
+      required this.dayIndex});
   final String appbarTitle;
-  final String title;
-  final String subtitle;
-  String? detail;
 
+  final PlanFetchDone state;
+  final int weekIndex;
+  final int dayIndex;
   @override
   State<DayTaskScreen> createState() => _DayTaskScreenState();
 }
 
 class _DayTaskScreenState extends State<DayTaskScreen> {
-  final videourl = "https://youtu.be/J212vz33gU4?si=cp2DT-HWP49Uj2hq";
+  // final videourl = state.list[0]  "https://youtu.be/J212vz33gU4?si=cp2DT-HWP49Uj2hq";
 
   late YoutubePlayerController youtubePlayerController;
 
   @override
   void initState() {
-    final videoId = YoutubePlayer.convertUrlToId(videourl);
-    youtubePlayerController = YoutubePlayerController(
-        initialVideoId: videoId!,
-        flags: const YoutubePlayerFlags(autoPlay: false));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
+    final videoId = YoutubePlayer.convertUrlToId(widget.state.list[0]
+        .weeks[widget.weekIndex].days[widget.dayIndex].introVideo);
+    youtubePlayerController = YoutubePlayerController(
+        initialVideoId: videoId!,
+        flags: const YoutubePlayerFlags(autoPlay: false));
 
     // Calculate 10% of the screen width
     double container1Width = screenWidth * 0.12;
@@ -73,7 +75,8 @@ class _DayTaskScreenState extends State<DayTaskScreen> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              widget.subtitle,
+              widget.state.list[0].weeks[widget.weekIndex].days[widget.dayIndex]
+                  .categories[0].subCategory,
               style: GoogleFonts.urbanist(
                   fontWeight: FontWeight.bold,
                   fontSize: 28,
@@ -87,7 +90,8 @@ class _DayTaskScreenState extends State<DayTaskScreen> {
             child: SizedBox(
               width: double.infinity,
               child: Text(
-                widget.detail ?? "55 min | Body weight | 4 Rounds Total",
+                widget.state.list[0].weeks[widget.weekIndex]
+                    .days[widget.dayIndex].dayName,
                 style: GoogleFonts.urbanist(
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
@@ -96,7 +100,10 @@ class _DayTaskScreenState extends State<DayTaskScreen> {
             ),
           ),
           DailyTaskBuilderScreen(
-            youtubePlayerController: youtubePlayerController,
+            dayIndex: widget.dayIndex,
+            weekIndex: widget.weekIndex,
+            state: widget.state,
+            // youtubePlayerController: youtubePlayerController,
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),

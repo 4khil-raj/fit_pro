@@ -1,3 +1,6 @@
+import 'package:fit_pro/application/plan_overview/plan_overview_bloc.dart';
+import 'package:fit_pro/domain/models/workout_plans/model.dart';
+import 'package:fit_pro/infrastructure/repository/plan_overview/repo.dart';
 import 'package:fit_pro/presentation/screens/bottom_nav/bottom_nav.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/sub_pages/featured_plans/widgets/plan_overview.dart';
 import 'package:fit_pro/presentation/widgets/custom_nav/customnav.dart';
@@ -5,10 +8,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class FeturedPlansSubScreen extends StatelessWidget {
-  FeturedPlansSubScreen({super.key});
+  FeturedPlansSubScreen({super.key, required this.list});
+  final List<WorkoutPlanModel> list;
+
   List<String> image = [
     "https://s1.1zoom.me/b5050/856/Fitness_Dumbbells_482980_3840x2400.jpg",
     'https://connectedwomanmag.com/wp-content/uploads/2016/02/fitness-2.jpg',
@@ -67,17 +73,25 @@ class FeturedPlansSubScreen extends StatelessWidget {
                       thickness: .3,
                     );
                   },
-                  itemCount: image.length,
+                  itemCount: list.length,
                   itemBuilder: (context, index) {
                     return InkWell(
-                      onTap: () => customNavPush(
-                          context,
-                          FeaturedPlanOverviewScreen(
-                            task: task[index],
-                            image: image[index],
-                            title: title[index],
-                            subTitle: subTitle[index],
-                          )),
+                      onTap: () {
+                        BlocProvider.of<PlanOverviewBloc>(context).add(
+                            PlanOverViewRequestEvent(planId: list[index].id));
+
+                        customNavPush(
+                            context,
+                            FeaturedPlanOverviewScreen(
+                              description: list[index].description,
+                              video: list[index].planVideo,
+                              task: list[index].workoutKeywords,
+                              image: list[index].bannerImage,
+                              title: list[index].planName,
+                              subTitle: list[index].trainingType,
+                            ));
+                        // CircularProgressIndicator();
+                      },
                       child: Row(
                         children: [
                           Padding(
@@ -89,7 +103,7 @@ class FeturedPlansSubScreen extends StatelessWidget {
                               height: 130,
                               width: 140,
                               child: Image.network(
-                                  fit: BoxFit.cover, image[index]),
+                                  fit: BoxFit.cover, list[index].bannerImage),
                             ),
                           ),
                           const SizedBox(
@@ -98,18 +112,21 @@ class FeturedPlansSubScreen extends StatelessWidget {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                title[index],
-                                style: GoogleFonts.urbanist(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16,
-                                    color: Colors.blue),
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width / 2.5,
+                                child: Text(
+                                  list[index].planName,
+                                  style: GoogleFonts.urbanist(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                      color: Colors.blue),
+                                ),
                               ),
                               SizedBox(
                                 height: 10,
                               ),
                               Text(
-                                subTitle[index],
+                                list[index].trainingType,
                                 style: GoogleFonts.urbanist(
                                     fontWeight: FontWeight.w600,
                                     fontSize: 16,
@@ -121,7 +138,7 @@ class FeturedPlansSubScreen extends StatelessWidget {
                               SizedBox(
                                 width: 180,
                                 child: Text(
-                                  task[index],
+                                  list[index].workoutKeywords,
                                   style: GoogleFonts.urbanist(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 13,

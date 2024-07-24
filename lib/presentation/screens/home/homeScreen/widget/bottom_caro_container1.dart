@@ -19,8 +19,8 @@ class BottomCaroselContainer1 extends StatelessWidget {
         decoration: BoxDecoration(
             image: DecorationImage(
                 fit: BoxFit.cover,
-                image: AssetImage(
-                  image1 ?? "assets/icons/workout.jpg",
+                image: NetworkImage(
+                  list[0].bannerImage ?? "assets/icons/workout.jpg",
                 )),
             borderRadius: BorderRadius.circular(8)),
       ),
@@ -31,7 +31,7 @@ class BottomCaroselContainer1 extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                list[0].planName ?? "Weightligting",
+                list[0].planName,
                 style: GoogleFonts.poppins(
                     fontWeight: FontWeight.w900,
                     fontSize: 14,
@@ -41,14 +41,14 @@ class BottomCaroselContainer1 extends StatelessWidget {
                 height: 6,
               ),
               Text(
-                "14 Day Challenge",
+                list[0].workoutKeywords ?? "14 Day Challenge",
                 style: GoogleFonts.poppins(
                     fontWeight: FontWeight.w800,
                     fontSize: 17,
                     color: Colors.white),
               ),
               Text(
-                "2 Week | GYM",
+                list[0].estimatedDuration ?? "2 Week | GYM",
                 style: GoogleFonts.poppins(
                     fontWeight: FontWeight.w600,
                     fontSize: 14,

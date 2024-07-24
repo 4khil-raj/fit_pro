@@ -1,9 +1,11 @@
+import 'package:fit_pro/domain/models/workout_plans/model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class BottomCaroselcontainer2 extends StatelessWidget {
-  BottomCaroselcontainer2({this.image, super.key});
+  final List<WorkoutPlanModel> list;
+  BottomCaroselcontainer2({this.image, super.key, required this.list});
   String? image;
   @override
   Widget build(BuildContext context) {
@@ -14,8 +16,8 @@ class BottomCaroselcontainer2 extends StatelessWidget {
         decoration: BoxDecoration(
             image: DecorationImage(
                 fit: BoxFit.cover,
-                image: AssetImage(
-                  image ?? "assets/images/carosel.jpg",
+                image: NetworkImage(
+                  list[2].bannerImage ?? "assets/images/carosel.jpg",
                 )),
             borderRadius: BorderRadius.circular(8)),
       ),
@@ -26,7 +28,7 @@ class BottomCaroselcontainer2 extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Weightligting",
+                list[1].planName ?? "Weightligting",
                 style: GoogleFonts.poppins(
                     fontWeight: FontWeight.w900,
                     fontSize: 14,
@@ -36,14 +38,14 @@ class BottomCaroselcontainer2 extends StatelessWidget {
                 height: 6,
               ),
               Text(
-                "14 Day Challenge",
+                list[1].workoutKeywords ?? "14 Day Challenge",
                 style: GoogleFonts.poppins(
                     fontWeight: FontWeight.w800,
                     fontSize: 17,
                     color: Colors.white),
               ),
               Text(
-                "2 Week | GYM",
+                list[1].estimatedDuration ?? "2 Week | GYM",
                 style: GoogleFonts.poppins(
                     fontWeight: FontWeight.w600,
                     fontSize: 14,

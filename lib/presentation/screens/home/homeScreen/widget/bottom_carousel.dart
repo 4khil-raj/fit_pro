@@ -26,7 +26,7 @@ class _BottomCaroselSliderState extends State<BottomCaroselSlider> {
       BottomCaroselContainer1(
         list: widget.list,
       ),
-      BottomCaroselcontainer2(),
+      BottomCaroselcontainer2(list: widget.list),
       // const HomeCaroselcontainer3()
     ];
     return Column(
@@ -45,8 +45,11 @@ class _BottomCaroselSliderState extends State<BottomCaroselSlider> {
               ),
               const Spacer(),
               TextButton(
-                  onPressed: () =>
-                      customNavPush(context, FeturedPlansSubScreen()),
+                  onPressed: () => customNavPush(
+                      context,
+                      FeturedPlansSubScreen(
+                        list: widget.list,
+                      )),
                   child: const Text(
                     "See all",
                     style: TextStyle(color: Colors.blue),

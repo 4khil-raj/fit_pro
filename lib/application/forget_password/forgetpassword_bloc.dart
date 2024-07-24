@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
-import 'package:fit_pro/infrastructure/forgetPassword/change_password.dart';
-import 'package:fit_pro/infrastructure/forgetPassword/get_link.dart';
-import 'package:fit_pro/infrastructure/forgetPassword/otp_validate.dart';
+import 'package:fit_pro/infrastructure/repository/forgetPassword/change_password.dart';
+import 'package:fit_pro/infrastructure/repository/forgetPassword/get_link.dart';
+import 'package:fit_pro/infrastructure/repository/forgetPassword/otp_validate.dart';
 import 'package:meta/meta.dart';
 
 part 'forgetpassword_event.dart';

@@ -1,6 +1,6 @@
 import 'package:fit_pro/application/user_info/user_info_bloc.dart';
 import 'package:fit_pro/domain/models/user_info/models.dart';
-import 'package:fit_pro/infrastructure/user_info/repo.dart';
+import 'package:fit_pro/infrastructure/repository/user_info/repo.dart';
 import 'package:fit_pro/presentation/screens/user_info/age/user_age.dart';
 import 'package:fit_pro/presentation/screens/user_info/appbar.dart';
 import 'package:fit_pro/presentation/screens/user_info/experience/experience.dart';

@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:fit_pro/domain/models/workout_plans/model.dart';
-import 'package:fit_pro/infrastructure/workoutp_plans/repo.dart';
+import 'package:fit_pro/infrastructure/repository/workoutp_plans/repo.dart';
 import 'package:meta/meta.dart';
 
 part 'workoutplans_event.dart';

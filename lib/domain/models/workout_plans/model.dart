@@ -3,6 +3,7 @@ class WorkoutPlanModel {
   final String planName;
   final String description;
   final String bannerImage;
+  final String planVideo; // Add this line
   final String workoutKeywords;
   final List<String> goalOrientation;
   final String targetAgeGroup;
@@ -19,6 +20,7 @@ class WorkoutPlanModel {
     required this.planName,
     required this.description,
     required this.bannerImage,
+    required this.planVideo, // Add this line
     required this.workoutKeywords,
     required this.goalOrientation,
     required this.targetAgeGroup,
@@ -40,6 +42,7 @@ class WorkoutPlanModel {
       planName: json['plan_name'],
       description: json['description'],
       bannerImage: json['banner_image'],
+      planVideo: json['plan_video'], // Add this line
       workoutKeywords: json['workout_keywords'],
       goalOrientation: List<String>.from(json['goal_orientation']),
       targetAgeGroup: json['target_age_group'],

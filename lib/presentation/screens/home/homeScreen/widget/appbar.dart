@@ -1,4 +1,4 @@
-import 'package:fit_pro/infrastructure/facebook/repo.dart';
+import 'package:fit_pro/infrastructure/repository/facebook/repo.dart';
 import 'package:fit_pro/presentation/screens/home/profile/profile.dart';
 import 'package:fit_pro/presentation/widgets/custom_nav/customnav.dart';
 import 'package:flutter/material.dart';
