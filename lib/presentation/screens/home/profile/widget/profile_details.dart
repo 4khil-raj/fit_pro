@@ -10,7 +10,7 @@ class ProfileDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Color.fromARGB(255, 53, 53, 53),
+      color: const Color.fromARGB(255, 53, 53, 53),
       child: Row(
         children: [
           Padding(
@@ -46,14 +46,14 @@ class ProfileDetailsScreen extends StatelessWidget {
               ),
             ],
           ),
-          Spacer(),
+          const Spacer(),
           Padding(
             padding: const EdgeInsets.only(right: 10.0),
             child: IconButton(
                 onPressed: () {
                   customNavPush(context, PersonalInfomatiocEditScreen());
                 },
-                icon: Icon(
+                icon: const Icon(
                   Icons.edit_outlined,
                   color: Colors.white,
                 )),

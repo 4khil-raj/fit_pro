@@ -13,19 +13,13 @@ class PlanOverViewRepo {
       },
     );
 
-    print('Response status: ${response.statusCode}');
-    print('Response body: ${response.body}');
-
     if (response.statusCode == 200) {
       Map<String, dynamic> jsonData;
       try {
         jsonData = json.decode(response.body) as Map<String, dynamic>;
       } catch (e) {
-        print('Error decoding JSON: $e');
         throw Exception('Failed to decode JSON');
       }
-
-      print('Parsed JSON data: $jsonData');
 
       if (jsonData.containsKey('plans') && jsonData['plans'] is List) {
         List<dynamic> plansJson = jsonData['plans'] as List<dynamic>;
@@ -33,7 +27,6 @@ class PlanOverViewRepo {
             .map((json) =>
                 PlanOverviewModel.fromJson(json as Map<String, dynamic>))
             .toList();
-        print(workoutPlans);
         return workoutPlans;
       } else {
         throw Exception('Unexpected JSON format: ${jsonData['plans']}');
