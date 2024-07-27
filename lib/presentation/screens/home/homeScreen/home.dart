@@ -1,3 +1,4 @@
+import 'package:fit_pro/application/user_fetch/userfetch_bloc.dart';
 import 'package:fit_pro/application/workout_plans/workoutplans_bloc.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/widget/appbar.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/widget/bookmark.dart';
@@ -20,6 +21,8 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     BlocProvider.of<WorkoutplansBloc>(context)
         .add(WorkoutPlanFetchRequestEvent());
+    BlocProvider.of<UserfetchBloc>(context).add(UserFetchReq());
+
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 6, 2, 19),
       body: SingleChildScrollView(

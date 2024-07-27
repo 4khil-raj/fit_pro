@@ -1,11 +1,12 @@
+import 'package:fit_pro/application/user_fetch/userfetch_bloc.dart';
 import 'package:fit_pro/presentation/screens/home/profile/widget/personal_info.dart';
 import 'package:fit_pro/presentation/widgets/custom_nav/customnav.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ProfileDetailsScreen extends StatelessWidget {
-  const ProfileDetailsScreen({super.key});
-
+  const ProfileDetailsScreen({super.key, required this.state});
+  final UserFetched state;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -16,7 +17,8 @@ class ProfileDetailsScreen extends StatelessWidget {
             padding: const EdgeInsets.all(10.0),
             child: CircleAvatar(
               backgroundImage: NetworkImage(
-                "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2F736x%2F2d%2F00%2F35%2F2d003500486fc421f3497197689a7e06.jpg&f=1&nofb=1&ipt=9fad4b1450c71582ea96205d0b52c75334c0af16c8f6219e2c802ea4bcb57505&ipo=images",
+                state.usermodel.user?.profilePic ??
+                    "https://cdn.pixabay.com/photo/2020/07/14/13/07/icon-5404125_1280.png",
               ),
               radius: 50,
             ),
@@ -25,18 +27,21 @@ class ProfileDetailsScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Balam Rawat",
+                state.usermodel.user?.name == ""
+                    ? "User"
+                    : state.usermodel.user!.name,
                 style: GoogleFonts.rubik(
-                    fontSize: 20, color: Color.fromARGB(255, 255, 255, 255)),
+                    fontSize: 20,
+                    color: const Color.fromARGB(255, 255, 255, 255)),
               ),
               Text(
-                "38 Yrs . Male",
-                style: TextStyle(
+                "${state.usermodel.user?.age.toString()} Yrs . ${state.usermodel.user?.gender}",
+                style: const TextStyle(
                     fontSize: 15, color: Color.fromARGB(255, 211, 202, 202)),
               ),
               Text(
-                "Heignt: 6\'1\" . Weight: 93kg",
-                style: TextStyle(
+                "Heignt: ${state.usermodel.user?.height.value} . Weight: ${state.usermodel.user?.weight.value}${state.usermodel.user?.weight.unit}",
+                style: const TextStyle(
                     fontSize: 15, color: Color.fromARGB(255, 211, 202, 202)),
               ),
             ],

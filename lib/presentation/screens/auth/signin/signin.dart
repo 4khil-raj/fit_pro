@@ -1,5 +1,3 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:fit_pro/application/auth_bloc/auth_bloc.dart';
 import 'package:fit_pro/application/user_info/user_info_bloc.dart';
 import 'package:fit_pro/presentation/screens/auth/signin/widgets/buttons.dart';
@@ -7,7 +5,6 @@ import 'package:fit_pro/presentation/screens/auth/signin/widgets/remember_me.dar
 import 'package:fit_pro/presentation/screens/auth/signin/widgets/text_fields.dart';
 import 'package:fit_pro/presentation/screens/auth/signup/widgets/policy.dart';
 import 'package:fit_pro/presentation/screens/bottom_nav/bottom_nav.dart';
-import 'package:fit_pro/presentation/screens/tempHome/tempHome.dart';
 import 'package:fit_pro/presentation/screens/user_info/collect_userinfo.dart';
 import 'package:fit_pro/presentation/widgets/alerts/alerts.dart';
 import 'package:fit_pro/presentation/widgets/custom_nav/customnav.dart';
@@ -18,6 +15,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 const loginTockenkey = '';
 const accessTockenkey = '';
 
+// ignore: must_be_immutable
 class SignupOrSignin extends StatelessWidget {
   SignupOrSignin({super.key, required this.signup});
   final emailController = TextEditingController();
@@ -120,13 +118,4 @@ dynamic accesstocken;
 Future<void> getAccessTocken() async {
   final sharedpreference = await SharedPreferences.getInstance();
   accesstocken = sharedpreference.getString(accessTockenkey);
-
-  print("===================+++========");
-  print(accesstocken);
-  print("====================this is tocken======");
-  // if (userlogin == 'user') {
-  //   customNavRemoveuntil(context, const BottomNavBar());
-  // } else {
-  //   customNavRemoveuntil(context, const WelcomeScreen());
-  // }
 }

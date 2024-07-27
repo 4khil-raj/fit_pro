@@ -1,14 +1,13 @@
-// ignore_for_file: avoid_unnecessary_containers, prefer_const_literals_to_create_immutables, prefer_const_constructors
-
+import 'package:fit_pro/application/user_fetch/userfetch_bloc.dart';
 import 'package:fit_pro/presentation/screens/home/profile/widget/account.dart';
 import 'package:fit_pro/presentation/screens/home/profile/widget/media.dart';
 import 'package:fit_pro/presentation/screens/home/profile/widget/password.dart';
 import 'package:fit_pro/presentation/screens/home/profile/widget/personal_details.dart';
 import 'package:fit_pro/presentation/screens/home/profile/widget/profile_details.dart';
-import 'package:fit_pro/presentation/screens/home/profile/widget/settings.dart';
 import 'package:fit_pro/presentation/screens/home/profile/widget/subscription.dart';
 import 'package:fit_pro/presentation/screens/home/profile/widget/support.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -61,16 +60,26 @@ class ProfileScreen extends StatelessWidget {
               const SizedBox(
                 height: 3,
               ),
-              ProfileDetailsScreen(),
-              SizedBox(
+              BlocBuilder<UserfetchBloc, UserfetchState>(
+                builder: (context, state) {
+                  if (state is UserFetched) {
+                    return ProfileDetailsScreen(
+                      state: state,
+                    );
+                  }
+                  return const Center(child: CircularProgressIndicator());
+                },
+              ),
+              const SizedBox(
                 height: 10,
               ),
               // ProfileSqureContainer(),
-              MediaProfileCustomListView(),
-              ContactDetailsProfile(),
-              SubscriptionAndBillingScreen(),
-              SupporButtonsProfile(),
-              PasswordButtonsProfile(), AccountButtonsProfile()
+              const MediaProfileCustomListView(),
+              const ContactDetailsProfile(),
+              const SubscriptionAndBillingScreen(),
+              const SupporButtonsProfile(),
+              const PasswordButtonsProfile(),
+              const AccountButtonsProfile()
             ],
           ),
         ),
