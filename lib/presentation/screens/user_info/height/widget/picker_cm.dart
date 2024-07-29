@@ -64,7 +64,7 @@ class _CmPickerWeightState extends State<CmPickerWeight> {
                       fontSize: 25),
                   value: heightL,
                   minValue: 0,
-                  maxValue: 100,
+                  maxValue: 9,
                   itemWidth: double.infinity,
                   step: 1,
                   axis: Axis.vertical,

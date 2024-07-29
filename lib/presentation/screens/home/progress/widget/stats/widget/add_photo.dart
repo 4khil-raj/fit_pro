@@ -1,7 +1,9 @@
+import 'package:fit_pro/application/bloc/imagepicker_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-void addImage(context) {
+void addImage(context, bool profile) {
   showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -55,6 +57,12 @@ void addImage(context) {
                                         ),
                                       ),
                                       ListTile(
+                                        onTap: () {
+                                          Navigator.pop(context);
+                                          BlocProvider.of<ImagepickerBloc>(
+                                                  context)
+                                              .add(ImageFromCamera());
+                                        },
                                         title: Text(
                                           "  Camera",
                                           style: GoogleFonts.rubik(
@@ -72,6 +80,12 @@ void addImage(context) {
                                                 255, 100, 185, 255)),
                                       ),
                                       ListTile(
+                                        onTap: () {
+                                          Navigator.pop(context);
+                                          BlocProvider.of<ImagepickerBloc>(
+                                                  context)
+                                              .add(ImageFromGallery());
+                                        },
                                         title: Text(
                                           "  App Gallery",
                                           style: GoogleFonts.rubik(
@@ -88,23 +102,25 @@ void addImage(context) {
                                             color: Color.fromARGB(
                                                 255, 100, 185, 255)),
                                       ),
-                                      ListTile(
-                                        title: Text(
-                                          "  Photo Gallery",
-                                          style: GoogleFonts.rubik(
-                                              fontSize: 18,
-                                              color: Colors.white),
-                                        ),
-                                        trailing: const Icon(
-                                          Icons.arrow_forward_ios_rounded,
-                                          color: Colors.white,
-                                        ),
-                                        leading: const Icon(
-                                            Icons.photo_outlined,
-                                            size: 25,
-                                            color: Color.fromARGB(
-                                                255, 100, 185, 255)),
-                                      )
+                                      profile
+                                          ? SizedBox()
+                                          : ListTile(
+                                              title: Text(
+                                                "  Photo Gallery",
+                                                style: GoogleFonts.rubik(
+                                                    fontSize: 18,
+                                                    color: Colors.white),
+                                              ),
+                                              trailing: const Icon(
+                                                Icons.arrow_forward_ios_rounded,
+                                                color: Colors.white,
+                                              ),
+                                              leading: const Icon(
+                                                  Icons.photo_outlined,
+                                                  size: 25,
+                                                  color: Color.fromARGB(
+                                                      255, 100, 185, 255)),
+                                            )
                                     ])))));
               });
             });

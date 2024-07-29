@@ -39,7 +39,7 @@ class BeforeAfterImageAddingProgress extends StatelessWidget {
                           spaceLength: 3.0,
                         ),
                         child: InkWell(
-                          onTap: () => addImage(context),
+                          onTap: () => addImage(context, false),
                           child: Container(
                             // width: 200,
                             height: 230,
@@ -85,7 +85,7 @@ class BeforeAfterImageAddingProgress extends StatelessWidget {
                           spaceLength: 3.0,
                         ),
                         child: InkWell(
-                          onTap: () => addImage(context),
+                          onTap: () => addImage(context, false),
                           child: Container(
                             clipBehavior: Clip.antiAlias,
                             decoration: BoxDecoration(

@@ -15,6 +15,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<UserfetchBloc>(context).add(UserFetchReq());
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 6, 2, 19),
       appBar: AppBar(

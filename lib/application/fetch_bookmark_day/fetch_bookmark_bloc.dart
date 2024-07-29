@@ -19,8 +19,8 @@ class FetchBookmarkBloc extends Bloc<FetchBookmarkEvent, FetchBookmarkState> {
 
         // Use Future.forEach to iterate over the bookmarks
         bool isFound = false;
+
         await Future.forEach(list[0].bookmarks, (bookmark) async {
-          print(bookmark.id);
           if (bookmark.id == event.dayId) {
             isFound = true;
             emit(FetchedDone(list: list, added: false));

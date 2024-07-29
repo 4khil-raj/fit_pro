@@ -9,6 +9,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:numberpicker/numberpicker.dart';
 
 bool cm = true;
+dynamic heightft = 1;
+dynamic pointheight = 0;
 
 class WeightPickerInUserInfo extends StatefulWidget {
   const WeightPickerInUserInfo({super.key});
@@ -68,14 +70,14 @@ class _WeightPickerInProgressScreenState extends State<WeightPickerInUserInfo> {
                         textStyle: GoogleFonts.urbanist(
                             color: const Color.fromARGB(255, 225, 217, 217),
                             fontSize: 25),
-                        value: heightF,
+                        value: heightft,
                         minValue: 1,
-                        maxValue: 100,
+                        maxValue: 8,
                         itemWidth: double.infinity,
                         step: 1,
                         axis: Axis.vertical,
                         haptics: true,
-                        onChanged: (value) => setState(() => heightF = value),
+                        onChanged: (value) => setState(() => heightft = value),
                       ),
                     ),
                     Flexible(
@@ -88,14 +90,15 @@ class _WeightPickerInProgressScreenState extends State<WeightPickerInUserInfo> {
                         textStyle: GoogleFonts.urbanist(
                             color: const Color.fromARGB(255, 225, 217, 217),
                             fontSize: 25),
-                        value: heightL,
+                        value: pointheight,
                         minValue: 0,
-                        maxValue: 100,
+                        maxValue: 9,
                         itemWidth: double.infinity,
                         step: 1,
                         axis: Axis.vertical,
                         haptics: true,
-                        onChanged: (value) => setState(() => heightL = value),
+                        onChanged: (value) =>
+                            setState(() => pointheight = value),
                       ),
                     ),
                     // Text('data'),

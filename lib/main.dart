@@ -1,6 +1,7 @@
 import 'package:fit_pro/application/auth_bloc/auth_bloc.dart';
+import 'package:fit_pro/application/bloc/imagepicker_bloc.dart';
 import 'package:fit_pro/application/bottom_nav/bottom_nav_bloc.dart';
-import 'package:fit_pro/application/fetch_bookmark/fetch_bookmark_bloc.dart';
+import 'package:fit_pro/application/fetch_bookmark_day/fetch_bookmark_bloc.dart';
 import 'package:fit_pro/application/fetch_week/fetchweek_bloc.dart';
 import 'package:fit_pro/application/forget_password/forgetpassword_bloc.dart';
 import 'package:fit_pro/application/plan_overview/plan_overview_bloc.dart';
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => FetchweekBloc()),
         BlocProvider(create: (context) => UserfetchBloc()),
         BlocProvider(create: (context) => FetchBookmarkBloc()),
+        BlocProvider(create: (context) => ImagepickerBloc()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

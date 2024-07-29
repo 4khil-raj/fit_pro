@@ -16,7 +16,7 @@ class FeaturedWorkoutsScreen extends StatelessWidget {
           child: Row(
             children: [
               Text(
-                "FeaturedWorkouts",
+                "Trending Workouts",
                 style: GoogleFonts.urbanist(
                     fontSize: 20,
                     fontWeight: FontWeight.w600,

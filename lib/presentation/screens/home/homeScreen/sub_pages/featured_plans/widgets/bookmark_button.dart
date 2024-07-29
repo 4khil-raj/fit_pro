@@ -1,4 +1,4 @@
-import 'package:fit_pro/application/fetch_bookmark/fetch_bookmark_bloc.dart';
+import 'package:fit_pro/application/fetch_bookmark_day/fetch_bookmark_bloc.dart';
 import 'package:fit_pro/application/plan_overview/plan_overview_bloc.dart';
 import 'package:fit_pro/infrastructure/repository/add_bookmark/add.dart';
 import 'package:fit_pro/infrastructure/repository/delete_bookmark/delete.dart';
@@ -11,11 +11,14 @@ class BookMarkButton extends StatelessWidget {
   final PlanFetchDone statevalue;
   final int weekIndex;
   final int dayIndex;
+  final bool bookmark;
+
   const BookMarkButton(
       {super.key,
       required this.statevalue,
       required this.weekIndex,
-      required this.dayIndex});
+      required this.dayIndex,
+      required this.bookmark});
 
   @override
   Widget build(BuildContext context) {

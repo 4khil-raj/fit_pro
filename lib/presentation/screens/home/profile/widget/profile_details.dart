@@ -9,6 +9,7 @@ class ProfileDetailsScreen extends StatelessWidget {
   final UserFetched state;
   @override
   Widget build(BuildContext context) {
+    print(state.usermodel.user?.height.value);
     return Container(
       color: const Color.fromARGB(255, 53, 53, 53),
       child: Row(

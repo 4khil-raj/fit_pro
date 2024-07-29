@@ -27,7 +27,7 @@ class UserInfoRepo {
     try {
       print(accesstocken);
 
-      final response = await http.post(
+      final response = await http.put(
         Uri.parse(Apis.userinfo),
         headers: {
           'Authorization': 'Bearer $accesstocken',

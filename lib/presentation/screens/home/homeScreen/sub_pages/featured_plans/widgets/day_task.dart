@@ -1,4 +1,4 @@
-import 'package:fit_pro/application/fetch_bookmark/fetch_bookmark_bloc.dart';
+import 'package:fit_pro/application/fetch_bookmark_day/fetch_bookmark_bloc.dart';
 import 'package:fit_pro/application/plan_overview/plan_overview_bloc.dart';
 import 'package:fit_pro/presentation/screens/bottom_nav/bottom_nav.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/sub_pages/featured_plans/widgets/bookmark_button.dart';
@@ -124,32 +124,8 @@ class _DayTaskScreenState extends State<DayTaskScreen> {
                         border: Border.all(color: Colors.white),
                         color: Colors.transparent,
                         borderRadius: BorderRadius.circular(10)),
-                    child:
-                        // IconButton(
-                        //     onPressed: () {
-                        //       print(
-                        //         widget.state.list[0].weeks[widget.weekIndex]
-                        //             .days[widget.dayIndex].id,
-                        //       );
-                        //       bookmark
-                        //           ? AddBookMarkRepo.addBookMark(
-                        //               widget.state.list[0].weeks[widget.weekIndex]
-                        //                   .days[widget.dayIndex].id,
-                        //               context)
-                        //           : DeleteBookMarkRepo.deleteBookMark(
-                        //               widget.state.list[0].weeks[widget.weekIndex]
-                        //                   .days[widget.dayIndex].id,
-                        //               context);
-
-                        //       setState(() {
-                        //         bookmark = !bookmark;
-                        //       });
-                        //     },
-                        //     icon: const Icon(
-                        //       Icons.bookmark_outline,
-                        //       color: Colors.white,
-                        //     )),
-                        BookMarkButton(
+                    child: BookMarkButton(
+                      bookmark: false,
                       dayIndex: widget.dayIndex,
                       statevalue: widget.state,
                       weekIndex: widget.weekIndex,

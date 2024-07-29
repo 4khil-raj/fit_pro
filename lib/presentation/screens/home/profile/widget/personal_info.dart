@@ -1,6 +1,15 @@
+import 'dart:io';
+
+import 'package:fit_pro/application/bloc/imagepicker_bloc.dart';
+import 'package:fit_pro/domain/models/profile_update/update.dart';
+import 'package:fit_pro/infrastructure/repository/update_profile/photo_update.dart';
+import 'package:fit_pro/infrastructure/repository/update_profile/update_profile.dart';
+import 'package:fit_pro/presentation/screens/home/progress/widget/stats/widget/add_photo.dart';
+import 'package:fit_pro/presentation/widgets/alerts/alerts.dart';
 import 'package:fit_pro/presentation/widgets/buttons/button.dart';
 import 'package:fit_pro/presentation/widgets/form_field/formfield2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class PersonalInfomatiocEditScreen extends StatelessWidget {
@@ -28,26 +37,66 @@ class PersonalInfomatiocEditScreen extends StatelessWidget {
           padding: const EdgeInsets.all(14.0),
           child: Column(
             children: [
-              const Stack(children: [
-                Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: CircleAvatar(
-                    radius: 60,
-                    backgroundImage: NetworkImage(
-                        "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2F736x%2F2d%2F00%2F35%2F2d003500486fc421f3497197689a7e06.jpg&f=1&nofb=1&ipt=9fad4b1450c71582ea96205d0b52c75334c0af16c8f6219e2c802ea4bcb57505&ipo=images"),
-                  ),
-                ),
-                Positioned(
-                    bottom: 1,
-                    right: 5,
-                    child: CircleAvatar(
-                      backgroundColor: Color.fromARGB(255, 57, 196, 247),
-                      child: Icon(
-                        Icons.edit_outlined,
-                        size: 20,
+              BlocBuilder<ImagepickerBloc, ImagepickerState>(
+                builder: (context, state) {
+                  if (state is ImageSelected) {
+                    UserProfileUpdateRepo()
+                        .uploadProfilePic(File(state.image.path));
+                    return Stack(children: [
+                      Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: CircleAvatar(
+                          radius: 60,
+                          backgroundImage: FileImage(File(state.image.path)),
+                        ),
                       ),
-                    ))
-              ]),
+                      Positioned(
+                          bottom: 1,
+                          right: 5,
+                          child: CircleAvatar(
+                            backgroundColor:
+                                const Color.fromARGB(255, 57, 196, 247),
+                            child: IconButton(
+                                onPressed: () {
+                                  addImage(context, true);
+                                },
+                                icon: const Icon(
+                                  Icons.edit_outlined,
+                                  size: 20,
+                                )),
+                          ))
+                    ]);
+                  } else if (state is ErrorState) {
+                    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+                      return alerts(context, state.msg);
+                    });
+                  }
+                  return Stack(children: [
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: CircleAvatar(
+                        child: Icon(Icons.add_a_photo),
+                        radius: 60,
+                      ),
+                    ),
+                    Positioned(
+                        bottom: 1,
+                        right: 5,
+                        child: CircleAvatar(
+                          backgroundColor:
+                              const Color.fromARGB(255, 57, 196, 247),
+                          child: IconButton(
+                              onPressed: () {
+                                addImage(context, true);
+                              },
+                              icon: const Icon(
+                                Icons.edit_outlined,
+                                size: 20,
+                              )),
+                        ))
+                  ]);
+                },
+              ),
               const SizedBox(
                 height: 20,
               ),
@@ -119,7 +168,15 @@ class PersonalInfomatiocEditScreen extends StatelessWidget {
                     radius: 10,
                     textclr: Colors.black,
                     textsize: 14,
-                    onTap: () {}),
+                    onTap: () {
+                      ProfileUpdateModel model = ProfileUpdateModel(
+                          name: nameController.text,
+                          email: emailController.text,
+                          gender: genderController.text,
+                          height: heightController.text,
+                          weight: weightController.text);
+                      UpdateProfileDetailsRepo.updateProfile(model, context);
+                    }),
               )
             ],
           ),

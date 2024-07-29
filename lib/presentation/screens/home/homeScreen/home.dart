@@ -1,5 +1,7 @@
+import 'package:fit_pro/application/fetch_bookmark_day/fetch_bookmark_bloc.dart';
 import 'package:fit_pro/application/user_fetch/userfetch_bloc.dart';
 import 'package:fit_pro/application/workout_plans/workoutplans_bloc.dart';
+import 'package:fit_pro/infrastructure/repository/add_bookmark/fetch.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/widget/appbar.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/widget/bookmark.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/widget/bottom_carousel.dart';
@@ -22,6 +24,8 @@ class HomeScreen extends StatelessWidget {
     BlocProvider.of<WorkoutplansBloc>(context)
         .add(WorkoutPlanFetchRequestEvent());
     BlocProvider.of<UserfetchBloc>(context).add(UserFetchReq());
+    BlocProvider.of<FetchBookmarkBloc>(context)
+        .add(FetchBookmarkReq(dayId: ""));
 
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 6, 2, 19),
@@ -40,9 +44,9 @@ class HomeScreen extends StatelessWidget {
                     list: state.list,
                   );
                 } else if (state is WorkoutPlansFetchErrorState) {
-                  print("error");
+                  return const SizedBox();
                 }
-                return Text("No data");
+                return const SizedBox();
               },
             ),
             TrendingCaroselSlider(),
