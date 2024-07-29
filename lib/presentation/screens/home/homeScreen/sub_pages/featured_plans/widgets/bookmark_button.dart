@@ -5,6 +5,7 @@ import 'package:fit_pro/infrastructure/repository/delete_bookmark/delete.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class BookMarkButton extends StatelessWidget {
   final PlanFetchDone statevalue;
@@ -21,9 +22,6 @@ class BookMarkButton extends StatelessWidget {
     return BlocBuilder<FetchBookmarkBloc, FetchBookmarkState>(
       builder: (context, state) {
         if (state is FetchedDone) {
-          print("sssssssssssssssssssssssssssssssssssss");
-          print(state.added);
-          print("sssssssssssssssssssssssssssssssss");
           return state.added
               ? IconButton(
                   onPressed: () {
@@ -54,16 +52,19 @@ class BookMarkButton extends StatelessWidget {
                     color: Colors.red,
                   ));
         } else if (state is FetchLoading) {
-          return const CircularProgressIndicator();
+          return LoadingAnimationWidget.fourRotatingDots(
+            color: Colors.white,
+            size: 20,
+          );
         }
         return IconButton(
             onPressed: () {
               AddBookMarkRepo.addBookMark(
                   statevalue.list[0].weeks[weekIndex].days[dayIndex].id,
                   context);
-              BlocProvider.of<FetchBookmarkBloc>(context).add(FetchBookmarkReq(
-                  dayId:
-                      statevalue.list[0].weeks[weekIndex].days[dayIndex].id));
+              // BlocProvider.of<FetchBookmarkBloc>(context).add(FetchBookmarkReq(
+              //     dayId:
+              //         statevalue.list[0].weeks[weekIndex].days[dayIndex].id));
             },
             icon: const Icon(
               Icons.bookmark_outline,
