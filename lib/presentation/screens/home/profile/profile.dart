@@ -15,43 +15,15 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<UserfetchBloc>(context).add(UserFetchReq());
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 6, 2, 19),
       appBar: AppBar(
         centerTitle: true,
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.white),
         backgroundColor: const Color.fromARGB(255, 81, 37, 114),
         title: Text("Profile",
             style: GoogleFonts.poppins(
                 color: Colors.white, fontWeight: FontWeight.w600)),
-        // actions: [
-        //   Padding(
-        //     padding: const EdgeInsets.all(10.0),
-        //     child: Container(
-        //       decoration: BoxDecoration(
-        //           borderRadius: BorderRadius.circular(40),
-        //           border: Border.all(color: Colors.white)),
-        //       child: TextButton.icon(
-        //         style: ButtonStyle(
-        //             backgroundColor: MaterialStateProperty.all(
-        //           Colors.transparent,
-        //         )),
-        //         onPressed: () {},
-        //         label: const Text(
-        //           "Premium",
-        //           style: TextStyle(
-        //               fontSize: 14, color: Color.fromARGB(255, 255, 255, 255)),
-        //         ),
-        //         icon: FaIcon(
-        //           FontAwesomeIcons.fire,
-        //           color: Colors.white,
-        //           size: 19.0,
-        //         ),
-        //       ),
-        //     ),
-        //   ),
-        // ],
       ),
       body: SingleChildScrollView(
         child: Center(

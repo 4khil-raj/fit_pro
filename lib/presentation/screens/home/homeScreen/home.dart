@@ -32,11 +32,11 @@ class HomeScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            HomeScreenAppBar(),
-            CarouselPremiumPage(),
-            QuickActionsHomeScreen(),
-            ContinueTrainingScreen(),
-            FeaturedWorkoutsScreen(),
+            const HomeScreenAppBar(),
+            const CarouselPremiumPage(),
+            const QuickActionsHomeScreen(),
+            // ContinueTrainingScreen(), ith api integration tymil set akkanam
+            const FeaturedWorkoutsScreen(),
             BlocBuilder<WorkoutplansBloc, WorkoutplansState>(
               builder: (context, state) {
                 if (state is WorkoutplansFetchedSuccessState) {
@@ -49,7 +49,7 @@ class HomeScreen extends StatelessWidget {
                 return const SizedBox();
               },
             ),
-            TrendingCaroselSlider(),
+            const TrendingCaroselSlider(),
             QuickTrainingScreen(),
             StatusSqureContainer(),
             BookMarkScreenHome(),

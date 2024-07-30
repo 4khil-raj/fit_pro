@@ -72,7 +72,7 @@ class _WeightPickerInProgressScreenState extends State<WeightPickerInUserInfo> {
                             fontSize: 25),
                         value: heightft,
                         minValue: 1,
-                        maxValue: 8,
+                        maxValue: 10,
                         itemWidth: double.infinity,
                         step: 1,
                         axis: Axis.vertical,

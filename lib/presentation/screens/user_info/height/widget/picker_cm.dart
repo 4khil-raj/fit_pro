@@ -11,8 +11,6 @@ class CmPickerWeight extends StatefulWidget {
 }
 
 class _CmPickerWeightState extends State<CmPickerWeight> {
-  int _currentIntValue = 1;
-  int _currentLbValue = 0;
   // bool cm = true;
   @override
   Widget build(BuildContext context) {
@@ -44,7 +42,7 @@ class _CmPickerWeightState extends State<CmPickerWeight> {
                       fontSize: 25),
                   value: heightF,
                   minValue: 1,
-                  maxValue: 200,
+                  maxValue: 300,
                   itemWidth: double.infinity,
                   step: 1,
                   axis: Axis.vertical,

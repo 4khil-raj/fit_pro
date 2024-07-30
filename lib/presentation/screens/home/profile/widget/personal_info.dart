@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:fit_pro/application/bloc/imagepicker_bloc.dart';
+import 'package:fit_pro/application/image_pic/imagepicker_bloc.dart';
 import 'package:fit_pro/domain/models/profile_update/update.dart';
 import 'package:fit_pro/infrastructure/repository/update_profile/photo_update.dart';
 import 'package:fit_pro/infrastructure/repository/update_profile/update_profile.dart';

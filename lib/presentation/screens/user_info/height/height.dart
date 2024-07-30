@@ -9,7 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ruler_scale_picker/ruler_scale_picker.dart';
 
-dynamic heightF = 14;
+dynamic heightF = 30;
 dynamic heightL = 1;
 
 class HeightSelectScreen extends StatelessWidget {

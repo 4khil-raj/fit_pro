@@ -9,6 +9,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:numberpicker/numberpicker.dart';
 
 bool kg = true;
+dynamic weightkgtrue = 15;
+dynamic weightkgtrueGram = 0;
 
 class HeightPickerInUserInfo extends StatefulWidget {
   const HeightPickerInUserInfo({super.key});
@@ -68,14 +70,15 @@ class _WeightPickerInProgressScreenState extends State<HeightPickerInUserInfo> {
                         textStyle: GoogleFonts.urbanist(
                             color: const Color.fromARGB(255, 225, 217, 217),
                             fontSize: 25),
-                        value: weightF,
+                        value: weightkgtrue,
                         minValue: 1,
-                        maxValue: 100,
+                        maxValue: 200,
                         itemWidth: double.infinity,
                         step: 1,
                         axis: Axis.vertical,
                         haptics: true,
-                        onChanged: (value) => setState(() => weightF = value),
+                        onChanged: (value) =>
+                            setState(() => weightkgtrue = value),
                       ),
                     ),
                     Flexible(
@@ -88,14 +91,15 @@ class _WeightPickerInProgressScreenState extends State<HeightPickerInUserInfo> {
                         textStyle: GoogleFonts.urbanist(
                             color: const Color.fromARGB(255, 225, 217, 217),
                             fontSize: 25),
-                        value: weightL,
+                        value: weightkgtrueGram,
                         minValue: 0,
-                        maxValue: 100,
+                        maxValue: 9,
                         itemWidth: double.infinity,
                         step: 1,
                         axis: Axis.vertical,
                         haptics: true,
-                        onChanged: (value) => setState(() => weightL = value),
+                        onChanged: (value) =>
+                            setState(() => weightkgtrueGram = value),
                       ),
                     ),
                     // Text('data'),

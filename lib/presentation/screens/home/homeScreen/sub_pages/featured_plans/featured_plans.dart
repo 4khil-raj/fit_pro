@@ -1,7 +1,7 @@
+import 'package:fit_pro/application/category_bloc/category_fetch_bloc.dart';
 import 'package:fit_pro/application/fetch_bookmark_day/fetch_bookmark_bloc.dart';
 import 'package:fit_pro/application/plan_overview/plan_overview_bloc.dart';
 import 'package:fit_pro/domain/models/workout_plans/model.dart';
-import 'package:fit_pro/presentation/screens/auth/signin/signin.dart';
 import 'package:fit_pro/presentation/screens/bottom_nav/bottom_nav.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/sub_pages/featured_plans/widgets/plan_overview.dart';
 import 'package:fit_pro/presentation/widgets/custom_nav/customnav.dart';
@@ -49,20 +49,6 @@ class FeturedPlansSubScreen extends StatelessWidget {
                         bookmark
                             ? dailyTask(index, context)
                             : overViewScreen(index, context);
-                        // BlocProvider.of<PlanOverviewBloc>(context).add(
-                        //     PlanOverViewRequestEvent(planId: list![index].id));
-
-                        // customNavPush(
-                        //     context,
-                        //     FeaturedPlanOverviewScreen(
-                        //       description: list![index].description,
-                        //       video: list![index].planVideo,
-                        //       task: list![index].workoutKeywords,
-                        //       image: list![index].bannerImage,
-                        //       title: list![index].planName,
-                        //       subTitle: list![index].trainingType,
-                        //     ));
-                        // CircularProgressIndicator();
                       },
                       child: Row(
                         children: [
@@ -118,19 +104,19 @@ class FeturedPlansSubScreen extends StatelessWidget {
                                 height: 7,
                               ),
                               SizedBox(
-                                width: 180,
-                                child: Text(
-                                  bookmark
-                                      ? bookmarkState!.list[0].bookmarks[index]
-                                          .estimatedDuration
-                                      : list![index].workoutKeywords,
-                                  style: GoogleFonts.urbanist(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 13,
-                                      color: const Color.fromARGB(
-                                          255, 220, 212, 212)),
-                                ),
-                              ),
+                                  width: 180,
+                                  child: Text(
+                                      bookmark
+                                          ? bookmarkState!
+                                              .list[0]
+                                              .bookmarks[index]
+                                              .estimatedDuration
+                                          : list![index].workoutKeywords,
+                                      style: GoogleFonts.urbanist(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 13,
+                                          color: const Color.fromARGB(
+                                              255, 220, 212, 212))))
                             ],
                           )
                         ],
@@ -161,7 +147,7 @@ class FeturedPlansSubScreen extends StatelessWidget {
   }
 
   void dailyTask(int index, context) {
-    print(bookmarkState!.list[0].bookmarks[index].categories[index]);
-    print(accesstocken);
+    BlocProvider.of<CategoryFetchBloc>(context).add(CategoryFetchReq(
+        id: bookmarkState!.list[0].bookmarks[index].categories[index]));
   }
 }

@@ -40,16 +40,18 @@ class ProfileDetailsScreen extends StatelessWidget {
                 style: const TextStyle(
                     fontSize: 15, color: Color.fromARGB(255, 211, 202, 202)),
               ),
-              Text(
-                "Heignt: ${state.usermodel.user?.height.value} . Weight: ${state.usermodel.user?.weight.value}${state.usermodel.user?.weight.unit}",
-                style: const TextStyle(
-                    fontSize: 15, color: Color.fromARGB(255, 211, 202, 202)),
+              SizedBox(
+                child: Text(
+                  "Heignt: ${state.usermodel.user?.height.value} . Weight: ${state.usermodel.user?.weight.value}${state.usermodel.user?.weight.unit}",
+                  style: const TextStyle(
+                      fontSize: 14, color: Color.fromARGB(255, 211, 202, 202)),
+                ),
               ),
             ],
           ),
           const Spacer(),
           Padding(
-            padding: const EdgeInsets.only(right: 10.0),
+            padding: const EdgeInsets.only(right: 8.0),
             child: IconButton(
                 onPressed: () {
                   customNavPush(context, PersonalInfomatiocEditScreen());

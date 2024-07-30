@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:fit_pro/core/apis/apis.dart';
 import 'package:fit_pro/presentation/screens/auth/signin/signin.dart';
 import 'package:fit_pro/presentation/screens/user_info/height/widget/picker.dart';
+import 'package:fit_pro/presentation/screens/user_info/weight/weight.dart';
 import 'package:fit_pro/presentation/screens/user_info/weight/widget/picker1.dart';
 import 'package:http/http.dart' as http;
 
@@ -16,8 +17,11 @@ class UserInfoRepo {
     Map<String, dynamic> req = {
       "age": userinfo.age,
       "gender": userinfo.gender,
-      "weight": {"value": heightUinit, "unit": kg ? "kg" : "lb"},
-      "height": {"value": weightUnit, "unit": cm ? "cm" : "ft"},
+      "weight": {
+        "value": kg ? weightkgtrue : weightF,
+        "unit": kg ? "kg" : "lb"
+      },
+      "height": {"value": cm ? heightft : weightUnit, "unit": cm ? "cm" : "ft"},
       "goal": userinfo.goal,
       "experience": userinfo.experience,
       "workoutType": userinfo.workoutType,
@@ -36,8 +40,7 @@ class UserInfoRepo {
         body: jsonEncode(req),
       );
       final responsebody = jsonDecode(response.body);
-      print(responsebody);
-      print(response.statusCode);
+
       if (response.statusCode == 200) {
         print("done");
       }
