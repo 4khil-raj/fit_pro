@@ -15,7 +15,7 @@ class CategoryFetchBloc extends Bloc<CategoryFetchEvent, CategoryFetchState> {
     on<CategoryFetchReq>((event, emit) async {
       try {
         final response = await CategoryRepository().fetchCategories(event.id);
-
+        print(response[0].exercises[0].name);
         emit(CategoryFetched(list: response));
       } catch (e) {
         print(e);

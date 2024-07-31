@@ -9,7 +9,6 @@ class ProfileDetailsScreen extends StatelessWidget {
   final UserFetched state;
   @override
   Widget build(BuildContext context) {
-    print(state.usermodel.user?.height.value);
     return Container(
       color: const Color.fromARGB(255, 53, 53, 53),
       child: Row(
@@ -38,13 +37,14 @@ class ProfileDetailsScreen extends StatelessWidget {
               Text(
                 "${state.usermodel.user?.age.toString()} Yrs . ${state.usermodel.user?.gender}",
                 style: const TextStyle(
-                    fontSize: 15, color: Color.fromARGB(255, 211, 202, 202)),
+                    fontSize: 14.5, color: Color.fromARGB(255, 211, 202, 202)),
               ),
               SizedBox(
                 child: Text(
                   "Heignt: ${state.usermodel.user?.height.value} . Weight: ${state.usermodel.user?.weight.value}${state.usermodel.user?.weight.unit}",
                   style: const TextStyle(
-                      fontSize: 14, color: Color.fromARGB(255, 211, 202, 202)),
+                      fontSize: 13.5,
+                      color: Color.fromARGB(255, 211, 202, 202)),
                 ),
               ),
             ],

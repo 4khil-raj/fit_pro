@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:fit_pro/core/apis/apis.dart';
 import 'package:fit_pro/presentation/screens/auth/signin/signin.dart';
+import 'package:fit_pro/presentation/screens/user_info/height/height.dart';
 import 'package:fit_pro/presentation/screens/user_info/height/widget/picker.dart';
 import 'package:fit_pro/presentation/screens/user_info/weight/weight.dart';
 import 'package:fit_pro/presentation/screens/user_info/weight/widget/picker1.dart';
@@ -11,17 +12,17 @@ import 'package:fit_pro/domain/models/user_info/models.dart';
 
 class UserInfoRepo {
   static Future collectUserInfo(UserInfoModels userinfo) async {
-    print(accesstocken);
-    String heightUinit = ("${userinfo.heightValue}.${userinfo.weightUnit}");
-    String weightUnit = ("${userinfo.weightValue}.${userinfo.weightUnit}");
     Map<String, dynamic> req = {
       "age": userinfo.age,
       "gender": userinfo.gender,
       "weight": {
-        "value": kg ? weightkgtrue : weightF,
+        "value": kg ? "$weightkgtrue.$weightkgtrueGram" : "$weightF.$weightL",
         "unit": kg ? "kg" : "lb"
       },
-      "height": {"value": cm ? heightft : weightUnit, "unit": cm ? "cm" : "ft"},
+      "height": {
+        "value": cm ? '$heightft.$pointheight' : '$heightF.$heightL',
+        "unit": cm ? "cm" : "ft"
+      },
       "goal": userinfo.goal,
       "experience": userinfo.experience,
       "workoutType": userinfo.workoutType,

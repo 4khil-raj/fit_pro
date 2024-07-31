@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:fit_pro/presentation/screens/user_info/weight/weight.dart';
 import 'package:fit_pro/presentation/screens/user_info/weight/widget/kg_lb.dart';
 import 'package:fit_pro/presentation/screens/user_info/weight/widget/picker_lb.dart';
 import 'package:flutter/material.dart';
@@ -72,7 +71,7 @@ class _WeightPickerInProgressScreenState extends State<HeightPickerInUserInfo> {
                             fontSize: 25),
                         value: weightkgtrue,
                         minValue: 1,
-                        maxValue: 200,
+                        maxValue: 300,
                         itemWidth: double.infinity,
                         step: 1,
                         axis: Axis.vertical,
@@ -93,7 +92,7 @@ class _WeightPickerInProgressScreenState extends State<HeightPickerInUserInfo> {
                             fontSize: 25),
                         value: weightkgtrueGram,
                         minValue: 0,
-                        maxValue: 9,
+                        maxValue: 999,
                         itemWidth: double.infinity,
                         step: 1,
                         axis: Axis.vertical,
