@@ -43,7 +43,7 @@ class _CmPickerWeightState extends State<LbPickerWeight> {
                       color: const Color.fromARGB(255, 225, 217, 217),
                       fontSize: 25),
                   value: weightF,
-                  minValue: 1,
+                  minValue: 30,
                   maxValue: 450,
                   itemWidth: double.infinity,
                   step: 1,

@@ -50,7 +50,7 @@ class BookMarkButton extends StatelessWidget {
                             dayId: statevalue
                                 .list[0].weeks[weekIndex].days[dayIndex].id));
                   },
-                  icon: Icon(
+                  icon: const Icon(
                     CupertinoIcons.delete,
                     color: Colors.red,
                   ));

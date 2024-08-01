@@ -41,7 +41,7 @@ class _CmPickerWeightState extends State<CmPickerWeight> {
                       color: const Color.fromARGB(255, 225, 217, 217),
                       fontSize: 25),
                   value: heightF,
-                  minValue: 1,
+                  minValue: 30,
                   maxValue: 300,
                   itemWidth: double.infinity,
                   step: 1,

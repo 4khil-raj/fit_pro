@@ -1,5 +1,6 @@
 import 'package:fit_pro/application/fetch_bookmark_day/fetch_bookmark_bloc.dart';
 import 'package:fit_pro/application/user_fetch/userfetch_bloc.dart';
+import 'package:fit_pro/application/workout_fetch/workoutfetch_bloc.dart';
 import 'package:fit_pro/application/workout_plans/workoutplans_bloc.dart';
 import 'package:fit_pro/infrastructure/repository/add_bookmark/fetch.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/widget/appbar.dart';
@@ -26,6 +27,8 @@ class HomeScreen extends StatelessWidget {
     BlocProvider.of<UserfetchBloc>(context).add(UserFetchReq());
     BlocProvider.of<FetchBookmarkBloc>(context)
         .add(FetchBookmarkReq(dayId: ""));
+
+    BlocProvider.of<WorkoutfetchBloc>(context).add(WorkoutFetch());
 
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 6, 2, 19),

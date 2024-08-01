@@ -1,26 +1,15 @@
-import 'package:fit_pro/application/category_bloc/category_fetch_bloc.dart';
-import 'package:fit_pro/application/fetch_bookmark_day/fetch_bookmark_bloc.dart';
-import 'package:fit_pro/application/plan_overview/plan_overview_bloc.dart';
-import 'package:fit_pro/domain/models/workout_plans/model.dart';
+import 'package:fit_pro/application/workout_fetch/workoutfetch_bloc.dart';
 import 'package:fit_pro/presentation/screens/bottom_nav/bottom_nav.dart';
-import 'package:fit_pro/presentation/screens/home/homeScreen/sub_pages/featured_plans/widgets/daily_bookmar.dart';
-import 'package:fit_pro/presentation/screens/home/homeScreen/sub_pages/featured_plans/widgets/plan_overview.dart';
-import 'package:fit_pro/presentation/widgets/custom_nav/customnav.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class FeturedPlansSubScreen extends StatelessWidget {
-  const FeturedPlansSubScreen(
-      {super.key,
-      this.list,
-      required this.bookmark,
-      this.bookmarkState,
-      required this.trending});
-  final List<WorkoutPlanModel>? list;
-  final bool bookmark;
-  final FetchedDone? bookmarkState;
-  final bool trending;
+class WorkoutListScreens extends StatelessWidget {
+  const WorkoutListScreens({
+    super.key,
+    required this.state,
+  });
+
+  final WorkoutFetchDone state;
 
   @override
   Widget build(BuildContext context) {
@@ -30,13 +19,9 @@ class FeturedPlansSubScreen extends StatelessWidget {
           iconTheme: const IconThemeData(color: Colors.white),
           backgroundColor: constBottomnavColor,
           title: Text(
-            trending
-                ? "Trending WorkOut"
-                : bookmark
-                    ? "Bookmarks"
-                    : "Featured Plan",
+            "Featured/Trending Workout",
             style: GoogleFonts.poppins(
-                fontSize: 18, color: Colors.white, fontWeight: FontWeight.w600),
+                fontSize: 16, color: Colors.white, fontWeight: FontWeight.w600),
           )),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -50,15 +35,13 @@ class FeturedPlansSubScreen extends StatelessWidget {
                       thickness: .3,
                     );
                   },
-                  itemCount: bookmark
-                      ? bookmarkState!.list[0].bookmarks.length
-                      : list!.length,
+                  itemCount: state.list.length,
                   itemBuilder: (context, index) {
                     return InkWell(
                       onTap: () {
-                        bookmark
-                            ? dailyTask(index, context)
-                            : overViewScreen(index, context);
+                        // bookmark
+                        //     ? dailyTask(index, context)
+                        //     : overViewScreen(index, context);
                       },
                       child: Row(
                         children: [
@@ -72,10 +55,7 @@ class FeturedPlansSubScreen extends StatelessWidget {
                               width: 140,
                               child: Image.network(
                                   fit: BoxFit.cover,
-                                  bookmark
-                                      ? bookmarkState!.list[0].bookmarks[index]
-                                          .dayBannerImage
-                                      : list![index].bannerImage),
+                                  state.list[index].bannerImage),
                             ),
                           ),
                           const SizedBox(
@@ -87,10 +67,7 @@ class FeturedPlansSubScreen extends StatelessWidget {
                               SizedBox(
                                 width: MediaQuery.of(context).size.width / 2.5,
                                 child: Text(
-                                  bookmark
-                                      ? bookmarkState!
-                                          .list[0].bookmarks[index].dayName
-                                      : list![index].planName,
+                                  state.list[index].workoutName,
                                   style: GoogleFonts.urbanist(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 16,
@@ -101,10 +78,7 @@ class FeturedPlansSubScreen extends StatelessWidget {
                                 height: 10,
                               ),
                               Text(
-                                bookmark
-                                    ? bookmarkState!
-                                        .list[0].bookmarks[index].dayOfWeek
-                                    : list![index].trainingType,
+                                state.list[index].estimatedDuration,
                                 style: GoogleFonts.urbanist(
                                     fontWeight: FontWeight.w600,
                                     fontSize: 16,
@@ -115,13 +89,7 @@ class FeturedPlansSubScreen extends StatelessWidget {
                               ),
                               SizedBox(
                                   width: 180,
-                                  child: Text(
-                                      bookmark
-                                          ? bookmarkState!
-                                              .list[0]
-                                              .bookmarks[index]
-                                              .estimatedDuration
-                                          : list![index].workoutKeywords,
+                                  child: Text(state.list[index].workoutKeywords,
                                       style: GoogleFonts.urbanist(
                                           fontWeight: FontWeight.w600,
                                           fontSize: 13,
@@ -141,31 +109,31 @@ class FeturedPlansSubScreen extends StatelessWidget {
   }
 
   void overViewScreen(int index, context) {
-    BlocProvider.of<PlanOverviewBloc>(context)
-        .add(PlanOverViewRequestEvent(planId: list![index].id));
+    // BlocProvider.of<PlanOverviewBloc>(context)
+    //     .add(PlanOverViewRequestEvent(planId: list![index].id));
 
-    customNavPush(
-        context,
-        FeaturedPlanOverviewScreen(
-          description: list![index].description,
-          video: list![index].planVideo,
-          task: list![index].workoutKeywords,
-          image: list![index].bannerImage,
-          title: list![index].planName,
-          subTitle: list![index].trainingType,
-        ));
+    // customNavPush(
+    //     context,
+    //     FeaturedPlanOverviewScreen(
+    //       description: list![index].description,
+    //       video: list![index].planVideo,
+    //       task: list![index].workoutKeywords,
+    //       image: list![index].bannerImage,
+    //       title: list![index].planName,
+    //       subTitle: list![index].trainingType,
+    //     ));
   }
 
   void dailyTask(int index, context) async {
-    BlocProvider.of<CategoryFetchBloc>(context).add(CategoryFetchReq(
-        id: bookmarkState!.list[0].bookmarks[index].categories[index]));
-    customNavPush(
-        context,
-        BookmarkDayTaskScreen(
-          bookmarkIndex: index,
-          subTitle: bookmarkState!.list[0].bookmarks[index].estimatedDuration,
-          title: bookmarkState!.list[0].bookmarks[index].dayName,
-          videoLink: bookmarkState!.list[0].bookmarks[index].introVideo,
-        ));
+    // BlocProvider.of<CategoryFetchBloc>(context).add(CategoryFetchReq(
+    //     id: state!.list[0].bookmarks[index].categories[index]));
+    // customNavPush(
+    //     context,
+    //     BookmarkDayTaskScreen(
+    //       bookmarkIndex: index,
+    //       subTitle: state!.list[0].bookmarks[index].estimatedDuration,
+    //       title: state!.list[0].bookmarks[index].dayName,
+    //       videoLink: state!.list[0].bookmarks[index].introVideo,
+    //     ));
   }
 }

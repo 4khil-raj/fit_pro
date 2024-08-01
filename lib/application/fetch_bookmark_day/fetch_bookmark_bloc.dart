@@ -7,6 +7,8 @@ import 'package:meta/meta.dart';
 part 'fetch_bookmark_event.dart';
 part 'fetch_bookmark_state.dart';
 
+List<FetchBookModel>? bookmarklist;
+
 class FetchBookmarkBloc extends Bloc<FetchBookmarkEvent, FetchBookmarkState> {
   FetchBookmarkBloc() : super(FetchBookmarkInitial()) {
     on<FetchBookmarkEvent>((event, emit) {
@@ -21,10 +23,12 @@ class FetchBookmarkBloc extends Bloc<FetchBookmarkEvent, FetchBookmarkState> {
         // Use Future.forEach to iterate over the bookmarks
         if (list[0].bookmarks.isNotEmpty) {
           bool isFound = false;
+          bookmarklist = list;
 
           await Future.forEach(list[0].bookmarks, (bookmark) async {
             if (bookmark.id == event.dayId) {
               isFound = true;
+              bookmarklist = list;
               emit(FetchedDone(list: list, added: false));
             }
           });

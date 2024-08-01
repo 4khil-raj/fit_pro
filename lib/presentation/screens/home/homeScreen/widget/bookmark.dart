@@ -32,6 +32,7 @@ class BookMarkScreenHome extends StatelessWidget {
                         onPressed: () => customNavPush(
                             context,
                             FeturedPlansSubScreen(
+                              trending: false,
                               bookmark: true,
                               bookmarkState: state,
                             )),

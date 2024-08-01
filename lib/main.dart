@@ -9,6 +9,7 @@ import 'package:fit_pro/application/plan_overview/plan_overview_bloc.dart';
 import 'package:fit_pro/application/start_workout/start_workout_bloc.dart';
 import 'package:fit_pro/application/user_fetch/userfetch_bloc.dart';
 import 'package:fit_pro/application/user_info/user_info_bloc.dart';
+import 'package:fit_pro/application/workout_fetch/workoutfetch_bloc.dart';
 import 'package:fit_pro/application/workout_plans/workoutplans_bloc.dart';
 import 'package:fit_pro/firebase_options.dart';
 import 'package:fit_pro/presentation/screens/auth/signin/signin.dart';
@@ -48,6 +49,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => FetchBookmarkBloc()),
         BlocProvider(create: (context) => ImagepickerBloc()),
         BlocProvider(create: (context) => CategoryFetchBloc()),
+        BlocProvider(create: (context) => WorkoutfetchBloc()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

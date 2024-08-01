@@ -32,6 +32,7 @@ class FeaturedCaroselContainer1 extends StatelessWidget {
 //ee screen figmayil illah ahh thanna pottane pattikkan commentcheythaya ee screennine just call cheytha mmathi vere onnum cheyyanda aa screen cheytholum
             //  const WeekOneScreen()
             DayTaskScreen(
+              bookmark: false,
               dayIndex: dayIndex,
               weekIndex: weekIndex,
               state: state,

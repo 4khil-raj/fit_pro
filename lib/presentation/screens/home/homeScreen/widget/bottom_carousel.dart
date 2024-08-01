@@ -48,6 +48,7 @@ class _BottomCaroselSliderState extends State<BottomCaroselSlider> {
                   onPressed: () => customNavPush(
                       context,
                       FeturedPlansSubScreen(
+                        trending: false,
                         bookmark: false,
                         list: widget.list,
                       )),

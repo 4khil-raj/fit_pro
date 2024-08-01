@@ -7,9 +7,7 @@ import 'package:fit_pro/presentation/screens/home/progress/widget/plan_progress/
 import 'package:fit_pro/presentation/screens/home/progress/widget/plan_progress/widget/redo_screen.dart';
 import 'package:fit_pro/presentation/screens/home/progress/widget/plan_progress/widget/top_image.dart';
 import 'package:fit_pro/presentation/screens/home/progress/widget/plan_progress/widget/week_calender.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
