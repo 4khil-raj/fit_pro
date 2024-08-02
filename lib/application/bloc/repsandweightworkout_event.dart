@@ -10,3 +10,9 @@ final class GetReps extends RepsandweightworkoutEvent {
 
   GetReps({required this.index, required this.reps, required this.weight});
 }
+
+final class WorkoutDone extends RepsandweightworkoutEvent {
+  final int indexdone;
+
+  WorkoutDone({required this.indexdone});
+}

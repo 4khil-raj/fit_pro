@@ -1,11 +1,13 @@
+import 'package:fit_pro/application/bloc/repsandweightworkout_bloc.dart';
 import 'package:fit_pro/application/category_bloc/category_fetch_bloc.dart';
 import 'package:fit_pro/presentation/screens/start_workout/widgets/bottom_sheet.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CheckBoxSetRows extends StatelessWidget {
-  const CheckBoxSetRows({super.key, required this.state});
-  final CategoryFetched state;
+  const CheckBoxSetRows({super.key, required this.stateValue});
+  final CategoryFetched stateValue;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -13,78 +15,151 @@ class CheckBoxSetRows extends StatelessWidget {
       child: SizedBox(
         // height: MediaQuery.of(context).size.height / 2,
         child: ListView.builder(
-            itemCount: state.list[0].exercises.length,
+            itemCount: stateValue.list[0].exercises.length,
             itemBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsets.only(
                     top: 30, bottom: 20, left: 30, right: 30),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Icon(
-                      Icons.check_box_outline_blank_outlined,
-                      color: Colors.white,
-                    ),
-                    Row(
+                child: BlocBuilder<RepsandweightworkoutBloc,
+                    RepsandweightworkoutState>(
+                  builder: (context, state) {
+                    if (state is Selected) {
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          state.done.contains(index) &&
+                                  state.list.contains(index)
+                              ? Icon(
+                                  Icons.check_box,
+                                  color: Colors.blue,
+                                )
+                              : InkWell(
+                                  onTap: () =>
+                                      BlocProvider.of<RepsandweightworkoutBloc>(
+                                              context)
+                                          .add(WorkoutDone(indexdone: index)),
+                                  child: Icon(
+                                    Icons.check_box_outline_blank_outlined,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                          Row(
+                            children: [
+                              Text(
+                                stateValue.list[0].exercises[index].sets
+                                    .toString(),
+                                style: GoogleFonts.poppins(
+                                    color: Colors.blue,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                              const SizedBox(
+                                width: 7,
+                              ),
+                              Text(
+                                "Set",
+                                style: GoogleFonts.poppins(
+                                    color: Colors.white, fontSize: 12),
+                              )
+                            ],
+                          ),
+                          InkWell(
+                            onTap: () => weightAndReps(context, index),
+                            child: state.list.contains(index)
+                                ? Row(
+                                    children: [
+                                      Text(
+                                        state.reps.toString(),
+                                        style: GoogleFonts.poppins(
+                                            color: Colors.blue,
+                                            fontWeight: FontWeight.w600),
+                                      ),
+                                      const SizedBox(
+                                        width: 7,
+                                      ),
+                                      Text(
+                                        "reps",
+                                        style: GoogleFonts.poppins(
+                                            color: Colors.white, fontSize: 12),
+                                      )
+                                    ],
+                                  )
+                                : const Icon(
+                                    Icons.add_circle_outline_sharp,
+                                    color: Colors.white,
+                                  ),
+                          ),
+                          InkWell(
+                            onTap: () => weightAndReps(context, index),
+                            child: state.list.contains(index)
+                                ? Row(
+                                    children: [
+                                      Text(
+                                        state.weight.toString(),
+                                        style: GoogleFonts.poppins(
+                                            color: Colors.blue,
+                                            fontWeight: FontWeight.w600),
+                                      ),
+                                      const SizedBox(
+                                        width: 7,
+                                      ),
+                                      Text(
+                                        "kg",
+                                        style: GoogleFonts.poppins(
+                                            color: Colors.white, fontSize: 12),
+                                      )
+                                    ],
+                                  )
+                                : const Icon(
+                                    Icons.add_circle_outline_sharp,
+                                    color: Colors.white,
+                                  ),
+                          ),
+                        ],
+                      );
+                    }
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          state.list[0].exercises[index].sets.toString(),
-                          style: GoogleFonts.poppins(
-                              color: Colors.blue, fontWeight: FontWeight.w600),
+                        const Icon(
+                          Icons.check_box_outline_blank_outlined,
+                          color: Colors.white,
                         ),
-                        SizedBox(
-                          width: 7,
+                        Row(
+                          children: [
+                            Text(
+                              stateValue.list[0].exercises[index].sets
+                                  .toString(),
+                              style: GoogleFonts.poppins(
+                                  color: Colors.blue,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                            const SizedBox(
+                              width: 7,
+                            ),
+                            Text(
+                              "Set",
+                              style: GoogleFonts.poppins(
+                                  color: Colors.white, fontSize: 12),
+                            )
+                          ],
                         ),
-                        Text(
-                          "Set",
-                          style: GoogleFonts.poppins(
-                              color: Colors.white, fontSize: 12),
-                        )
+                        InkWell(
+                          onTap: () => weightAndReps(context, index),
+                          child: const Icon(
+                            Icons.add_circle_outline_sharp,
+                            color: Colors.white,
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () => weightAndReps(context, index),
+                          child: const Icon(
+                            Icons.add_circle_outline_sharp,
+                            color: Colors.white,
+                          ),
+                        ),
                       ],
-                    ),
-                    InkWell(
-                      onTap: () => weightAndReps(context, index),
-                      child: Row(
-                        children: [
-                          Text(
-                            "20",
-                            style: GoogleFonts.poppins(
-                                color: Colors.blue,
-                                fontWeight: FontWeight.w600),
-                          ),
-                          const SizedBox(
-                            width: 7,
-                          ),
-                          Text(
-                            "reps",
-                            style: GoogleFonts.poppins(
-                                color: Colors.white, fontSize: 12),
-                          )
-                        ],
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () => weightAndReps(context, index),
-                      child: Row(
-                        children: [
-                          Text(
-                            "10",
-                            style: GoogleFonts.poppins(
-                                color: Colors.blue,
-                                fontWeight: FontWeight.w600),
-                          ),
-                          const SizedBox(
-                            width: 7,
-                          ),
-                          Text(
-                            "kg",
-                            style: GoogleFonts.poppins(
-                                color: Colors.white, fontSize: 12),
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
+                    );
+                  },
                 ),
               );
             }),

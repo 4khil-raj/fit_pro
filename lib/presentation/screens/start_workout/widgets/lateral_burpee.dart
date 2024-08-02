@@ -59,7 +59,7 @@ class LateralBurpeeScreen extends StatelessWidget {
                 ),
                 Expanded(
                   child: CheckBoxSetRows(
-                    state: state,
+                    stateValue: state,
                   ),
                 ),
                 // Spacer(),
