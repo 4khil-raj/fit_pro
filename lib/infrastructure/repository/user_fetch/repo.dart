@@ -6,7 +6,6 @@ import 'package:http/http.dart' as http;
 
 class UserRepository {
   static Future<UserFetchModel> fetchUser() async {
-    print('========+++++++++++===========');
     final response = await http.get(
       Uri.parse(Apis.userFetch),
       headers: {
@@ -23,8 +22,6 @@ class UserRepository {
             jsonResponse['user'] != null &&
             jsonResponse['status_code'] != null) {
           final model = UserFetchModel.fromJson(jsonResponse);
-          print(model.user?.name);
-          print(model.user?.age);
           return model;
         } else {
           throw Exception('Invalid data format');

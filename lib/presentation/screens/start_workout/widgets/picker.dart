@@ -1,10 +1,12 @@
+import 'package:fit_pro/application/bloc/repsandweightworkout_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:numberpicker/numberpicker.dart';
 
 class WeightAndRepsPickerScreen extends StatefulWidget {
-  const WeightAndRepsPickerScreen({super.key});
-
+  const WeightAndRepsPickerScreen({super.key, required this.index});
+  final int index;
   @override
   State<WeightAndRepsPickerScreen> createState() =>
       _WeightAndRepsPickerScreenState();
@@ -38,8 +40,14 @@ class _WeightAndRepsPickerScreenState extends State<WeightAndRepsPickerScreen> {
                   step: 1,
                   axis: Axis.vertical,
                   haptics: true,
-                  onChanged: (value) =>
-                      setState(() => _currentIntValue = value),
+                  onChanged: (value) {
+                    setState(() => _currentIntValue = value);
+                    BlocProvider.of<RepsandweightworkoutBloc>(context).add(
+                        GetReps(
+                            index: widget.index,
+                            reps: value,
+                            weight: _currentLbValue));
+                  },
                 ),
               ),
               Flexible(
@@ -59,7 +67,14 @@ class _WeightAndRepsPickerScreenState extends State<WeightAndRepsPickerScreen> {
                   step: 1,
                   axis: Axis.vertical,
                   haptics: true,
-                  onChanged: (value) => setState(() => _currentLbValue = value),
+                  onChanged: (value) {
+                    setState(() => _currentLbValue = value);
+                    BlocProvider.of<RepsandweightworkoutBloc>(context).add(
+                        GetReps(
+                            index: widget.index,
+                            reps: _currentIntValue,
+                            weight: value));
+                  },
                 ),
               ),
               // Text('data'),

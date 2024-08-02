@@ -1,4 +1,6 @@
 import 'package:fit_pro/application/workout_fetch/workoutfetch_bloc.dart';
+import 'package:fit_pro/presentation/screens/home/homeScreen/widget/populate_workout.dart';
+import 'package:fit_pro/presentation/screens/home/homeScreen/widget/populate_workout_builder.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/widget/workouts_list.dart';
 import 'package:fit_pro/presentation/widgets/custom_nav/customnav.dart';
 import 'package:flutter/material.dart';
@@ -56,16 +58,14 @@ class FeaturedWorkoutsScreen extends StatelessWidget {
                         // BlocProvider.of<PlanOverviewBloc>(context).add(
                         //     PlanOverViewRequestEvent(
                         //         planId: state.list[index].id));
-                        // customNavPush(
-                        //     context,
-                        // FeaturedPlanOverviewScreen(
-                        //       description: state.list[index].description,
-                        //       video: state.list[index].planVideo,
-                        //       task: state.list[index].workoutKeywords,
-                        //       image: state.list[index].bannerImage,
-                        //       title: state.list[index].planName,
-                        //       subTitle: state.list[index].trainingType,
-                        //     ));
+                        customNavPush(
+                            context,
+                            PopulateWorkout(
+                              stateValues: state,
+                              appbarTitle: 'Workouts',
+                              categoryId: '',
+                              index: index,
+                            ));
                       },
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,

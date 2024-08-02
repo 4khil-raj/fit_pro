@@ -3,7 +3,7 @@ import 'package:fit_pro/presentation/screens/start_workout/widgets/picker.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-void weightAndReps(context) {
+void weightAndReps(context, index) {
   showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -49,7 +49,7 @@ void weightAndReps(context) {
                                       Padding(
                                         padding: const EdgeInsets.all(12.0),
                                         child: Text(
-                                          "Enter your weight & reps",
+                                          "Enter your reps & weight",
                                           style: GoogleFonts.poppins(
                                               fontSize: 21,
                                               color: Colors.white,
@@ -92,7 +92,9 @@ void weightAndReps(context) {
                                       //     ))
                                       //   ],
                                       // )
-                                      WeightAndRepsPickerScreen(),
+                                      WeightAndRepsPickerScreen(
+                                        index: index,
+                                      ),
                                       SizedBox(
                                         height: 10,
                                       ),

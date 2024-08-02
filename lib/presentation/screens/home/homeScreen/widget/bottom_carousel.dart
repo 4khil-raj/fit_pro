@@ -1,11 +1,16 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:fit_pro/application/plan_overview/plan_overview_bloc.dart';
 import 'package:fit_pro/domain/models/workout_plans/model.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/sub_pages/featured_plans/featured_plans.dart';
+import 'package:fit_pro/presentation/screens/home/homeScreen/sub_pages/featured_plans/widgets/plan_overview.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/widget/bottom_caro_container1.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/widget/bottom_caro_container2.dart';
 import 'package:fit_pro/presentation/widgets/custom_nav/customnav.dart';
+import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class BottomCaroselSlider extends StatefulWidget {
@@ -24,6 +29,7 @@ class _BottomCaroselSliderState extends State<BottomCaroselSlider> {
   Widget build(BuildContext context) {
     List containers = [
       BottomCaroselContainer1(
+        index: 0,
         list: widget.list,
       ),
       BottomCaroselcontainer2(list: widget.list),
@@ -59,36 +65,67 @@ class _BottomCaroselSliderState extends State<BottomCaroselSlider> {
             ],
           ),
         ),
-        CarouselSlider.builder(
-          carouselController: _carouselController,
-          options: CarouselOptions(
-            // enableInfiniteScroll: false,
-            // animateToClosest: true,
-            // disableCenter: true,
-            enlargeCenterPage: true,
-            height: 370, // Adjust height as needed
-            initialPage: 0,
-            autoPlay: true,
-            autoPlayInterval:
-                const Duration(seconds: 10), // Slide every 10 seconds
-            autoPlayAnimationDuration:
-                const Duration(milliseconds: 900), // Animation duration
-            viewportFraction: 0.9,
-            // enableInfiniteScroll: false,
+
+        SizedBox(
+          height: 370,
+          child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            onPageChanged: (index, reason) {
-              setState(() {
-                sliderIndex = index;
-              });
+            itemCount: widget.list.length,
+            itemBuilder: (context, index) {
+              return InkWell(
+                onTap: () {
+                  BlocProvider.of<PlanOverviewBloc>(context).add(
+                      PlanOverViewRequestEvent(planId: widget.list[index].id));
+
+                  customNavPush(
+                      context,
+                      FeaturedPlanOverviewScreen(
+                        description: widget.list[index].description,
+                        video: widget.list[index].planVideo,
+                        task: widget.list[index].workoutKeywords,
+                        image: widget.list[index].bannerImage,
+                        title: widget.list[index].planName,
+                        subTitle: widget.list[index].trainingType,
+                      ));
+                },
+                child: BottomCaroselContainer1(
+                  index: index,
+                  list: widget.list,
+                ),
+              );
             },
           ),
-          itemCount: containers.length,
-          itemBuilder: (context, index, realIndex) {
-            return ClipRRect(
-                borderRadius: BorderRadius.circular(1),
-                child: containers[index]);
-          },
-        ),
+        )
+        // CarouselSlider.builder(
+        //   carouselController: _carouselController,
+        //   options: CarouselOptions(
+        //     // enableInfiniteScroll: false,
+        //     // animateToClosest: true,
+        //     // disableCenter: true,
+        //     enlargeCenterPage: true,
+        //     height: 370, // Adjust height as needed
+        //     initialPage: 0,
+        //     autoPlay: true,
+        //     autoPlayInterval:
+        //         const Duration(seconds: 10), // Slide every 10 seconds
+        //     autoPlayAnimationDuration:
+        //         const Duration(milliseconds: 900), // Animation duration
+        //     viewportFraction: 0.9,
+        //     // enableInfiniteScroll: false,
+        //     scrollDirection: Axis.horizontal,
+        //     onPageChanged: (index, reason) {
+        //       setState(() {
+        //         sliderIndex = index;
+        //       });
+        //     },
+        //   ),
+        //   itemCount: containers.length,
+        //   itemBuilder: (context, index, realIndex) {
+        //     return ClipRRect(
+        //         borderRadius: BorderRadius.circular(1),
+        //         child: containers[index]);
+        //   },
+        // ),
         // const SizedBox(height: 30),
         // AnimatedSmoothIndicator(
         //   activeIndex: sliderIndex,

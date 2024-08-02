@@ -63,6 +63,7 @@ dependencies:
   table_calendar: ^3.1.2
   firebase_core: ^3.2.0
   image_picker: ^1.1.2
+  vimeo_video_player: ^0.0.16
   # pinput: 
 
 dev_dependencies:

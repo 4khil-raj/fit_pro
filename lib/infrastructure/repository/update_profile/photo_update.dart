@@ -7,8 +7,7 @@ class UserProfileUpdateRepo {
   // final String accessToken;
 
   Future<void> uploadProfilePic(File file) async {
-    final url = Uri.parse(
-        'http://13.60.105.223/api/v1/user/profile-pic'); // Replace with your API endpoint
+    final url = Uri.parse('http://13.60.105.223/api/v1/user/profile-pic');
 
     var request = http.MultipartRequest('PUT', url);
 

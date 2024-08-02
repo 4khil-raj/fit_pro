@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class StartWorkoutScreen extends StatefulWidget {
-  StartWorkoutScreen({super.key});
+  const StartWorkoutScreen({super.key});
 
   @override
   State<StartWorkoutScreen> createState() => _StartWorkoutScreenState();
@@ -22,7 +22,7 @@ class _StartWorkoutScreenState extends State<StartWorkoutScreen> {
       });
     }
     await Future.delayed(const Duration(seconds: 1), () {
-      customNavPush(context, const LateralBurpeeScreen());
+      customNavPush(context, LateralBurpeeScreen());
     });
   }
 

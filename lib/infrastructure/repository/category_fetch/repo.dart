@@ -14,7 +14,7 @@ class CategoryRepository {
         },
       );
       print('${Apis.categoryFetch}$id?populate=true');
-      print(response.body);
+
       if (response.statusCode == 200) {
         final Map<String, dynamic> jsonData = jsonDecode(response.body);
         final categoryData = jsonData['category'];

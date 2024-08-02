@@ -2,11 +2,9 @@ import 'package:fit_pro/application/fetch_bookmark_day/fetch_bookmark_bloc.dart'
 import 'package:fit_pro/application/user_fetch/userfetch_bloc.dart';
 import 'package:fit_pro/application/workout_fetch/workoutfetch_bloc.dart';
 import 'package:fit_pro/application/workout_plans/workoutplans_bloc.dart';
-import 'package:fit_pro/infrastructure/repository/add_bookmark/fetch.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/widget/appbar.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/widget/bookmark.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/widget/bottom_carousel.dart';
-import 'package:fit_pro/presentation/screens/home/homeScreen/widget/countinu_training.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/widget/featured_workouts.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/widget/photo_gellery.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/widget/quick_actions.dart';

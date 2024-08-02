@@ -1,5 +1,7 @@
 import 'package:fit_pro/application/workout_fetch/workoutfetch_bloc.dart';
 import 'package:fit_pro/presentation/screens/bottom_nav/bottom_nav.dart';
+import 'package:fit_pro/presentation/screens/home/homeScreen/widget/populate_workout.dart';
+import 'package:fit_pro/presentation/widgets/custom_nav/customnav.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -40,7 +42,7 @@ class WorkoutListScreens extends StatelessWidget {
                     return InkWell(
                       onTap: () {
                         // bookmark
-                        //     ? dailyTask(index, context)
+                        dailyTask(index, context);
                         //     : overViewScreen(index, context);
                       },
                       child: Row(
@@ -127,13 +129,13 @@ class WorkoutListScreens extends StatelessWidget {
   void dailyTask(int index, context) async {
     // BlocProvider.of<CategoryFetchBloc>(context).add(CategoryFetchReq(
     //     id: state!.list[0].bookmarks[index].categories[index]));
-    // customNavPush(
-    //     context,
-    //     BookmarkDayTaskScreen(
-    //       bookmarkIndex: index,
-    //       subTitle: state!.list[0].bookmarks[index].estimatedDuration,
-    //       title: state!.list[0].bookmarks[index].dayName,
-    //       videoLink: state!.list[0].bookmarks[index].introVideo,
-    //     ));
+    customNavPush(
+        context,
+        PopulateWorkout(
+          stateValues: state,
+          appbarTitle: 'Workouts',
+          categoryId: '',
+          index: index,
+        ));
   }
 }
