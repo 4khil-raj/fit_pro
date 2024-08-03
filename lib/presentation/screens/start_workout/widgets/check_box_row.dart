@@ -1,6 +1,9 @@
-import 'package:fit_pro/application/bloc/repsandweightworkout_bloc.dart';
+import 'package:fit_pro/application/reps&weight/repsandweightworkout_bloc.dart';
 import 'package:fit_pro/application/category_bloc/category_fetch_bloc.dart';
+import 'package:fit_pro/application/wokout_screen_buttons/workout_screen_buttons_bloc.dart';
+import 'package:fit_pro/presentation/screens/home/homeScreen/widget/populate_workout.dart';
 import 'package:fit_pro/presentation/screens/start_workout/widgets/bottom_sheet.dart';
+import 'package:fit_pro/presentation/screens/start_workout/widgets/lateral_burpee.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -24,6 +27,19 @@ class CheckBoxSetRows extends StatelessWidget {
                     RepsandweightworkoutState>(
                   builder: (context, state) {
                     if (state is Selected) {
+                      if (state.done.length ==
+                          stateValue.list[0].exercises.length) {
+                        BlocProvider.of<WorkoutScreenButtonsBloc>(context)
+                            .add(WorkoutCompleateEvent());
+                      }
+                      // if (state.done.length ==
+                      //     stateValue.list[0].exercises.length) {
+                      //   i++;
+                      //   BlocProvider.of<CategoryFetchBloc>(context)
+                      //       .add(CategoryFetchReq(id: categoryIdWorkout!)); ith manage cheyyanam ith i vechit aa listinte value edukkunneya  oro
+                      //exercise full kazhimbolum ith trigger cheyth oru loading animation okke kodukkanam
+                      // }
+
                       return Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -34,34 +50,44 @@ class CheckBoxSetRows extends StatelessWidget {
                                   color: Colors.blue,
                                 )
                               : InkWell(
-                                  onTap: () =>
-                                      BlocProvider.of<RepsandweightworkoutBloc>(
-                                              context)
-                                          .add(WorkoutDone(indexdone: index)),
+                                  onTap: () {
+                                    BlocProvider.of<RepsandweightworkoutBloc>(
+                                            context)
+                                        .add(WorkoutDone(indexdone: index));
+                                    BlocProvider.of<WorkoutScreenButtonsBloc>(
+                                            context)
+                                        .add(OneCompleateEvent());
+                                  },
                                   child: Icon(
                                     Icons.check_box_outline_blank_outlined,
                                     color: Colors.white,
                                   ),
                                 ),
-                          Row(
-                            children: [
-                              Text(
-                                stateValue.list[0].exercises[index].sets
-                                    .toString(),
-                                style: GoogleFonts.poppins(
-                                    color: Colors.blue,
-                                    fontWeight: FontWeight.w600),
-                              ),
-                              const SizedBox(
-                                width: 7,
-                              ),
-                              Text(
-                                "Set",
-                                style: GoogleFonts.poppins(
-                                    color: Colors.white, fontSize: 12),
-                              )
-                            ],
-                          ),
+                          state.done.contains(index) &&
+                                  state.list.contains(index)
+                              ? Row(
+                                  children: [
+                                    Text(
+                                      stateValue.list[0].exercises[index].sets
+                                          .toString(),
+                                      style: GoogleFonts.poppins(
+                                          color: Colors.blue,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                    const SizedBox(
+                                      width: 7,
+                                    ),
+                                    Text(
+                                      "Set",
+                                      style: GoogleFonts.poppins(
+                                          color: Colors.white, fontSize: 12),
+                                    )
+                                  ],
+                                )
+                              : Icon(
+                                  Icons.check_box,
+                                  color: Colors.blue,
+                                ),
                           InkWell(
                             onTap: () => weightAndReps(context, index),
                             child: state.list.contains(index)

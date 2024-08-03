@@ -76,22 +76,22 @@ class PlanOverViewScreen extends StatelessWidget {
                 }),
           ),
           // WeekTwoCarouselSlider(),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: CustomButton(
-              isNetwork: false,
-              isRow: false,
-              borderclr: Colors.transparent,
-              color: const Color.fromARGB(255, 207, 191, 49),
-              fontweight: FontWeight.w700,
-              height: 60,
-              name: "Start Plan",
-              radius: 10,
-              textclr: Colors.black,
-              textsize: 16,
-              onTap: () {},
-            ),
-          )
+          // Padding(
+          //   padding: const EdgeInsets.all(20.0),
+          //   child: CustomButton(
+          //     isNetwork: false,
+          //     isRow: false,
+          //     borderclr: Colors.transparent,
+          //     color: const Color.fromARGB(255, 207, 191, 49),
+          //     fontweight: FontWeight.w700,
+          //     height: 60,
+          //     name: "Start Plan",
+          //     radius: 10,
+          //     textclr: Colors.black,
+          //     textsize: 16,
+          //     onTap: () {},
+          //   ),
+          // )
         ],
       ),
     );

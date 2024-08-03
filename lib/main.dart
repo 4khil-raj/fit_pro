@@ -1,5 +1,5 @@
 import 'package:fit_pro/application/auth_bloc/auth_bloc.dart';
-import 'package:fit_pro/application/bloc/repsandweightworkout_bloc.dart';
+import 'package:fit_pro/application/reps&weight/repsandweightworkout_bloc.dart';
 import 'package:fit_pro/application/category_bloc/category_fetch_bloc.dart';
 import 'package:fit_pro/application/image_pic/imagepicker_bloc.dart';
 import 'package:fit_pro/application/bottom_nav/bottom_nav_bloc.dart';
@@ -10,6 +10,7 @@ import 'package:fit_pro/application/plan_overview/plan_overview_bloc.dart';
 import 'package:fit_pro/application/start_workout/start_workout_bloc.dart';
 import 'package:fit_pro/application/user_fetch/userfetch_bloc.dart';
 import 'package:fit_pro/application/user_info/user_info_bloc.dart';
+import 'package:fit_pro/application/wokout_screen_buttons/workout_screen_buttons_bloc.dart';
 import 'package:fit_pro/application/workout_fetch/workoutfetch_bloc.dart';
 import 'package:fit_pro/application/workout_plans/workoutplans_bloc.dart';
 import 'package:fit_pro/firebase_options.dart';
@@ -52,6 +53,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => CategoryFetchBloc()),
         BlocProvider(create: (context) => WorkoutfetchBloc()),
         BlocProvider(create: (context) => RepsandweightworkoutBloc()),
+        BlocProvider(create: (context) => WorkoutScreenButtonsBloc()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

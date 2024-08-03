@@ -3,6 +3,7 @@ import 'package:fit_pro/application/workout_fetch/workoutfetch_bloc.dart';
 import 'package:fit_pro/infrastructure/repository/category_fetch/repo.dart';
 import 'package:fit_pro/presentation/screens/bottom_nav/bottom_nav.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/widget/populate_workout_builder.dart';
+import 'package:fit_pro/presentation/screens/home/homeScreen/widget/start_workout_button.dart';
 import 'package:fit_pro/presentation/screens/start_workout/start_workout.dart';
 import 'package:fit_pro/presentation/widgets/buttons/button.dart';
 import 'package:fit_pro/presentation/widgets/custom_nav/customnav.dart';
@@ -10,6 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+
+String? categoryIdWorkout;
 
 class PopulateWorkout extends StatefulWidget {
   const PopulateWorkout({
@@ -130,39 +133,44 @@ class _PopulateWorkoutScreenState extends State<PopulateWorkout> {
                 //       statevalue: widget.state!,
                 //       weekIndex: widget.weekIndex,
                 //     )),
-                const SizedBox(
-                  width: 15,
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(6.0),
-                    child: CustomButton(
-                      isNetwork: false,
-                      isRow: false,
-                      color: const Color.fromARGB(255, 219, 203, 59),
-                      borderclr: const Color.fromARGB(255, 179, 165, 41),
-                      fontweight: FontWeight.w700,
-                      height: 50,
-                      name: "Start Workout",
-                      radius: 10,
-                      textclr: Colors.black,
-                      textsize: 14,
-                      onTap: () async {
-                        print(widget.stateValues.list[widget.index]);
-                        BlocProvider.of<CategoryFetchBloc>(context).add(
-                            CategoryFetchReq(
-                                id: widget.stateValues.list[widget.index]
-                                    .categories[0]));
+                // const SizedBox(
+                //   width: 15,
+                // ),
+                // Expanded(
+                //   child: Padding(
+                //     padding: const EdgeInsets.all(6.0),
+                //     child: CustomButton(
+                //       isNetwork: false,
+                //       isRow: false,
+                //       color: const Color.fromARGB(255, 219, 203, 59),
+                //       borderclr: const Color.fromARGB(255, 179, 165, 41),
+                //       fontweight: FontWeight.w700,
+                //       height: 50,
+                //       name: "Start Workout",
+                //       radius: 10,
+                //       textclr: Colors.black,
+                //       textsize: 14,
+                //       onTap: () async {
+                //         categoryIdWorkout =
+                //             widget.stateValues.list[widget.index].categories[0];
+                //         BlocProvider.of<CategoryFetchBloc>(context).add(
+                //             CategoryFetchReq(
+                //                 id: widget.stateValues.list[widget.index]
+                //                     .categories[0]));
 
-                        // final response = await CategoryRepository()
-                        //     .fetchCategories(
-                        //         widget.stateValues.list[0].categories[0]);
-                        // print('========+++++++++++--------');
-                        // print(response[0].exercises[0].name);
-                        customNavRemoveuntil(context, StartWorkoutScreen());
-                      },
-                    ),
-                  ),
+                //         // final response = await CategoryRepository()
+                //         //     .fetchCategories(
+                //         //         widget.stateValues.list[0].categories[0]);
+                //         // print('========+++++++++++--------');
+                //         // print(response[0].exercises[0].name);
+                //         customNavPush(context, StartWorkoutScreen());
+                //       },
+                //     ),
+                //   ),
+                // )
+                StarWorkoutButtonInTW(
+                  index: widget.index,
+                  stateValues: widget.stateValues,
                 )
               ],
             ),

@@ -22,7 +22,7 @@ class BottomSheetButtons extends StatelessWidget {
               textclr: Colors.white,
               name: 'Cancel',
               onTap: () {
-                // Navigator.pop(context);
+                Navigator.pop(context);
               },
               textsize: 20,
               width: MediaQuery.of(context).size.width / 2.5,
@@ -43,7 +43,7 @@ class BottomSheetButtons extends StatelessWidget {
               textclr: Colors.black,
               name: 'Save',
               onTap: () {
-                // Navigator.pop(context);
+                Navigator.pop(context);
               },
               textsize: 20,
               width: MediaQuery.of(context).size.width / 2.5,
