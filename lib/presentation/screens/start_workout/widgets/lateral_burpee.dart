@@ -21,6 +21,13 @@ class LateralBurpeeScreen extends StatelessWidget {
           return Scaffold(
             backgroundColor: const Color.fromARGB(255, 6, 2, 19),
             appBar: AppBar(
+              leading: IconButton(
+                icon: Icon(Icons.arrow_back),
+                onPressed: () {
+                  Navigator.pop(context);
+                  Navigator.pop(context);
+                },
+              ),
               centerTitle: true,
               backgroundColor: const Color.fromARGB(255, 6, 2, 19),
               iconTheme: IconThemeData(
@@ -59,7 +66,9 @@ class LateralBurpeeScreen extends StatelessWidget {
                   ),
                 ),
                 // Spacer(),
-                TickButtonForLateralBurpee()
+                TickButtonForLateralBurpee(
+                  categoryState: state,
+                )
                 //
               ],
             ),

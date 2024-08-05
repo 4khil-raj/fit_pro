@@ -1,7 +1,7 @@
 part of 'imagepicker_bloc.dart';
 
 @immutable
-sealed class ImagepickerEvent {}
+class ImagepickerEvent {}
 
 final class ImageFromGallery extends ImagepickerEvent {}
 

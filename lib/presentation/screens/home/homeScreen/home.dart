@@ -2,6 +2,7 @@ import 'package:fit_pro/application/fetch_bookmark_day/fetch_bookmark_bloc.dart'
 import 'package:fit_pro/application/user_fetch/userfetch_bloc.dart';
 import 'package:fit_pro/application/workout_fetch/workoutfetch_bloc.dart';
 import 'package:fit_pro/application/workout_plans/workoutplans_bloc.dart';
+import 'package:fit_pro/infrastructure/repository/temp_category/temp.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/widget/appbar.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/widget/bookmark.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/widget/bottom_carousel.dart';
@@ -20,6 +21,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    CategoriesRepositoryFetchTemap.fetchCompletedCategories();
     BlocProvider.of<WorkoutplansBloc>(context)
         .add(WorkoutPlanFetchRequestEvent());
     BlocProvider.of<UserfetchBloc>(context).add(UserFetchReq());

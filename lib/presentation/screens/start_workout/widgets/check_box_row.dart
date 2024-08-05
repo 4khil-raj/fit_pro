@@ -1,6 +1,7 @@
 import 'package:fit_pro/application/reps&weight/repsandweightworkout_bloc.dart';
 import 'package:fit_pro/application/category_bloc/category_fetch_bloc.dart';
 import 'package:fit_pro/application/wokout_screen_buttons/workout_screen_buttons_bloc.dart';
+import 'package:fit_pro/infrastructure/repository/temp_category/temp.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/widget/populate_workout.dart';
 import 'package:fit_pro/presentation/screens/start_workout/widgets/bottom_sheet.dart';
 import 'package:fit_pro/presentation/screens/start_workout/widgets/lateral_burpee.dart';
@@ -43,51 +44,52 @@ class CheckBoxSetRows extends StatelessWidget {
                       return Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          state.done.contains(index) &&
-                                  state.list.contains(index)
+                          categoryforWorkout.contains(stateValue.list[0].id)
                               ? Icon(
                                   Icons.check_box,
                                   color: Colors.blue,
                                 )
-                              : InkWell(
-                                  onTap: () {
-                                    BlocProvider.of<RepsandweightworkoutBloc>(
-                                            context)
-                                        .add(WorkoutDone(indexdone: index));
-                                    BlocProvider.of<WorkoutScreenButtonsBloc>(
-                                            context)
-                                        .add(OneCompleateEvent());
-                                  },
-                                  child: Icon(
-                                    Icons.check_box_outline_blank_outlined,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                          state.done.contains(index) &&
-                                  state.list.contains(index)
-                              ? Row(
-                                  children: [
-                                    Text(
-                                      stateValue.list[0].exercises[index].sets
-                                          .toString(),
-                                      style: GoogleFonts.poppins(
-                                          color: Colors.blue,
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                    const SizedBox(
-                                      width: 7,
-                                    ),
-                                    Text(
-                                      "Set",
-                                      style: GoogleFonts.poppins(
-                                          color: Colors.white, fontSize: 12),
+                              : state.done.contains(index) &&
+                                      state.list.contains(index)
+                                  ? Icon(
+                                      Icons.check_box,
+                                      color: Colors.blue,
                                     )
-                                  ],
-                                )
-                              : Icon(
-                                  Icons.check_box,
-                                  color: Colors.blue,
-                                ),
+                                  : InkWell(
+                                      onTap: () {
+                                        BlocProvider.of<
+                                                    RepsandweightworkoutBloc>(
+                                                context)
+                                            .add(WorkoutDone(indexdone: index));
+                                        BlocProvider.of<
+                                                    WorkoutScreenButtonsBloc>(
+                                                context)
+                                            .add(OneCompleateEvent());
+                                      },
+                                      child: Icon(
+                                        Icons.check_box_outline_blank_outlined,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                          Row(
+                            children: [
+                              Text(
+                                stateValue.list[0].exercises[index].sets
+                                    .toString(),
+                                style: GoogleFonts.poppins(
+                                    color: Colors.blue,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                              const SizedBox(
+                                width: 7,
+                              ),
+                              Text(
+                                "Set",
+                                style: GoogleFonts.poppins(
+                                    color: Colors.white, fontSize: 12),
+                              )
+                            ],
+                          ),
                           InkWell(
                             onTap: () => weightAndReps(context, index),
                             child: state.list.contains(index)
@@ -146,10 +148,15 @@ class CheckBoxSetRows extends StatelessWidget {
                     return Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Icon(
-                          Icons.check_box_outline_blank_outlined,
-                          color: Colors.white,
-                        ),
+                        categoryforWorkout.contains(stateValue.list[0].id)
+                            ? Icon(
+                                Icons.check_box,
+                                color: Colors.blue,
+                              )
+                            : Icon(
+                                Icons.check_box_outline_blank_outlined,
+                                color: Colors.white,
+                              ),
                         Row(
                           children: [
                             Text(

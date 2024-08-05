@@ -1,7 +1,7 @@
 part of 'workout_screen_buttons_bloc.dart';
 
 @immutable
-sealed class WorkoutScreenButtonsEvent {}
+class WorkoutScreenButtonsEvent {}
 
 final class OneCompleateEvent extends WorkoutScreenButtonsEvent {}
 

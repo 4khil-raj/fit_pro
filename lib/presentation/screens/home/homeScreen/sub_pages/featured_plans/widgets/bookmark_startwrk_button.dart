@@ -1,32 +1,27 @@
 import 'package:fit_pro/application/category_bloc/category_fetch_bloc.dart';
-import 'package:fit_pro/application/plan_overview/plan_overview_bloc.dart';
 import 'package:fit_pro/application/reps&weight/repsandweightworkout_bloc.dart';
 import 'package:fit_pro/application/wokout_screen_buttons/workout_screen_buttons_bloc.dart';
-import 'package:fit_pro/presentation/screens/home/homeScreen/sub_pages/featured_plans/widgets/day_task.dart';
+import 'package:fit_pro/infrastructure/repository/temp_category/temp.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/sub_pages/featured_plans/widgets/take_selfie.dart';
+import 'package:fit_pro/presentation/screens/home/homeScreen/widget/populate_workout.dart';
 import 'package:fit_pro/presentation/screens/start_workout/start_workout.dart';
 import 'package:fit_pro/presentation/widgets/buttons/button.dart';
 import 'package:fit_pro/presentation/widgets/custom_nav/customnav.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fit_pro/infrastructure/repository/temp_category/temp.dart';
 
-class StartWorkoutPlanButton extends StatefulWidget {
-  const StartWorkoutPlanButton(
-      {super.key,
-      required this.dayIndex,
-      required this.state,
-      required this.weekIndex});
-  final int dayIndex;
-  final PlanFetchDone state;
-  final int weekIndex;
+class BookmarkStartWorkoutButton extends StatefulWidget {
+  const BookmarkStartWorkoutButton({super.key, required this.categoryId});
+  final String categoryId;
   @override
-  State<StartWorkoutPlanButton> createState() => _StartWorkoutPlanButtonState();
+  State<BookmarkStartWorkoutButton> createState() =>
+      _BookmarkStartWorkoutButtonState();
 }
 
-class _StartWorkoutPlanButtonState extends State<StartWorkoutPlanButton> {
+class _BookmarkStartWorkoutButtonState
+    extends State<BookmarkStartWorkoutButton> {
   bool endWorkout = false;
-
   @override
   Widget build(BuildContext context) {
     return endWorkout
@@ -37,7 +32,7 @@ class _StartWorkoutPlanButtonState extends State<StartWorkoutPlanButton> {
                 isNetwork: false,
                 isRow: false,
                 color: const Color.fromARGB(255, 244, 118, 118),
-                borderclr: const Color.fromARGB(255, 244, 118, 118),
+                borderclr: Color.fromARGB(255, 244, 118, 118),
                 fontweight: FontWeight.w700,
                 height: 50,
                 name: "End Workout",
@@ -45,10 +40,7 @@ class _StartWorkoutPlanButtonState extends State<StartWorkoutPlanButton> {
                 textclr: Colors.black,
                 textsize: 14,
                 onTap: () async {
-                  // BlocProvider.of<CategoryFetchBloc>(context).add(
-                  //     CategoryFetchReq(
-                  //         id: widget.state.list[0].weeks[widget.weekIndex]
-                  //             .days[widget.dayIndex].categories[1].id));
+                  categoryIdWorkout = widget.categoryId;
 
                   customNavPush(context, const TakeSelfieScreen());
 
@@ -56,10 +48,6 @@ class _StartWorkoutPlanButtonState extends State<StartWorkoutPlanButton> {
                   setState(() {
                     endWorkout = false;
                   });
-                  // print(widget.state!.list[0].weeks[widget.weekIndex]
-                  //     .days[widget.dayIndex].id);
-                  // WorkoutRepository().fetchWorkouts();
-                  // customNavRemoveuntil(context, StartWorkoutScreen());
                 },
               ),
             ),
@@ -79,21 +67,26 @@ class _StartWorkoutPlanButtonState extends State<StartWorkoutPlanButton> {
                 textclr: Colors.black,
                 textsize: 14,
                 onTap: () async {
-                  youtubePlayerControllerdailyTask.pause();
+                  categoryIdWorkout = widget.categoryId;
                   BlocProvider.of<RepsandweightworkoutBloc>(context)
                       .add(ClearList());
                   BlocProvider.of<WorkoutScreenButtonsBloc>(context)
                       .add(WorkoutScreenButtonsEvent());
-                  BlocProvider.of<CategoryFetchBloc>(context).add(
-                      CategoryFetchReq(
-                          id: widget.state.list[0].weeks[widget.weekIndex]
-                              .days[widget.dayIndex].categories[0].id));
 
+                  BlocProvider.of<CategoryFetchBloc>(context)
+                      .add(CategoryFetchReq(id: widget.categoryId));
                   customNavPush(context, const StartWorkoutScreen());
+
                   await Future.delayed(const Duration(seconds: 2));
+
                   setState(() {
                     endWorkout = true;
                   });
+                  // final response = await CategoryRepository()
+                  //     .fetchCategories(
+                  //         widget.stateValues.list[0].categories[0]);
+                  // print('========+++++++++++--------');
+                  // print(response[0].exercises[0].name);
                 },
               ),
             ),

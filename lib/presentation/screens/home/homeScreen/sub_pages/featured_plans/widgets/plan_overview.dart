@@ -9,6 +9,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
+late YoutubePlayerController planoverviewyoutubePlayerController;
+
 class FeaturedPlanOverviewScreen extends StatefulWidget {
   const FeaturedPlanOverviewScreen(
       {super.key,
@@ -34,11 +36,10 @@ class _FeaturedPlanOverviewScreenState
     extends State<FeaturedPlanOverviewScreen> {
   final videourl = "https://youtu.be/eMjyvIQbn9M?si=3EntHPR3yGvnyBjl";
 
-  late YoutubePlayerController youtubePlayerController;
   @override
   void initState() {
     final videoId = YoutubePlayer.convertUrlToId(widget.video);
-    youtubePlayerController = YoutubePlayerController(
+    planoverviewyoutubePlayerController = YoutubePlayerController(
         initialVideoId: videoId!, flags: YoutubePlayerFlags(autoPlay: false));
     super.initState();
   }
@@ -60,7 +61,7 @@ class _FeaturedPlanOverviewScreenState
           if (state is PlanFetchDone) {
             // WidgetsBinding.instance.addPostFrameCallback((_) {
             return PlanOverViewScreen(
-              youtubePlayerController: youtubePlayerController,
+              youtubePlayerController: planoverviewyoutubePlayerController,
               state: state,
             );
             // });

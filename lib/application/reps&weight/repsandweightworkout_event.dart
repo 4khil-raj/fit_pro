@@ -16,3 +16,5 @@ final class WorkoutDone extends RepsandweightworkoutEvent {
 
   WorkoutDone({required this.indexdone});
 }
+
+final class ClearList extends RepsandweightworkoutEvent {}

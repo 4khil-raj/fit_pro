@@ -1,7 +1,7 @@
 part of 'workout_screen_buttons_bloc.dart';
 
 @immutable
-sealed class WorkoutScreenButtonsState {}
+class WorkoutScreenButtonsState {}
 
 final class WorkoutScreenButtonsInitial extends WorkoutScreenButtonsState {}
 

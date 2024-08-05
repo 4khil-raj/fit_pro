@@ -18,6 +18,7 @@ class TakeSelfieScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<ImagepickerBloc>(context).add(ImagepickerEvent());
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(

@@ -1,4 +1,6 @@
 import 'package:fit_pro/application/category_bloc/category_fetch_bloc.dart';
+import 'package:fit_pro/application/reps&weight/repsandweightworkout_bloc.dart';
+import 'package:fit_pro/application/wokout_screen_buttons/workout_screen_buttons_bloc.dart';
 import 'package:fit_pro/application/workout_fetch/workoutfetch_bloc.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/sub_pages/featured_plans/widgets/take_selfie.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/widget/populate_workout.dart';
@@ -65,7 +67,13 @@ class _StarWorkoutButtonInTWState extends State<StarWorkoutButtonInTW> {
                 radius: 10,
                 textclr: Colors.black,
                 textsize: 14,
-                onTap: () async {
+                onTap: () {
+                  workoutyoutubePlayerController.pause();
+
+                  BlocProvider.of<RepsandweightworkoutBloc>(context)
+                      .add(ClearList());
+                  BlocProvider.of<WorkoutScreenButtonsBloc>(context)
+                      .add(WorkoutScreenButtonsEvent());
                   categoryIdWorkout =
                       widget.stateValues.list[widget.index].categories[0];
                   BlocProvider.of<CategoryFetchBloc>(context).add(

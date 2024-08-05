@@ -1,5 +1,6 @@
 import 'package:fit_pro/application/plan_overview/plan_overview_bloc.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/sub_pages/featured_plans/widgets/day_task.dart';
+import 'package:fit_pro/presentation/screens/home/homeScreen/sub_pages/featured_plans/widgets/plan_overview.dart';
 import 'package:fit_pro/presentation/widgets/custom_nav/customnav.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -27,18 +28,21 @@ class FeaturedCaroselContainer1 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(children: [
       InkWell(
-        onTap: () => customNavPush(
-            context,
+        onTap: () {
+          planoverviewyoutubePlayerController.pause();
+          customNavPush(
+              context,
 //ee screen figmayil illah ahh thanna pottane pattikkan commentcheythaya ee screennine just call cheytha mmathi vere onnum cheyyanda aa screen cheytholum
-            //  const WeekOneScreen()
-            DayTaskScreen(
-              bookmark: false,
-              dayIndex: dayIndex,
-              weekIndex: weekIndex,
-              state: state,
-              appbarTitle:
-                  "Week ${state.list[0].weeks[weekIndex].week} | Day ${state.list[0].weeks[weekIndex].days[dayIndex].day}",
-            )),
+              //  const WeekOneScreen()
+              DayTaskScreen(
+                bookmark: false,
+                dayIndex: dayIndex,
+                weekIndex: weekIndex,
+                state: state,
+                appbarTitle:
+                    "Week ${state.list[0].weeks[weekIndex].week} | Day ${state.list[0].weeks[weekIndex].days[dayIndex].day}",
+              ));
+        },
         child: Container(
           width: MediaQuery.of(context).size.width,
           height: 370,

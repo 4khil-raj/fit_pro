@@ -15,6 +15,10 @@ class RepsandweightworkoutBloc
   List<int> weightlist = [];
   RepsandweightworkoutBloc() : super(RepsandweightworkoutInitial()) {
     on<RepsandweightworkoutEvent>((event, emit) {
+      // indexes.clear();
+      // wrkDone.clear();
+      // repslist.clear();
+      // weightlist.clear();
       emit(RepsandweightworkoutInitial());
     });
     on<GetReps>((event, emit) {
@@ -46,6 +50,13 @@ class RepsandweightworkoutBloc
           index: index,
           reps: reps,
           weight: weight));
+    });
+    on<ClearList>((event, emit) {
+      indexes.clear();
+      wrkDone.clear();
+      repslist.clear();
+      weightlist.clear();
+      emit(RepsandweightworkoutInitial());
     });
   }
 }

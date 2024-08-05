@@ -1,8 +1,9 @@
 import 'package:fit_pro/application/category_bloc/category_fetch_bloc.dart';
 import 'package:fit_pro/application/fetch_bookmark_day/fetch_bookmark_bloc.dart';
 import 'package:fit_pro/presentation/screens/bottom_nav/bottom_nav.dart';
+import 'package:fit_pro/presentation/screens/home/homeScreen/sub_pages/featured_plans/widgets/bookmark_startwrk_button.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/sub_pages/featured_plans/widgets/day_builder_bookmark.dart';
-import 'package:fit_pro/presentation/widgets/buttons/button.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -15,7 +16,9 @@ class BookmarkDayTaskScreen extends StatefulWidget {
     required this.title,
     required this.subTitle,
     required this.bookmarkIndex,
+    required this.categoryId,
   });
+  final String categoryId;
   final String videoLink;
   final String title;
   final String subTitle;
@@ -130,27 +133,8 @@ class _DayTaskScreenState extends State<BookmarkDayTaskScreen> {
                       const SizedBox(
                         width: 15,
                       ),
-                      Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.all(6.0),
-                          child: CustomButton(
-                            isNetwork: false,
-                            isRow: false,
-                            color: const Color.fromARGB(255, 219, 203, 59),
-                            borderclr: const Color.fromARGB(255, 179, 165, 41),
-                            fontweight: FontWeight.w700,
-                            height: 50,
-                            name: "Start Workout",
-                            radius: 10,
-                            textclr: Colors.black,
-                            textsize: 14,
-                            onTap: () {
-                              // print(widget.state!.list[0].weeks[widget.weekIndex]
-                              //     .days[widget.dayIndex].id);
-                              // customNavRemoveuntil(context, StartWorkoutScreen());
-                            },
-                          ),
-                        ),
+                      BookmarkStartWorkoutButton(
+                        categoryId: widget.categoryId,
                       )
                     ],
                   ),
@@ -160,6 +144,7 @@ class _DayTaskScreenState extends State<BookmarkDayTaskScreen> {
           );
         }
         return Scaffold(
+          backgroundColor: const Color.fromARGB(255, 16, 27, 36),
           body: Center(
             child: CircularProgressIndicator(),
           ),

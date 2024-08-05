@@ -1,13 +1,18 @@
+import 'package:fit_pro/application/category_bloc/category_fetch_bloc.dart';
 import 'package:fit_pro/application/wokout_screen_buttons/workout_screen_buttons_bloc.dart';
+import 'package:fit_pro/infrastructure/repository/temp_category/temp.dart';
+import 'package:fit_pro/presentation/screens/start_workout/widgets/lateral_burpee.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 
 final StopWatchTimer stopWatchTimer = StopWatchTimer();
 
 class TickButtonForLateralBurpee extends StatefulWidget {
-  const TickButtonForLateralBurpee({super.key});
+  const TickButtonForLateralBurpee({super.key, required this.categoryState});
+  final CategoryFetched categoryState;
 
   @override
   State<TickButtonForLateralBurpee> createState() =>
@@ -19,62 +24,92 @@ class _TickButtonForLateralBurpeeState
   bool button = true;
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<WorkoutScreenButtonsBloc, WorkoutScreenButtonsState>(
-      builder: (context, state) {
-        if (state is Started) {
-          return StreamBuilder<int>(
-            stream: stopWatchTimer.rawTime,
-            initialData: stopWatchTimer.minuteTime.value,
-            builder: (context, snapshot) {
-              final value = snapshot.data!;
-              final displayTime = StopWatchTimer.getDisplayTime(value);
-              return Text(
-                displayTime,
-                style: const TextStyle(
-                    fontSize: 35,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white),
-              );
-            },
-          );
-        } else if (state is OneCompleateState) {
-          return const RestNowTimeButtonForLateralBurpee();
-        } else if (state is WorkoutCompleted) {
-          return InkWell(
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.pop(context);
-            },
-            child: Container(
-              width: double.infinity,
-              decoration:
-                  const BoxDecoration(color: Color.fromARGB(255, 35, 35, 35)),
-              child: const Icon(
-                Icons.check_circle,
-                color: Colors.green,
-                size: 70,
+    return categoryforWorkout.contains(widget.categoryState.list[0].id)
+        ? Container(
+            width: double.infinity,
+            decoration:
+                const BoxDecoration(color: Color.fromARGB(255, 35, 35, 35)),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(
+                    Icons.check_circle,
+                    color: Colors.green,
+                    size: 60,
+                  ),
+                  Text(
+                    "Workout Completed",
+                    style: GoogleFonts.poppins(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold),
+                  )
+                ],
               ),
             ),
-          );
-        }
-        return GestureDetector(
-            onTap: () {
-              BlocProvider.of<WorkoutScreenButtonsBloc>(context)
-                  .add(StartWrokoutButton());
-              () => stopWatchTimer.onStartTimer();
+          )
+        : BlocBuilder<WorkoutScreenButtonsBloc, WorkoutScreenButtonsState>(
+            builder: (context, state) {
+              if (state is Started) {
+                return StreamBuilder<int>(
+                  stream: stopWatchTimer.rawTime,
+                  initialData: stopWatchTimer.minuteTime.value,
+                  builder: (context, snapshot) {
+                    final value = snapshot.data!;
+                    final displayTime = StopWatchTimer.getDisplayTime(value,
+                        milliSecond: false);
+                    return Text(
+                      displayTime,
+                      style: const TextStyle(
+                          fontSize: 35,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    );
+                  },
+                );
+              } else if (state is OneCompleateState) {
+                return const RestNowTimeButtonForLateralBurpee();
+              } else if (state is WorkoutCompleted) {
+                return InkWell(
+                  onTap: () {
+                    CategoriesRepositoryAddTemp.add(
+                        widget.categoryState.list[0].exercises[i].id,
+                        widget.categoryState.list[0].id);
+                    Navigator.pop(context);
+                    Navigator.pop(context);
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    decoration: const BoxDecoration(
+                        color: Color.fromARGB(255, 35, 35, 35)),
+                    child: const Icon(
+                      Icons.check_circle,
+                      color: Colors.green,
+                      size: 70,
+                    ),
+                  ),
+                );
+              }
+              return GestureDetector(
+                  onTap: () {
+                    BlocProvider.of<WorkoutScreenButtonsBloc>(context)
+                        .add(StartWrokoutButton());
+                    () => stopWatchTimer.onStartTimer();
+                  },
+                  child: Container(
+                    width: double.infinity,
+                    decoration: const BoxDecoration(
+                        color: Color.fromARGB(255, 35, 35, 35)),
+                    child: const Icon(
+                      Icons.check_circle,
+                      color: Colors.green,
+                      size: 70,
+                    ),
+                  ));
             },
-            child: Container(
-              width: double.infinity,
-              decoration:
-                  const BoxDecoration(color: Color.fromARGB(255, 35, 35, 35)),
-              child: const Icon(
-                Icons.check_circle,
-                color: Colors.green,
-                size: 70,
-              ),
-            ));
-      },
-    );
+          );
   }
 }
 
@@ -111,7 +146,7 @@ class _RestNowTimeButtonForLateralBurpeeState
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text(
-                      "Reset Now",
+                      "Rest Now",
                       style: TextStyle(color: Colors.white),
                     ),
                     StreamBuilder<int>(

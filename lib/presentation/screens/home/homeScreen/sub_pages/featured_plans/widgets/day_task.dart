@@ -6,13 +6,12 @@ import 'package:fit_pro/presentation/screens/bottom_nav/bottom_nav.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/sub_pages/featured_plans/widgets/bookmark_button.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/sub_pages/featured_plans/widgets/daily_task_builder.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/sub_pages/featured_plans/widgets/start_workout_button_plan.dart';
-import 'package:fit_pro/presentation/screens/start_workout/start_workout.dart';
-import 'package:fit_pro/presentation/widgets/buttons/button.dart';
-import 'package:fit_pro/presentation/widgets/custom_nav/customnav.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+
+late YoutubePlayerController youtubePlayerControllerdailyTask;
 
 class DayTaskScreen extends StatefulWidget {
   const DayTaskScreen(
@@ -36,7 +35,15 @@ class DayTaskScreen extends StatefulWidget {
 class _DayTaskScreenState extends State<DayTaskScreen> {
   // final videourl = state.list[0]  "https://youtu.be/J212vz33gU4?si=cp2DT-HWP49Uj2hq";
 
-  late YoutubePlayerController youtubePlayerController;
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    youtubePlayerControllerdailyTask
+        .pause(); // Pause the video when navigating away
+
+    youtubePlayerControllerdailyTask.dispose();
+  }
 
   @override
   void initState() {
@@ -52,7 +59,7 @@ class _DayTaskScreenState extends State<DayTaskScreen> {
     double screenWidth = MediaQuery.of(context).size.width;
     final videoId = YoutubePlayer.convertUrlToId(widget.state!.list[0]
         .weeks[widget.weekIndex].days[widget.dayIndex].introVideo);
-    youtubePlayerController = YoutubePlayerController(
+    youtubePlayerControllerdailyTask = YoutubePlayerController(
         initialVideoId: videoId!,
         flags: const YoutubePlayerFlags(autoPlay: false));
 
@@ -72,7 +79,7 @@ class _DayTaskScreenState extends State<DayTaskScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           YoutubePlayer(
-            controller: youtubePlayerController,
+            controller: youtubePlayerControllerdailyTask,
             showVideoProgressIndicator: true,
           ),
           Padding(
@@ -116,7 +123,7 @@ class _DayTaskScreenState extends State<DayTaskScreen> {
             dayIndex: widget.dayIndex,
             weekIndex: widget.weekIndex,
             state: widget.state!,
-            // youtubePlayerController: youtubePlayerController,
+            // youtubePlayerControllerdailyTask: youtubePlayerControllerdailyTask,
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),

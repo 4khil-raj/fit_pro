@@ -13,6 +13,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 String? categoryIdWorkout;
+late YoutubePlayerController workoutyoutubePlayerController;
 
 class PopulateWorkout extends StatefulWidget {
   const PopulateWorkout({
@@ -33,11 +34,18 @@ class PopulateWorkout extends StatefulWidget {
 class _PopulateWorkoutScreenState extends State<PopulateWorkout> {
   // final videourl = state.list[0]  "https://youtu.be/J212vz33gU4?si=cp2DT-HWP49Uj2hq";
 
-  late YoutubePlayerController youtubePlayerController;
+  // late YoutubePlayerController workoutyoutubePlayerController;
 
   @override
   void initState() {
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    workoutyoutubePlayerController.pause();
+    workoutyoutubePlayerController.dispose();
   }
 
   bool bookmark = true;
@@ -49,7 +57,7 @@ class _PopulateWorkoutScreenState extends State<PopulateWorkout> {
     double screenWidth = MediaQuery.of(context).size.width;
     final videoId = YoutubePlayer.convertUrlToId(
         widget.stateValues.list[widget.index].workoutVideo);
-    youtubePlayerController = YoutubePlayerController(
+    workoutyoutubePlayerController = YoutubePlayerController(
         initialVideoId: videoId!,
         flags: const YoutubePlayerFlags(autoPlay: false));
 
@@ -69,7 +77,7 @@ class _PopulateWorkoutScreenState extends State<PopulateWorkout> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           YoutubePlayer(
-            controller: youtubePlayerController,
+            controller: workoutyoutubePlayerController,
             showVideoProgressIndicator: true,
           ),
           Padding(
@@ -111,7 +119,7 @@ class _PopulateWorkoutScreenState extends State<PopulateWorkout> {
           PopulateTaskBuilderScreen(
             dayIndex: widget.index,
             stateValues: widget.stateValues,
-            // youtubePlayerController: youtubePlayerController,
+            // workoutyoutubePlayerController: workoutyoutubePlayerController,
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
