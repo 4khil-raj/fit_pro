@@ -32,7 +32,6 @@ class CategoriesRepositoryFetchTemap {
         headers: {
           'Authorization': 'Bearer $accesstocken',
         });
-    print(response.body);
     if (response.statusCode == 200) {
       final jsonResponse = json.decode(response.body);
       final categoriesResponse = CategoriesResponse.fromJson(jsonResponse);

@@ -48,12 +48,28 @@ void weightAndReps(context, index) {
                                       ),
                                       Padding(
                                         padding: const EdgeInsets.all(12.0),
-                                        child: Text(
-                                          "Enter your reps & weight",
-                                          style: GoogleFonts.poppins(
-                                              fontSize: 21,
-                                              color: Colors.white,
-                                              fontWeight: FontWeight.w700),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            Text(
+                                              " Reps",
+                                              style: GoogleFonts.poppins(
+                                                  fontSize: 21,
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.w700),
+                                            ),
+                                            SizedBox(
+                                              width: 10,
+                                            ),
+                                            Text(
+                                              " Weight",
+                                              style: GoogleFonts.poppins(
+                                                  fontSize: 21,
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.w700),
+                                            ),
+                                          ],
                                         ),
                                       ),
 

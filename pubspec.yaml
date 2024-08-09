@@ -65,9 +65,14 @@ dependencies:
   image_picker: ^1.1.2
   vimeo_video_player: ^0.0.16
   stop_watch_timer: ^3.2.0
+  flutter_launcher_icons: ^0.13.1
   # pinput: 
 
 dev_dependencies:
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/icons/IMG_3672.PNG"
   flutter_test:
     sdk: flutter
 

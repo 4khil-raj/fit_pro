@@ -31,7 +31,7 @@ class HomeScreen extends StatelessWidget {
     BlocProvider.of<WorkoutfetchBloc>(context).add(WorkoutFetch());
 
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 6, 2, 19),
+      backgroundColor: const Color.fromARGB(255, 6, 2, 19),
       body: SingleChildScrollView(
         child: Column(
           children: [

@@ -40,6 +40,8 @@ class _StarWorkoutButtonInTWState extends State<StarWorkoutButtonInTW> {
                 textclr: Colors.black,
                 textsize: 14,
                 onTap: () async {
+                  workoutyoutubePlayerController.pause();
+
                   categoryIdWorkout =
                       widget.stateValues.list[widget.index].categories[0];
 
@@ -86,7 +88,7 @@ class _StarWorkoutButtonInTWState extends State<StarWorkoutButtonInTW> {
                   //         widget.stateValues.list[0].categories[0]);
                   // print('========+++++++++++--------');
                   // print(response[0].exercises[0].name);
-                  customNavPush(context, StartWorkoutScreen());
+                  customNavPush(context, const StartWorkoutScreen());
                   setState(() {
                     endWorkout = true;
                   });

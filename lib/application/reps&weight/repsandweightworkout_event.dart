@@ -18,3 +18,14 @@ final class WorkoutDone extends RepsandweightworkoutEvent {
 }
 
 final class ClearList extends RepsandweightworkoutEvent {}
+
+final class IconIndexPicker extends RepsandweightworkoutEvent {
+  final int index;
+  IconIndexPicker({required this.index});
+}
+
+final class Checker extends RepsandweightworkoutEvent {
+  final int totalLength;
+
+  Checker({required this.totalLength});
+}

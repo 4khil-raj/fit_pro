@@ -262,7 +262,8 @@ class TakeSelfieScreen extends StatelessWidget {
                         textclr: Colors.black,
                         textsize: 14,
                         onTap: () async {
-                          customNavRemoveuntil(context, const BottomNavBar());
+                          // customNavRemoveuntil(context, const BottomNavBar());
+                          Navigator.pop(context);
                         },
                       ),
                     ),

@@ -49,6 +49,7 @@ class _StartWorkoutPlanButtonState extends State<StartWorkoutPlanButton> {
                   //     CategoryFetchReq(
                   //         id: widget.state.list[0].weeks[widget.weekIndex]
                   //             .days[widget.dayIndex].categories[1].id));
+                  youtubePlayerControllerdailyTask.pause();
 
                   customNavPush(context, const TakeSelfieScreen());
 

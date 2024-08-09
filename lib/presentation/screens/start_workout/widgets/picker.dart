@@ -24,31 +24,36 @@ class _WeightAndRepsPickerScreenState extends State<WeightAndRepsPickerScreen> {
           child: Row(
             children: [
               Flexible(
-                child: NumberPicker(
-                  itemHeight: 80,
-                  selectedTextStyle: GoogleFonts.urbanist(
-                      color: const Color.fromARGB(255, 72, 173, 255),
-                      fontSize: 25,
-                      fontWeight: FontWeight.w800),
-                  textStyle: GoogleFonts.urbanist(
-                      color: const Color.fromARGB(255, 225, 217, 217),
-                      fontSize: 25),
-                  value: _currentIntValue,
-                  minValue: 1,
-                  maxValue: 200,
-                  itemWidth: double.infinity,
-                  step: 1,
-                  axis: Axis.vertical,
-                  haptics: true,
-                  onChanged: (value) {
-                    setState(() => _currentIntValue = value);
-                    BlocProvider.of<RepsandweightworkoutBloc>(context).add(
-                        GetReps(
-                            index: widget.index,
-                            reps: value,
-                            weight: _currentLbValue));
-                  },
-                ),
+                child: Stack(children: [
+                  NumberPicker(
+                    itemHeight: 80,
+                    selectedTextStyle: GoogleFonts.urbanist(
+                        color: const Color.fromARGB(255, 72, 173, 255),
+                        fontSize: 25,
+                        fontWeight: FontWeight.w800),
+                    textStyle: GoogleFonts.urbanist(
+                        color: const Color.fromARGB(255, 225, 217, 217),
+                        fontSize: 25),
+                    value: _currentIntValue,
+                    minValue: 1,
+                    maxValue: 200,
+                    itemWidth: double.infinity,
+                    step: 1,
+                    axis: Axis.vertical,
+                    haptics: true,
+                    onChanged: (value) {
+                      setState(() => _currentIntValue = value);
+                      BlocProvider.of<RepsandweightworkoutBloc>(context).add(
+                          GetReps(
+                              index: widget.index,
+                              reps: value,
+                              weight: _currentLbValue));
+                    },
+                  ),
+                  // Positioned(
+                  // child: Align(
+                  //     alignment: Alignment.center, child: Text('reps')))
+                ]),
               ),
               Flexible(
                 child: NumberPicker(

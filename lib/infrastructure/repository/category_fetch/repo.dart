@@ -13,7 +13,6 @@ class CategoryRepository {
           'Authorization': 'Bearer $accesstocken',
         },
       );
-      print('${Apis.categoryFetch}$id?populate=true');
 
       if (response.statusCode == 200) {
         final Map<String, dynamic> jsonData = jsonDecode(response.body);

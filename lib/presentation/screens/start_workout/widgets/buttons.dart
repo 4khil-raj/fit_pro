@@ -1,8 +1,10 @@
 import 'package:fit_pro/application/category_bloc/category_fetch_bloc.dart';
+import 'package:fit_pro/application/reps&weight/repsandweightworkout_bloc.dart';
 import 'package:fit_pro/application/wokout_screen_buttons/workout_screen_buttons_bloc.dart';
 import 'package:fit_pro/infrastructure/repository/temp_category/temp.dart';
 import 'package:fit_pro/presentation/screens/start_workout/widgets/lateral_burpee.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:fit_pro/presentation/screens/start_workout/widgets/super_sets/super_set.dart';
+import 'package:fit_pro/presentation/widgets/custom_nav/customnav.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -76,9 +78,16 @@ class _TickButtonForLateralBurpeeState
                   onTap: () {
                     CategoriesRepositoryAddTemp.add(
                         widget.categoryState.list[0].exercises[i].id,
+                        //     // ==>>>ith mattanam ithil aa complete ayo illayo enn ariyane
                         widget.categoryState.list[0].id);
                     Navigator.pop(context);
                     Navigator.pop(context);
+
+                    // customNavPush(
+                    //     context,
+                    //     SuperSetScreen(
+                    //       categoryState: widget.categoryState,
+                    //     ));
                   },
                   child: Container(
                     width: double.infinity,
@@ -94,9 +103,15 @@ class _TickButtonForLateralBurpeeState
               }
               return GestureDetector(
                   onTap: () {
+                    // BlocProvider.of<WorkoutScreenButtonsBloc>(context)
+                    //     .add(StartWrokoutButton());
+                    // () => stopWatchTimer.onStartTimer();
+                    BlocProvider.of<RepsandweightworkoutBloc>(context).add(
+                        Checker(
+                            totalLength:
+                                widget.categoryState.list[0].exercises.length));
                     BlocProvider.of<WorkoutScreenButtonsBloc>(context)
-                        .add(StartWrokoutButton());
-                    () => stopWatchTimer.onStartTimer();
+                        .add(OneCompleateEvent());
                   },
                   child: Container(
                     width: double.infinity,
@@ -156,8 +171,10 @@ class _RestNowTimeButtonForLateralBurpeeState
                         final value = snapshot.data!;
                         if (value == 1) {
                           BlocProvider.of<WorkoutScreenButtonsBloc>(context)
-                              .add(StartWrokoutButton());
-                          () => stopWatchTimer.onStartTimer();
+                              .add(WorkoutScreenButtonsEvent());
+                          // BlocProvider.of<WorkoutScreenButtonsBloc>(context)
+                          //     .add(StartWrokoutButton());
+                          // () => stopWatchTimer.onStartTimer();
                         }
                         return Text(
                           "00:$value",
@@ -185,8 +202,8 @@ class _RestNowTimeButtonForLateralBurpeeState
           child: InkWell(
             onTap: () {
               BlocProvider.of<WorkoutScreenButtonsBloc>(context)
-                  .add(StartWrokoutButton());
-              () => stopWatchTimer.onStartTimer();
+                  .add(WorkoutScreenButtonsEvent());
+              // () => stopWatchTimer.onStartTimer();
             },
             child: Container(
               height: 70,
