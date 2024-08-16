@@ -118,7 +118,7 @@ class _DayTaskScreenState extends State<DayTaskScreen> {
             Padding(
               padding: const EdgeInsets.only(left: 6.0, top: 10),
               child: Text(
-                "Week 1 Challenge",
+                "${widget.appbarTitle} Challenge",
                 style: GoogleFonts.urbanist(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
@@ -172,42 +172,42 @@ class _DayTaskScreenState extends State<DayTaskScreen> {
               state: widget.state!,
               // youtubePlayerControllerdailyTask: youtubePlayerControllerdailyTask,
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'Superset',
-                style: GoogleFonts.poppins(
-                    color: Colors.white,
-                    fontSize: 17,
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-            DailyTaskBuilderScreen(
-              superset: true,
+            // Padding(
+            //   padding: const EdgeInsets.all(8.0),
+            //   child: Text(
+            //     'Superset',
+            //     style: GoogleFonts.poppins(
+            //         color: Colors.white,
+            //         fontSize: 17,
+            //         fontWeight: FontWeight.bold),
+            //   ),
+            // ),
+            // DailyTaskBuilderScreen(
+            //   superset: true,
 
-              dayIndex: widget.dayIndex,
-              weekIndex: widget.weekIndex,
-              state: widget.state!,
-              // youtubePlayerControllerdailyTask: youtubePlayerControllerdailyTask,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'Circuit',
-                style: GoogleFonts.poppins(
-                    color: Colors.white,
-                    fontSize: 17,
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-            DailyTaskBuilderScreen(
-              superset: true,
+            //   dayIndex: widget.dayIndex,
+            //   weekIndex: widget.weekIndex,
+            //   state: widget.state!,
+            //   // youtubePlayerControllerdailyTask: youtubePlayerControllerdailyTask,
+            // ),
+            // Padding(
+            //   padding: const EdgeInsets.all(8.0),
+            //   child: Text(
+            //     'Circuit',
+            //     style: GoogleFonts.poppins(
+            //         color: Colors.white,
+            //         fontSize: 17,
+            //         fontWeight: FontWeight.bold),
+            //   ),
+            // ),
+            // DailyTaskBuilderScreen(
+            //   superset: true,
 
-              dayIndex: widget.dayIndex,
-              weekIndex: widget.weekIndex,
-              state: widget.state!,
-              // youtubePlayerControllerdailyTask: youtubePlayerControllerdailyTask,
-            ),
+            //   dayIndex: widget.dayIndex,
+            //   weekIndex: widget.weekIndex,
+            //   state: widget.state!,
+            //   // youtubePlayerControllerdailyTask: youtubePlayerControllerdailyTask,
+            // ),
             SizedBox(
               height: 80,
             )

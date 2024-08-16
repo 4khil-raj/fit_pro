@@ -12,6 +12,8 @@ class PlanOverViewRepo {
         'Authorization': 'Bearer $accesstocken',
       },
     );
+    // print('http://13.60.105.223/api/v1/plan/fetch?planID=$planId');
+    // print(accesstocken);
 
     if (response.statusCode == 200) {
       Map<String, dynamic> jsonData;

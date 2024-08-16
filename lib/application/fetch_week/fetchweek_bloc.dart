@@ -13,8 +13,6 @@ class FetchweekBloc extends Bloc<FetchweekEvent, FetchweekState> {
     });
     on<FetchWeekReq>((event, emit) async {
       final response = await WeekFetchRepo.fetchWeek(event.weekId);
-      print(response[0].id);
-      print("++++++++++++++this is the week");
       emit(WeekSuccessState(list: response));
     });
   }

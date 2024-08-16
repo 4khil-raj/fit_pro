@@ -31,7 +31,7 @@ class RepsandweightworkoutBloc
       repsfulllist[event.index] = event.reps;
       weightList[event.index] = event.weight;
 
-      emit(Selected(
+      emit(Selectedd(
         repsfulllist: repsfulllist,
         weightfulllist: weightList,
         repslist: repslist,
@@ -46,7 +46,7 @@ class RepsandweightworkoutBloc
     on<IconIndexPicker>((event, emit) {
       indexes.add(event.index);
       emit(RepsandweightworkoutInitial());
-      emit(Selected(
+      emit(Selectedd(
         repsfulllist: repsfulllist,
         weightfulllist: weightList,
         repslist: repslist,
@@ -60,7 +60,7 @@ class RepsandweightworkoutBloc
     on<WorkoutDone>((event, emit) {
       // emit(RepsandweightworkoutInitial());
       wrkDone.add(event.indexdone);
-      emit(Selected(
+      emit(Selectedd(
         repsfulllist: repsfulllist,
         weightfulllist: weightList,
         repslist: repslist,
@@ -87,7 +87,7 @@ class RepsandweightworkoutBloc
           break;
         }
       }
-      emit(Selected(
+      emit(Selectedd(
         repsfulllist: repsfulllist,
         weightfulllist: weightList,
         repslist: repslist,

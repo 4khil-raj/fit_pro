@@ -5,7 +5,7 @@ sealed class RepsandweightworkoutState {}
 
 final class RepsandweightworkoutInitial extends RepsandweightworkoutState {}
 
-final class Selected extends RepsandweightworkoutState {
+final class Selectedd extends RepsandweightworkoutState {
   final int index;
 
   final bool isFinish;
@@ -16,7 +16,7 @@ final class Selected extends RepsandweightworkoutState {
   final Map<int, int> weightfulllist;
   final Map<int, int> repsfulllist;
 
-  Selected({
+  Selectedd({
     required this.isFinish,
     required this.weightfulllist,
     required this.repsfulllist,

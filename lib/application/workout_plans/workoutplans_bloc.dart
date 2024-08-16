@@ -15,6 +15,7 @@ class WorkoutplansBloc extends Bloc<WorkoutplansEvent, WorkoutplansState> {
     on<WorkoutPlanFetchRequestEvent>((event, emit) async {
       try {
         final list = await WorkoutPlansFetchRepo.fetchWorkoutPlans();
+
         if (list.isNotEmpty) {
           emit(WorkoutplansFetchedSuccessState(list: list));
         }

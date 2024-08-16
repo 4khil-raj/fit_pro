@@ -12,15 +12,19 @@ import 'package:fit_pro/domain/models/user_info/models.dart';
 
 class UserInfoRepo {
   static Future collectUserInfo(UserInfoModels userinfo) async {
+    int weightkg = (weightkgtrueGram * 10).round();
+    int weightaL = (weightL * 10).round();
+    int heightLB = (heightL * 10).round();
+    print(weightkg);
     Map<String, dynamic> req = {
       "age": userinfo.age,
       "gender": userinfo.gender,
       "weight": {
-        "value": kg ? "$weightkgtrue.$weightkgtrueGram" : "$weightF.$weightL",
+        "value": kg ? "$weightkgtrue.$weightkg" : "$weightF.$weightaL",
         "unit": kg ? "kg" : "lb"
       },
       "height": {
-        "value": cm ? '$heightft.$pointheight' : '$heightF.$heightL',
+        "value": cm ? '$heightft.$pointheight' : '$heightF.$heightLB',
         "unit": cm ? "cm" : "ft"
       },
       "goal": userinfo.goal,
@@ -28,6 +32,7 @@ class UserInfoRepo {
       "workoutType": userinfo.workoutType,
       "workoutFrequency": userinfo.workoutFrequency
     };
+    print(weightkg);
     print(req);
     try {
       print(accesstocken);
@@ -41,6 +46,7 @@ class UserInfoRepo {
         body: jsonEncode(req),
       );
       final responsebody = jsonDecode(response.body);
+      print(responsebody);
 
       if (response.statusCode == 200) {
         print("done");

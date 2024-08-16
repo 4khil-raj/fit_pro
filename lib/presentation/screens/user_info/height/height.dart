@@ -4,13 +4,12 @@ import 'package:fit_pro/application/user_info/user_info_bloc.dart';
 import 'package:fit_pro/presentation/screens/user_info/height/widget/picker.dart';
 import 'package:fit_pro/presentation/widgets/buttons/button.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ruler_scale_picker/ruler_scale_picker.dart';
 
 dynamic heightF = 30;
-dynamic heightL = 1;
+dynamic heightL = 0.0;
 
 class HeightSelectScreen extends StatelessWidget {
   const HeightSelectScreen({super.key, required this.values});

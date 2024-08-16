@@ -1,4 +1,7 @@
 import 'package:fit_pro/application/auth_bloc/auth_bloc.dart';
+import 'package:fit_pro/application/superSetButtons/superset_buttons_bloc.dart';
+import 'package:fit_pro/application/superset_checker/supersetscreencheckbox_bloc.dart';
+import 'package:fit_pro/application/exercises_fetch/exercisefetchbloc_bloc.dart';
 import 'package:fit_pro/application/reps&weight/repsandweightworkout_bloc.dart';
 import 'package:fit_pro/application/category_bloc/category_fetch_bloc.dart';
 import 'package:fit_pro/application/image_pic/imagepicker_bloc.dart';
@@ -54,8 +57,13 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => WorkoutfetchBloc()),
         BlocProvider(create: (context) => RepsandweightworkoutBloc()),
         BlocProvider(create: (context) => WorkoutScreenButtonsBloc()),
+        BlocProvider(create: (context) => ExercisefetchblocBloc()),
+        BlocProvider(create: (context) => SupersetscreencheckboxBloc()),
+        BlocProvider(create: (context) => SupersetButtonsBloc())
       ],
       child: MaterialApp(
+        scrollBehavior:
+            NoSplashScrollBehavior(), // Apply the custom scroll behavior
         debugShowCheckedModeBanner: false,
         title: 'Fit Pro',
         theme: ThemeData(
@@ -64,9 +72,15 @@ class MyApp extends StatelessWidget {
         ),
         home:
             accesstocken != null ? const BottomNavBar() : const WelcomeScreen(),
-        // home: const BottomNavBar(),
       ),
     );
+  }
+}
+
+class NoSplashScrollBehavior extends ScrollBehavior {
+  Widget buildViewportChrome(
+      BuildContext context, Widget child, AxisDirection axisDirection) {
+    return child;
   }
 }
 
@@ -75,179 +89,3 @@ Future<void> checkUserLogin(context) async {
   final sharedpreference = await SharedPreferences.getInstance();
   userlogin = sharedpreference.getString(loginTockenkey);
 }
-// import 'package:flutter/material.dart';
-// import 'package:stop_watch_timer/stop_watch_timer.dart';
-
-// void main() => runApp(MyApp());
-
-// class MyApp extends StatefulWidget {
-//   @override
-//   _MyAppState createState() => _MyAppState();
-// }
-
-// class _MyAppState extends State<MyApp> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       home: MainPage(),
-//     );
-//   }
-// }
-
-// class MainPage extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: const Text('Plugin example app'),
-//       ),
-//       body: Center(
-//         child: Column(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           crossAxisAlignment: CrossAxisAlignment.center,
-//           children: <Widget>[
-//             Padding(
-//               padding: const EdgeInsets.symmetric(horizontal: 4),
-//               child: ElevatedButton(
-//                 onPressed: () {
-//                   Navigator.push(
-//                     context,
-//                     MaterialPageRoute(builder: (context) => CountUpTimerPage()),
-//                   );
-//                 },
-//                 child: const Text('Count Up Timer'),
-//               ),
-//             ),
-//             Padding(
-//               padding: const EdgeInsets.symmetric(horizontal: 4),
-//               child: ElevatedButton(
-//                 onPressed: () {
-//                   Navigator.push(
-//                     context,
-//                     MaterialPageRoute(
-//                         builder: (context) => CountDownTimerPage()),
-//                   );
-//                 },
-//                 child: const Text('Count Down Timer'),
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-// class CountUpTimerPage extends StatefulWidget {
-//   @override
-//   _CountUpTimerPageState createState() => _CountUpTimerPageState();
-// }
-
-// class _CountUpTimerPageState extends State<CountUpTimerPage> {
-//   final StopWatchTimer _stopWatchTimer = StopWatchTimer();
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: const Text('Count Up Timer'),
-//       ),
-//       body: Center(
-//         child: Column(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: <Widget>[
-//             StreamBuilder<int>(
-//               stream: _stopWatchTimer.rawTime,
-//               initialData: _stopWatchTimer.minuteTime.value,
-//               builder: (context, snapshot) {
-//                 final value = snapshot.data!;
-//                 final displayTime = StopWatchTimer.getDisplayTime(value);
-//                 return Text(
-//                   displayTime,
-//                   style: const TextStyle(
-//                       fontSize: 40, fontWeight: FontWeight.bold),
-//                 );
-//               },
-//             ),
-//             ElevatedButton(
-//               onPressed: _stopWatchTimer.onStartTimer,
-//               child: const Text('Start'),
-//             ),
-//             ElevatedButton(
-//               onPressed: _stopWatchTimer.onStopTimer,
-//               child: const Text('Stop'),
-//             ),
-//             ElevatedButton(
-//               onPressed: _stopWatchTimer.onResetTimer,
-//               child: const Text('Reset'),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-
-//   @override
-//   void dispose() {
-//     super.dispose();
-//     _stopWatchTimer.dispose();
-//   }
-// }
-
-// class CountDownTimerPage extends StatefulWidget {
-//   @override
-//   _CountDownTimerPageState createState() => _CountDownTimerPageState();
-// }
-
-// class _CountDownTimerPageState extends State<CountDownTimerPage> {
-//   final StopWatchTimer _stopWatchTimer = StopWatchTimer(
-//     presetMillisecond: StopWatchTimer.getMilliSecFromMinute(1),
-//   );
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: const Text('Count Down Timer'),
-//       ),
-//       body: Center(
-//         child: Column(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: <Widget>[
-//             StreamBuilder<int>(
-//               stream: _stopWatchTimer.rawTime,
-//               initialData: _stopWatchTimer.rawTime.value,
-//               builder: (context, snapshot) {
-//                 final value = snapshot.data!;
-//                 final displayTime = StopWatchTimer.getDisplayTimeMinute(value);
-//                 return Text(
-//                   displayTime,
-//                   style: const TextStyle(
-//                       fontSize: 40, fontWeight: FontWeight.bold),
-//                 );
-//               },
-//             ),
-//             ElevatedButton(
-//               onPressed: _stopWatchTimer.onStartTimer,
-//               child: const Text('Start'),
-//             ),
-//             ElevatedButton(
-//               onPressed: _stopWatchTimer.onStopTimer,
-//               child: const Text('Stop'),
-//             ),
-//             ElevatedButton(
-//               onPressed: _stopWatchTimer.onResetTimer,
-//               child: const Text('Reset'),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-
-//   @override
-//   void dispose() {
-//     super.dispose();
-//     _stopWatchTimer.dispose();
-//   }
-// }

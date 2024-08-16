@@ -1,7 +1,4 @@
-import 'dart:convert';
-
 import 'package:bloc/bloc.dart';
-import 'package:fit_pro/core/apis/apis.dart';
 import 'package:fit_pro/domain/models/signup/model.dart';
 import 'package:fit_pro/infrastructure/repository/facebook/repo.dart';
 import 'package:fit_pro/infrastructure/repository/otp_auth/login/repo.dart';
@@ -11,17 +8,14 @@ import 'package:fit_pro/infrastructure/repository/signUp/otp_repo.dart';
 import 'package:fit_pro/infrastructure/repository/signUp/repo.dart';
 import 'package:fit_pro/presentation/screens/auth/signin/signin.dart';
 import 'package:meta/meta.dart';
-import 'package:http/http.dart' as http;
 import 'package:firebase_auth/firebase_auth.dart';
 part 'auth_event.dart';
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(AuthInitial()) {
-    String loginResult = '';
     OtpAuthModel authModel = OtpAuthModel();
     bool? usercheck;
-    UserCredential? userCredential;
     final FirebaseAuth auth = FirebaseAuth.instance;
     on<AuthEvent>((event, emit) {
       emit(AuthInitial());
@@ -57,7 +51,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       } else {
         print(respose);
         saveJWStocken(respose);
-
         emit(SignUpAuthSuccessState(google: false, other: false));
       }
     });
@@ -109,21 +102,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         } else {
           final resposne = await AuthRepository().googleSignupRequst(user);
 
-          // Map<String, dynamic> req = {
-          //   "email": user.email,
-          //   "name": user.displayName,
-          //   "profilePic": user.photoURL
-          // };
-          // final response = await http.post(
-          //   Uri.parse(Apis.googleSignUp),
-          //   headers: {
-          //     'Content-Type': 'application/json',
-          //   },
-          //   body: jsonEncode(req),
-          // );
-          // final responseBody = jsonDecode(response.body);
-
-          if (resposne == 200) {
+          if (resposne["status"] == 200 && resposne['newUser']) {
             emit(SignUpAuthSuccessState(
               google: false,
               other: false,
@@ -132,35 +111,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             await Future.delayed(const Duration(seconds: 2), () {
               emit(AuthInitial());
             });
+          } else if (resposne["status"] == 200 &&
+              resposne['newUser'] == false) {
+            emit(Authenticated(user: user));
+            await Future.delayed(const Duration(seconds: 2), () {
+              emit(AuthInitial());
+            });
           } else {
             emit(AuthError(message: resposne));
           }
-
-          // FirebaseFirestore.instance.collection('users').doc(user.uid).set({
-          //   'email': user.email,
-          //   'name': user.displayName,
-          //   // 'profilepicture': user.photoURL,
-          // });
-          // FirebaseFirestore.instance.collection('Profile').doc(user.uid).set({
-          //   'email': user.email,
-          //   'name': user.displayName,
-          //   'profile_pic': user.photoURL,
-          //   'phone': user.phoneNumber,
-          //   'bio': 'Edit the bio',
-          //   'uid': user.uid,
-          //   'followers': 0,
-          //   'following': 0,
-          //   'post': 0
-          // });
-//ivite authenticated aa emit  cheyyande ippo thalkkalam signupAuthSuccess cheythunne ollu
-          // emit(SignUpAuthSuccessState(
-          //   google: false,
-          //   other: false,
-          //   user: user,
-          // ));
-          // await Future.delayed(const Duration(seconds: 2), () {
-          //   emit(AuthInitial());
-          // });
         }
       } catch (e) {
         emit(AuthError(message: e.toString()));
@@ -231,6 +190,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     on<FacebookAuthRequstEvent>((event, emit) async {
       final user = await FaceBookAuthRepo().signInWithFacebook();
+      // ignore: unnecessary_null_comparison
       if (user != null) {
         emit(SignUpAuthSuccessState(google: false, other: false));
       } else {

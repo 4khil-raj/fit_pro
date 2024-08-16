@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:fit_pro/presentation/screens/user_info/height/widget/number_picker_packege.dart';
 import 'package:fit_pro/presentation/screens/user_info/weight/widget/kg_lb.dart';
 import 'package:fit_pro/presentation/screens/user_info/weight/widget/picker_lb.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,7 @@ import 'package:numberpicker/numberpicker.dart';
 
 bool kg = true;
 dynamic weightkgtrue = 15;
-dynamic weightkgtrueGram = 0;
+dynamic weightkgtrueGram = 0.0;
 
 class HeightPickerInUserInfo extends StatefulWidget {
   const HeightPickerInUserInfo({super.key});
@@ -81,26 +82,51 @@ class _WeightPickerInProgressScreenState extends State<HeightPickerInUserInfo> {
                       ),
                     ),
                     Flexible(
-                      child: NumberPicker(
-                        itemHeight: 100,
-                        selectedTextStyle: GoogleFonts.urbanist(
-                            color: const Color.fromARGB(255, 72, 173, 255),
-                            fontSize: 25,
-                            fontWeight: FontWeight.w800),
-                        textStyle: GoogleFonts.urbanist(
-                            color: const Color.fromARGB(255, 225, 217, 217),
-                            fontSize: 25),
-                        value: weightkgtrueGram,
-                        minValue: 0,
-                        maxValue: 999,
-                        itemWidth: double.infinity,
-                        step: 1,
-                        axis: Axis.vertical,
-                        haptics: true,
-                        onChanged: (value) =>
-                            setState(() => weightkgtrueGram = value),
+                        child:
+
+                            //  NumberPicker(
+                            //   itemHeight: 100,
+                            //   selectedTextStyle: GoogleFonts.urbanist(
+                            //       color: const Color.fromARGB(255, 72, 173, 255),
+                            //       fontSize: 25,
+                            //       fontWeight: FontWeight.w800),
+                            //   textStyle: GoogleFonts.urbanist(
+                            //       color: const Color.fromARGB(255, 225, 217, 217),
+                            //       fontSize: 25),
+                            //   value: weightkgtrueGram,
+                            //   minValue: 0,
+                            //   maxValue: 999,
+                            //   itemWidth: double.infinity,
+                            //   step: 1,
+                            //   axis: Axis.vertical,
+                            //   haptics: true,
+                            //   onChanged: (value) =>
+                            //       setState(() => weightkgtrueGram = value),
+                            // ),
+                            // ),
+                            CustomNumberPicker(
+                      itemHeight: 100.0,
+                      selectedTextStyle: GoogleFonts.urbanist(
+                        color: const Color.fromARGB(255, 72, 173, 255),
+                        fontSize: 25,
+                        fontWeight: FontWeight.w800,
                       ),
-                    ),
+                      textStyle: GoogleFonts.urbanist(
+                        color: const Color.fromARGB(255, 225, 217, 217),
+                        fontSize: 25,
+                      ),
+                      value: weightkgtrueGram,
+                      minValue: 0.0,
+                      maxValue: 0.5,
+                      itemWidth: double.infinity,
+                      step: 0.5,
+                      axis: Axis.vertical,
+                      haptics: true,
+                      onChanged: (value) => setState(() {
+                        weightkgtrueGram = value;
+                        return;
+                      }),
+                    ))
                     // Text('data'),
                   ],
                 ),

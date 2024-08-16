@@ -30,18 +30,20 @@ class FeaturedCaroselContainer1 extends StatelessWidget {
       InkWell(
         onTap: () {
           planoverviewyoutubePlayerController.pause();
-          customNavPush(
-              context,
+          state.list[0].weeks[weekIndex].days[dayIndex].categories.isEmpty
+              ? null
+              : customNavPush(
+                  context,
 //ee screen figmayil illah ahh thanna pottane pattikkan commentcheythaya ee screennine just call cheytha mmathi vere onnum cheyyanda aa screen cheytholum
-              //  const WeekOneScreen()
-              DayTaskScreen(
-                bookmark: false,
-                dayIndex: dayIndex,
-                weekIndex: weekIndex,
-                state: state,
-                appbarTitle:
-                    "Week ${state.list[0].weeks[weekIndex].week} | Day ${state.list[0].weeks[weekIndex].days[dayIndex].day}",
-              ));
+                  //  const WeekOneScreen()
+                  DayTaskScreen(
+                    bookmark: false,
+                    dayIndex: dayIndex,
+                    weekIndex: weekIndex,
+                    state: state,
+                    appbarTitle:
+                        "Week ${state.list[0].weeks[weekIndex].week} | Day ${state.list[0].weeks[weekIndex].days[dayIndex].day}",
+                  ));
         },
         child: Container(
           width: MediaQuery.of(context).size.width,

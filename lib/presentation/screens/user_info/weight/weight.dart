@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 dynamic weightF = 30;
-dynamic weightL = 1;
+dynamic weightL = 0.0;
 
 class WeightCollectScreen extends StatefulWidget {
   const WeightCollectScreen({super.key});

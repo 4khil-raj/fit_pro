@@ -24,3 +24,9 @@ class ExperenceSelectEvent extends UserInfoEvent {}
 class CurrentlyWorkoutEvent extends UserInfoEvent {}
 
 class WorkoutDaysEvent extends UserInfoEvent {}
+
+final class NavigatorPopEvent extends UserInfoEvent {
+  final int pageNo;
+
+  NavigatorPopEvent({required this.pageNo});
+}

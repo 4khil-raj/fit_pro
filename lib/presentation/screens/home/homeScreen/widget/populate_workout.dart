@@ -134,57 +134,57 @@ class _PopulateWorkoutScreenState extends State<PopulateWorkout> {
             SizedBox(
               height: 10,
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'Exercises',
-                style: GoogleFonts.poppins(
-                    color: Colors.white,
-                    fontSize: 17,
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.all(8.0),
+            //   child: Text(
+            //     'Exercises',
+            //     style: GoogleFonts.poppins(
+            //         color: Colors.white,
+            //         fontSize: 17,
+            //         fontWeight: FontWeight.bold),
+            //   ),
+            // ),
             PopulateTaskBuilderScreen(
               superset: false,
               dayIndex: widget.index,
               stateValues: widget.stateValues,
               // workoutyoutubePlayerController: workoutyoutubePlayerController,
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'Superset',
-                style: GoogleFonts.poppins(
-                    color: Colors.white,
-                    fontSize: 17,
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-            InkWell(
-              // onTap:() => customNavPush(context,SuperSetScreen(categoryState: )),
-              child: PopulateTaskBuilderScreen(
-                superset: true,
-                dayIndex: widget.index,
-                stateValues: widget.stateValues,
-                // workoutyoutubePlayerController: workoutyoutubePlayerController,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'Circuit',
-                style: GoogleFonts.poppins(
-                    color: Colors.white,
-                    fontSize: 17,
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-            PopulateTaskBuilderScreen(
-              superset: true,
-              dayIndex: widget.index,
-              stateValues: widget.stateValues,
-              // workoutyoutubePlayerController: workoutyoutubePlayerController,
-            ),
+            // Padding(
+            //   padding: const EdgeInsets.all(8.0),
+            //   child: Text(
+            //     'Superset',
+            //     style: GoogleFonts.poppins(
+            //         color: Colors.white,
+            //         fontSize: 17,
+            //         fontWeight: FontWeight.bold),
+            //   ),
+            // ),
+            // InkWell(
+            //   // onTap:() => customNavPush(context,SuperSetScreen(categoryState: )),
+            //   child: PopulateTaskBuilderScreen(
+            //     superset: true,
+            //     dayIndex: widget.index,
+            //     stateValues: widget.stateValues,
+            //     // workoutyoutubePlayerController: workoutyoutubePlayerController,
+            //   ),
+            // ),
+            // Padding(
+            //   padding: const EdgeInsets.all(8.0),
+            //   child: Text(
+            //     'Circuit',
+            //     style: GoogleFonts.poppins(
+            //         color: Colors.white,
+            //         fontSize: 17,
+            //         fontWeight: FontWeight.bold),
+            //   ),
+            // ),
+            // PopulateTaskBuilderScreen(
+            //   superset: true,
+            //   dayIndex: widget.index,
+            //   stateValues: widget.stateValues,
+            //   // workoutyoutubePlayerController: workoutyoutubePlayerController,
+            // ),
             // Padding(
             //   padding: const EdgeInsets.all(8.0),
             //   child: Row(

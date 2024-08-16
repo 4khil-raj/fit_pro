@@ -1,72 +1,113 @@
 import 'package:fit_pro/application/category_bloc/category_fetch_bloc.dart';
+import 'package:fit_pro/application/exercises_fetch/exercisefetchbloc_bloc.dart';
 import 'package:fit_pro/presentation/screens/start_workout/widgets/carousel.dart';
-import 'package:fit_pro/presentation/screens/start_workout/widgets/lateral_burpee.dart';
+import 'package:fit_pro/presentation/screens/start_workout/widgets/circuit.dart/circuit.dart';
+import 'package:fit_pro/presentation/screens/start_workout/widgets/super_sets/buttons.dart';
 import 'package:fit_pro/presentation/screens/start_workout/widgets/super_sets/check_box.dart';
+import 'package:fit_pro/presentation/widgets/custom_nav/customnav.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
+
+int j = 0;
 
 class SuperSetScreen extends StatelessWidget {
-  const SuperSetScreen({super.key, required this.categoryState});
-  final CategoryFetched categoryState;
+  SuperSetScreen({super.key, required this.workoutState});
+  final SuccessState workoutState;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 6, 2, 19),
-      appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-            Navigator.pop(context);
-            Navigator.pop(context);
-          },
-        ),
-        centerTitle: true,
-        backgroundColor: const Color.fromARGB(255, 6, 2, 19),
-        iconTheme:
-            const IconThemeData(color: Color.fromARGB(255, 255, 255, 255)),
-        title: Column(
-          children: [
-            Text(
-              categoryState.list[0].exercises[i].name,
-              style: GoogleFonts.poppins(
-                  color: Colors.white, fontWeight: FontWeight.w700),
+    return BlocBuilder<ExercisefetchblocBloc, ExercisefetchblocState>(
+      builder: (context, state) {
+        if (state is SuccessState) {
+          if (state.superSet.isEmpty && state.circute.isEmpty) {
+            Future.microtask(
+                () => Navigator.pop(context)); // Schedule pop on the next frame
+            return SizedBox();
+          } else if (state.circute.isNotEmpty) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              customNavReplacement(
+                  context,
+                  CircuitScreenWorkouts(
+                    workoutState: workoutState,
+                  ));
+            });
+            return SizedBox();
+          }
+          return Scaffold(
+            backgroundColor: const Color.fromARGB(255, 6, 2, 19),
+            appBar: AppBar(
+              leading: IconButton(
+                icon: const Icon(Icons.arrow_back),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+              centerTitle: true,
+              backgroundColor: const Color.fromARGB(255, 6, 2, 19),
+              iconTheme: const IconThemeData(
+                  color: Color.fromARGB(255, 255, 255, 255)),
+              title: Column(
+                children: [
+                  Text(
+                    state.superSet[state.index].name,
+                    style: GoogleFonts.poppins(
+                        color: Colors.white, fontWeight: FontWeight.w700),
+                  ),
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    '  Execise ${state.superSet[state.index].exerciseNumber} of ${state.superSet.length}',
+                    style: GoogleFonts.poppins(
+                        fontSize: 16,
+                        color: const Color.fromARGB(255, 216, 210, 210),
+                        fontWeight: FontWeight.w500),
+                  )
+                ],
+              ),
             ),
-            const SizedBox(
-              height: 5,
+            body: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(
+                  height: 10,
+                ),
+                CarouselForWorkout(
+                  video: state.superSet[0].videoUrl,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(11.0),
+                  child: Text(
+                    'Superset',
+                    style: GoogleFonts.poppins(
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                        fontSize: 18),
+                  ),
+                ),
+                CheckBoxRowSuperSet(
+                  workoutState: state,
+                ),
+                Spacer(),
+                SuperSetButtons(
+                  workoutState: workoutState,
+                  valu: true,
+                )
+              ],
             ),
-            Text(
-              "Execise ${categoryState.list[0].exercises[i].exerciseNumber} of ${categoryState.list.length}",
-              style: GoogleFonts.poppins(
-                  fontSize: 16,
-                  color: const Color.fromARGB(255, 216, 210, 210),
-                  fontWeight: FontWeight.w500),
-            )
-          ],
-        ),
-      ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(
-            height: 10,
-          ),
-          CarouselForWorkout(
-            video: categoryState.list[0].exercises[i].videoUrl,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(11.0),
-            child: Text(
-              'Superset',
-              style: GoogleFonts.poppins(
-                  color: Colors.white,
-                  fontWeight: FontWeight.w700,
-                  fontSize: 18),
-            ),
-          ),
-          const CheckBoxRowSuperSet()
-        ],
-      ),
+          );
+        }
+        return Scaffold(
+            backgroundColor: const Color.fromARGB(255, 6, 2, 19),
+            body: Center(
+              child: LoadingAnimationWidget.dotsTriangle(
+                  // secondRingColor: Colors.green,
+                  // thirdRingColor: Colors.blue,
+                  color: Color.fromARGB(255, 255, 255, 255),
+                  size: 62),
+            ));
+      },
     );
   }
 }

@@ -10,7 +10,6 @@ import 'package:http/http.dart' as http;
 
 class AddBookMarkRepo {
   static Future<void> addBookMark(String dayID, context) async {
-    print(Apis.bookmark + dayID);
     try {
       final response = await http.post(
         Uri.parse(Apis.bookmark + dayID),
@@ -24,11 +23,9 @@ class AddBookMarkRepo {
         customSnackbar(context, body['message'], Colors.green);
         BlocProvider.of<FetchBookmarkBloc>(context)
             .add(FetchBookmarkReq(dayId: dayID));
-      } else {
-        print(json.decode(response.body));
-      }
+      } else {}
     } catch (e) {
-      print(e);
+      throw Exception(e);
     }
   }
 }

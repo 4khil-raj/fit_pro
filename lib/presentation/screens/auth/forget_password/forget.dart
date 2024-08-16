@@ -118,7 +118,7 @@ void forgetPassword(BuildContext context, bool email) {
                                     } else if (state is OtpLoadedState) {
                                       WidgetsBinding.instance
                                           .addPostFrameCallback((_) {
-                                        customNavPush(context,
+                                        customNavRemoveuntil(context,
                                             UserInfoCollectingScreen());
                                       });
                                     } else if (state is OtpScreenErrorState) {

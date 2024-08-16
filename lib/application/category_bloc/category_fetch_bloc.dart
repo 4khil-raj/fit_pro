@@ -10,19 +10,25 @@ List<CategoryFetchModel>? categorylist;
 
 class CategoryFetchBloc extends Bloc<CategoryFetchEvent, CategoryFetchState> {
   CategoryFetchBloc() : super(CategoryFetchInitial()) {
+    List<CategoryFetchModel> response = [];
     on<CategoryFetchEvent>((event, emit) {
       emit(CategoryFetchInitial());
     });
 
     on<CategoryFetchReq>((event, emit) async {
       try {
-        final response = await CategoryRepository().fetchCategories(event.id);
+        response = await CategoryRepository().fetchCategories(event.id);
         // print(response[0].exercises[0].name);
         categorylist = response;
-        emit(CategoryFetched(list: response));
+        emit(CategoryFetched(list: response, index: 0));
       } catch (e) {
         print(e);
       }
+    });
+    on<NextWorkout>((event, emit) async {
+      emit(CategoryFetchInitial());
+      await Future.delayed(Duration(seconds: 1));
+      emit(CategoryFetched(list: response, index: event.index + 1));
     });
   }
 }

@@ -18,16 +18,17 @@ class LateralBurpeeScreen extends StatelessWidget {
     return BlocBuilder<CategoryFetchBloc, CategoryFetchState>(
       builder: (context, state) {
         if (state is CategoryFetched) {
+          i = state.index;
           return Scaffold(
             backgroundColor: const Color.fromARGB(255, 6, 2, 19),
             appBar: AppBar(
-              leading: IconButton(
-                icon: Icon(Icons.arrow_back),
-                onPressed: () {
-                  Navigator.pop(context);
-                  Navigator.pop(context);
-                },
-              ),
+              // leading: IconButton(
+              //   icon: Icon(Icons.arrow_back),
+              //   onPressed: () {
+              //     Navigator.pop(context);
+              //     Navigator.pop(context);
+              //   },
+              // ),
               centerTitle: true,
               backgroundColor: const Color.fromARGB(255, 6, 2, 19),
               iconTheme: IconThemeData(
@@ -35,7 +36,7 @@ class LateralBurpeeScreen extends StatelessWidget {
               title: Column(
                 children: [
                   Text(
-                    state.list[0].exercises[i].name,
+                    state.list[0].exercises[state.index].name,
                     style: GoogleFonts.poppins(
                         color: Colors.white, fontWeight: FontWeight.w700),
                   ),
@@ -43,7 +44,7 @@ class LateralBurpeeScreen extends StatelessWidget {
                     height: 5,
                   ),
                   Text(
-                    "Execise ${state.list[0].exercises[i].exerciseNumber} of ${state.list.length}",
+                    "Execise ${state.list[0].exercises[state.index].exerciseNumber} of ${state.list[0].exercises.length}",
                     style: GoogleFonts.poppins(
                         fontSize: 16,
                         color: const Color.fromARGB(255, 216, 210, 210),
@@ -75,8 +76,9 @@ class LateralBurpeeScreen extends StatelessWidget {
           );
         }
         return Scaffold(
+          backgroundColor: const Color.fromARGB(255, 6, 2, 19),
           body: Center(
-            child: Text('Try Again'),
+            child: CircularProgressIndicator(),
           ),
         );
       },

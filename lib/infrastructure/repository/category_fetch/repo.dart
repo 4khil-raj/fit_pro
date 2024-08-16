@@ -24,8 +24,7 @@ class CategoryRepository {
         throw Exception('Failed to load categories');
       }
     } catch (e) {
-      print('Error occurred: $e');
-      throw Exception('Failed to load categories');
+      throw Exception(e);
     }
   }
 }

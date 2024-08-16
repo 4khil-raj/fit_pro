@@ -1,7 +1,10 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:fit_pro/application/auth_bloc/auth_bloc.dart';
 import 'package:fit_pro/presentation/screens/auth/signup/otp.dart';
 import 'package:fit_pro/presentation/screens/auth/signup/widgets/bottom.dart';
 import 'package:fit_pro/presentation/screens/auth/signup/widgets/top.dart';
+import 'package:fit_pro/presentation/screens/bottom_nav/bottom_nav.dart';
 import 'package:fit_pro/presentation/screens/user_info/collect_userinfo.dart';
 import 'package:fit_pro/presentation/widgets/custom_nav/customnav.dart';
 import 'package:flutter/material.dart';
@@ -27,11 +30,12 @@ class SignUpScreen extends StatelessWidget {
               googleauth = state.google;
               other = state.other;
               WidgetsBinding.instance.addPostFrameCallback((_) {
-                customNavPush(context, const UserInfoCollectingScreen());
+                customNavRemoveuntil(context, const UserInfoCollectingScreen());
               });
               BlocProvider.of<AuthBloc>(context).add(AuthEvent());
             } else if (state is Authenticated) {
               WidgetsBinding.instance.addPostFrameCallback((_) {
+                // customNavRemoveuntil(context, const BottomNavBar());
                 customNavPush(context, const UserInfoCollectingScreen());
               });
               BlocProvider.of<AuthBloc>(context).add(AuthEvent());

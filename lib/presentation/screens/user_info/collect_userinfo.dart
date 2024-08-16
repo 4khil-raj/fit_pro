@@ -30,6 +30,7 @@ class UserInfoCollectingScreen extends StatefulWidget {
 
 class _UserInfoCollectingScreenState extends State<UserInfoCollectingScreen> {
   double progressValue = .1;
+  int pageNo = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +39,7 @@ class _UserInfoCollectingScreenState extends State<UserInfoCollectingScreen> {
       appBar: PreferredSize(
           preferredSize: const Size(double.infinity, 50),
           child: UserInfoAppBar(
+            pageNo: pageNo,
             progressValue: progressValue,
           )),
       body: BlocBuilder<UserInfoBloc, UserInfoState>(
@@ -46,6 +48,7 @@ class _UserInfoCollectingScreenState extends State<UserInfoCollectingScreen> {
             WidgetsBinding.instance.addPostFrameCallback((_) {
               setState(() {
                 progressValue = .2;
+                pageNo = 1;
               });
             });
             return const AgeSelectScreen();
@@ -53,13 +56,16 @@ class _UserInfoCollectingScreenState extends State<UserInfoCollectingScreen> {
             WidgetsBinding.instance.addPostFrameCallback((_) {
               setState(() {
                 progressValue = .3;
+                pageNo = 2;
               });
             });
+            pageNo = 2;
             return const GoalSelectScreen();
           } else if (state is UserGoalSuccessState) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
               setState(() {
                 progressValue = .4;
+                pageNo = 3;
               });
             });
             return HeightSelectScreen(
@@ -69,6 +75,7 @@ class _UserInfoCollectingScreenState extends State<UserInfoCollectingScreen> {
             WidgetsBinding.instance.addPostFrameCallback((_) {
               setState(() {
                 progressValue = .5;
+                pageNo = 4;
               });
             });
             return const WeightCollectScreen();
@@ -76,6 +83,7 @@ class _UserInfoCollectingScreenState extends State<UserInfoCollectingScreen> {
             WidgetsBinding.instance.addPostFrameCallback((_) {
               setState(() {
                 progressValue = .7;
+                pageNo = 5;
               });
             });
             return const ExperienceSelectScreen();
@@ -83,6 +91,7 @@ class _UserInfoCollectingScreenState extends State<UserInfoCollectingScreen> {
             WidgetsBinding.instance.addPostFrameCallback((_) {
               setState(() {
                 progressValue = .8;
+                pageNo = 6;
               });
             });
             return const CurrentlyWorkoutScreen();
@@ -90,6 +99,7 @@ class _UserInfoCollectingScreenState extends State<UserInfoCollectingScreen> {
             WidgetsBinding.instance.addPostFrameCallback((_) {
               setState(() {
                 progressValue = 1;
+                pageNo = 7;
               });
             });
             return const WorkoutDaysCollecterScreen();
@@ -97,6 +107,12 @@ class _UserInfoCollectingScreenState extends State<UserInfoCollectingScreen> {
             WidgetsBinding.instance.addPostFrameCallback((_) {
               collectUserInfo();
               customNavRemoveuntil(context, const UserInfoFinishPage());
+            });
+          } else if (state is UserInfoInitial) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              setState(() {
+                pageNo = 0;
+              });
             });
           }
           return const GenderSelectScreen();

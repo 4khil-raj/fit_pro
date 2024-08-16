@@ -1,10 +1,13 @@
 import 'package:fit_pro/application/reps&weight/repsandweightworkout_bloc.dart';
 import 'package:fit_pro/application/category_bloc/category_fetch_bloc.dart';
+import 'package:fit_pro/application/superset_checker/supersetscreencheckbox_bloc.dart';
 import 'package:fit_pro/application/wokout_screen_buttons/workout_screen_buttons_bloc.dart';
-import 'package:fit_pro/infrastructure/repository/temp_category/temp.dart';
-import 'package:fit_pro/presentation/screens/home/homeScreen/widget/populate_workout.dart';
+import 'package:fit_pro/presentation/screens/home/homeScreen/widget/populate_workout_builder.dart';
 import 'package:fit_pro/presentation/screens/start_workout/widgets/bottom_sheet.dart';
 import 'package:fit_pro/presentation/screens/start_workout/widgets/lateral_burpee.dart';
+import 'package:fit_pro/presentation/screens/start_workout/widgets/super_sets/super.dart';
+import 'package:fit_pro/presentation/screens/start_workout/widgets/super_sets/super_set.dart';
+import 'package:fit_pro/presentation/widgets/custom_nav/customnav.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -15,7 +18,7 @@ class CheckBoxSetRows extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        itemCount: stateValue.list[0].exercises.length,
+        itemCount: stateValue.list[0].exercises[i].sets,
         itemBuilder: (context, index) {
           return Padding(
             padding:
@@ -23,53 +26,71 @@ class CheckBoxSetRows extends StatelessWidget {
             child: BlocBuilder<RepsandweightworkoutBloc,
                 RepsandweightworkoutState>(
               builder: (context, state) {
-                if (state is Selected) {
-                  if (state.done.length ==
-                      stateValue.list[0].exercises.length) {
-                    BlocProvider.of<WorkoutScreenButtonsBloc>(context)
-                        .add(WorkoutCompleateEvent());
-                  }
-                  // if (state.done.length ==
-                  //     stateValue.list[0].exercises.length) {
-                  //   i++;
-                  //   BlocProvider.of<CategoryFetchBloc>(context)
-                  //       .add(CategoryFetchReq(id: categoryIdWorkout!));
-                  //   //       ith manage cheyyanam ith i vechit aa listinte value edukkunneya  oro
-                  //   // exercise full kazhimbolum ith trigger cheyth oru loading animation okke kodukkanam
+                if (state is Selectedd) {
+                  // if (i == stateValue.list[0].exercises.length &&
+                  //     state.done.length ==
+                  //         stateValue.list[0].exercises[i].sets) {
+                  //   print(
+                  //       '====================]]]]]]]]]]]][[[[[[[[[[[]]]]]]]]]]]');
+                  //   print(stateValue.list[0].id);
+                  //   // BlocProvider.of<WorkoutScreenButtonsBloc>(context)
+                  //   //     .add(WorkoutCompleateEvent());
+                  //   customNavPush(
+                  //       context, SuperSetScreen(categoryState: stateValue));
                   // }
+                  if (state.done.length ==
+                          stateValue.list[0].exercises[i].sets &&
+                      stateValue.list[0].exercises.length - 1 > i) {
+                    BlocProvider.of<CategoryFetchBloc>(context)
+                        .add(NextWorkout(index: i));
+                    BlocProvider.of<RepsandweightworkoutBloc>(context)
+                        .add(ClearList());
+                    // BlocProvider.of<WorkoutScreenButtonsBloc>(context)
+                    //     .add(WorkoutScreenButtonsEvent());
+                  } else if (stateValue.list[0].exercises.length - 1 == i) {
+                    // BlocProvider.of<WorkoutScreenButtonsBloc>(context)
+                    //     .add(WorkoutCompleateEvent());
+
+                    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+                      BlocProvider.of<SupersetscreencheckboxBloc>(context)
+                          .add(ClearListt());
+                      j = 0;
+
+                      return customNavReplacement(
+                          context,
+                          SuperSetLunchScreen(
+                            workoutID: exerciseGlobalId,
+                          ));
+                    });
+                  }
 
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      categoryforWorkout.contains(stateValue.list[0].id)
+                      state.done.contains(index)
                           ? Icon(
                               Icons.check_box,
                               color: Colors.blue,
                             )
-                          : state.done.contains(index)
-                              ? Icon(
-                                  Icons.check_box,
-                                  color: Colors.blue,
-                                )
-                              : InkWell(
-                                  onTap: () {
-                                    print('ond');
-                                    BlocProvider.of<RepsandweightworkoutBloc>(
-                                            context)
-                                        .add(WorkoutDone(indexdone: index));
-                                    BlocProvider.of<RepsandweightworkoutBloc>(
-                                            context)
-                                        .add(IconIndexPicker(index: index));
-                                    // BlocProvider.of<RepsandweightworkoutBloc>(context).add(G),
-                                    // BlocProvider.of<WorkoutScreenButtonsBloc>(
-                                    //         context)
-                                    //     .add(OneCompleateEvent());
-                                  },
-                                  child: Icon(
-                                    Icons.check_box_outline_blank_outlined,
-                                    color: Colors.white,
-                                  ),
-                                ),
+                          : InkWell(
+                              onTap: () {
+                                print('ond');
+                                BlocProvider.of<RepsandweightworkoutBloc>(
+                                        context)
+                                    .add(WorkoutDone(indexdone: index));
+                                BlocProvider.of<RepsandweightworkoutBloc>(
+                                        context)
+                                    .add(IconIndexPicker(index: index));
+                                // BlocProvider.of<RepsandweightworkoutBloc>(context).add(G),
+                                // BlocProvider.of<WorkoutScreenButtonsBloc>(
+                                //         context)
+                                //     .add(OneCompleateEvent());
+                              },
+                              child: Icon(
+                                Icons.check_box_outline_blank_outlined,
+                                color: Colors.white,
+                              ),
+                            ),
                       Row(
                         children: [
                           Text(
@@ -92,7 +113,7 @@ class CheckBoxSetRows extends StatelessWidget {
                                     color: Color.fromARGB(255, 141, 136, 136),
                                     fontWeight: FontWeight.w600)
                                 : GoogleFonts.poppins(
-                                    color: Colors.white, fontSize: 12),
+                                    color: Colors.blue, fontSize: 12),
                           )
                         ],
                       ),
@@ -126,14 +147,13 @@ class CheckBoxSetRows extends StatelessWidget {
                                                   255, 141, 136, 136),
                                               fontWeight: FontWeight.w600)
                                           : GoogleFonts.poppins(
-                                              color: Colors.white,
-                                              fontSize: 12),
+                                              color: Colors.blue, fontSize: 12),
                                     )
                                   ],
                                 )
                               : Text(
                                   '20 reps',
-                                  style: TextStyle(color: Colors.white),
+                                  style: TextStyle(color: Colors.blue),
                                 )),
                       InkWell(
                           onTap: () => weightAndReps(context, index),
@@ -165,14 +185,13 @@ class CheckBoxSetRows extends StatelessWidget {
                                                   255, 141, 136, 136),
                                               fontWeight: FontWeight.w600)
                                           : GoogleFonts.poppins(
-                                              color: Colors.white,
-                                              fontSize: 12),
+                                              color: Colors.blue, fontSize: 12),
                                     )
                                   ],
                                 )
                               : Text(
                                   '10 kg',
-                                  style: TextStyle(color: Colors.white),
+                                  style: TextStyle(color: Colors.blue),
                                 )),
                     ],
                   );
@@ -180,30 +199,25 @@ class CheckBoxSetRows extends StatelessWidget {
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    categoryforWorkout.contains(stateValue.list[0].id)
-                        ? Icon(
-                            Icons.check_box,
-                            color: Colors.blue,
-                          )
-                        : InkWell(
-                            onTap: () {
-                              BlocProvider.of<RepsandweightworkoutBloc>(context)
-                                  .add(WorkoutDone(indexdone: index));
-                              BlocProvider.of<RepsandweightworkoutBloc>(context)
-                                  .add(IconIndexPicker(index: index));
-                              // BlocProvider.of<RepsandweightworkoutBloc>(context).add(G),
-                              BlocProvider.of<WorkoutScreenButtonsBloc>(context)
-                                  .add(OneCompleateEvent());
-                            },
-                            child: Icon(
-                              Icons.check_box_outline_blank_outlined,
-                              color: Colors.white,
-                            ),
-                          ),
+                    InkWell(
+                      onTap: () {
+                        BlocProvider.of<RepsandweightworkoutBloc>(context)
+                            .add(WorkoutDone(indexdone: index));
+                        BlocProvider.of<RepsandweightworkoutBloc>(context)
+                            .add(IconIndexPicker(index: index));
+                        // BlocProvider.of<RepsandweightworkoutBloc>(context).add(G),
+                        BlocProvider.of<WorkoutScreenButtonsBloc>(context)
+                            .add(OneCompleateEvent());
+                      },
+                      child: Icon(
+                        Icons.check_box_outline_blank_outlined,
+                        color: Colors.white,
+                      ),
+                    ),
                     Row(
                       children: [
                         Text(
-                          stateValue.list[0].exercises[index].sets.toString(),
+                          (index + 1).toString(),
                           style: GoogleFonts.poppins(
                               color: Colors.blue, fontWeight: FontWeight.w600),
                         ),
@@ -213,7 +227,7 @@ class CheckBoxSetRows extends StatelessWidget {
                         Text(
                           "Set",
                           style: GoogleFonts.poppins(
-                              color: Colors.white, fontSize: 12),
+                              color: Colors.blue, fontSize: 12),
                         )
                       ],
                     ),
@@ -221,13 +235,13 @@ class CheckBoxSetRows extends StatelessWidget {
                         onTap: () => weightAndReps(context, index),
                         child: Text(
                           '20 reps',
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(color: Colors.blue),
                         )),
                     InkWell(
                         onTap: () => weightAndReps(context, index),
                         child: Text(
                           '10 kg',
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(color: Colors.blue),
                         )),
                   ],
                 );

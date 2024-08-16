@@ -1,5 +1,7 @@
 import 'package:fit_pro/presentation/screens/user_info/height/height.dart';
+import 'package:fit_pro/presentation/screens/user_info/height/widget/number_picker_packege.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:numberpicker/numberpicker.dart';
 
@@ -31,45 +33,64 @@ class _CmPickerWeightState extends State<CmPickerWeight> {
           child: Row(
             children: [
               Flexible(
-                child: NumberPicker(
-                  itemHeight: 100,
-                  selectedTextStyle: GoogleFonts.urbanist(
-                      color: const Color.fromARGB(255, 72, 173, 255),
-                      fontSize: 25,
-                      fontWeight: FontWeight.w800),
-                  textStyle: GoogleFonts.urbanist(
-                      color: const Color.fromARGB(255, 225, 217, 217),
-                      fontSize: 25),
-                  value: heightF,
-                  minValue: 30,
-                  maxValue: 300,
-                  itemWidth: double.infinity,
-                  step: 1,
-                  axis: Axis.vertical,
-                  haptics: true,
-                  onChanged: (value) => setState(() => heightF = value),
+                child: Stack(
+                  children: [
+                    NumberPicker(
+                      itemHeight: 100,
+                      selectedTextStyle: GoogleFonts.urbanist(
+                        color: const Color.fromARGB(255, 72, 173, 255),
+                        fontSize: 25,
+                        fontWeight: FontWeight.w800,
+                      ),
+                      textStyle: GoogleFonts.urbanist(
+                        color: const Color.fromARGB(255, 225, 217, 217),
+                        fontSize: 25,
+                      ),
+                      value: heightF,
+                      minValue: 30,
+                      maxValue: 300,
+                      itemWidth: double.infinity,
+                      step: 1,
+                      axis: Axis.vertical,
+                      haptics: true,
+                      onChanged: (value) => setState(() => heightF = value),
+                    ),
+                    // Positioned.fill(
+                    //   child: Center(
+                    //     child: Text(
+                    //       '                Cm',
+                    //       style: TextStyle(color: Colors.amber),
+                    //     ),
+                    //   ),
+                    // ),
+                  ],
                 ),
               ),
+
               Flexible(
-                child: NumberPicker(
-                  itemHeight: 100,
-                  selectedTextStyle: GoogleFonts.urbanist(
-                      color: const Color.fromARGB(255, 72, 173, 255),
-                      fontSize: 25,
-                      fontWeight: FontWeight.w800),
-                  textStyle: GoogleFonts.urbanist(
-                      color: const Color.fromARGB(255, 225, 217, 217),
-                      fontSize: 25),
-                  value: heightL,
-                  minValue: 0,
-                  maxValue: 9,
-                  itemWidth: double.infinity,
-                  step: 1,
-                  axis: Axis.vertical,
-                  haptics: true,
-                  onChanged: (value) => setState(() => heightL = value),
+                  child: CustomNumberPicker(
+                itemHeight: 100.0,
+                selectedTextStyle: GoogleFonts.urbanist(
+                  color: const Color.fromARGB(255, 72, 173, 255),
+                  fontSize: 25,
+                  fontWeight: FontWeight.w800,
                 ),
-              ),
+                textStyle: GoogleFonts.urbanist(
+                  color: const Color.fromARGB(255, 225, 217, 217),
+                  fontSize: 25,
+                ),
+                value: heightL,
+                minValue: 0.0,
+                maxValue: 0.5,
+                itemWidth: double.infinity,
+                step: 0.5,
+                axis: Axis.vertical,
+                haptics: true,
+                onChanged: (value) => setState(() {
+                  heightL = value;
+                  print(heightL);
+                }),
+              )),
               // Text('data'),
             ],
           ),

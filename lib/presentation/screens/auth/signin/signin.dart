@@ -46,7 +46,8 @@ class SignupOrSignin extends StatelessWidget {
                 other = state.other;
                 WidgetsBinding.instance.addPostFrameCallback((_) {
                   // saveinfo('user');
-                  customNavPush(context, const UserInfoCollectingScreen());
+                  customNavRemoveuntil(
+                      context, const UserInfoCollectingScreen());
                   BlocProvider.of<AuthBloc>(context).add(AuthEvent());
                 });
               } else if (state is Authenticated) {

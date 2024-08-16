@@ -8,3 +8,9 @@ final class CategoryFetchReq extends CategoryFetchEvent {
 
   CategoryFetchReq({required this.id});
 }
+
+final class NextWorkout extends CategoryFetchEvent {
+  final int index;
+
+  NextWorkout({required this.index});
+}

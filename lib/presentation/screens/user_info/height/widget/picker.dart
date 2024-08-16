@@ -59,45 +59,68 @@ class _WeightPickerInProgressScreenState extends State<WeightPickerInUserInfo> {
                 child: Row(
                   children: [
                     Flexible(
-                      child: NumberPicker(
-                        itemHeight: 100,
-                        selectedTextStyle: GoogleFonts.urbanist(
-                            color: const Color.fromARGB(255, 72, 173, 255),
-                            fontSize: 25,
-                            fontWeight: FontWeight.w800),
-                        textStyle: GoogleFonts.urbanist(
-                            color: const Color.fromARGB(255, 225, 217, 217),
-                            fontSize: 25),
-                        value: heightft,
-                        minValue: 1,
-                        maxValue: 10,
-                        itemWidth: double.infinity,
-                        step: 1,
-                        axis: Axis.vertical,
-                        haptics: true,
-                        onChanged: (value) => setState(() => heightft = value),
-                      ),
+                      child: Stack(children: [
+                        NumberPicker(
+                          itemHeight: 100,
+                          selectedTextStyle: GoogleFonts.urbanist(
+                              color: const Color.fromARGB(255, 72, 173, 255),
+                              fontSize: 25,
+                              fontWeight: FontWeight.w800),
+                          textStyle: GoogleFonts.urbanist(
+                              color: const Color.fromARGB(255, 225, 217, 217),
+                              fontSize: 25),
+                          value: heightft,
+                          minValue: 1,
+                          maxValue: 10,
+                          itemWidth: double.infinity,
+                          step: 1,
+                          axis: Axis.vertical,
+                          haptics: true,
+                          onChanged: (value) =>
+                              setState(() => heightft = value),
+                        ),
+                        Positioned.fill(
+                          child: Center(
+                            child: Text(
+                              '    \'',
+                              style: GoogleFonts.inder(
+                                  color: Colors.white, fontSize: 25),
+                            ),
+                          ),
+                        ),
+                      ]),
                     ),
                     Flexible(
-                      child: NumberPicker(
-                        itemHeight: 100,
-                        selectedTextStyle: GoogleFonts.urbanist(
-                            color: const Color.fromARGB(255, 72, 173, 255),
-                            fontSize: 25,
-                            fontWeight: FontWeight.w800),
-                        textStyle: GoogleFonts.urbanist(
-                            color: const Color.fromARGB(255, 225, 217, 217),
-                            fontSize: 25),
-                        value: pointheight,
-                        minValue: 0,
-                        maxValue: 11,
-                        itemWidth: double.infinity,
-                        step: 1,
-                        axis: Axis.vertical,
-                        haptics: true,
-                        onChanged: (value) =>
-                            setState(() => pointheight = value),
-                      ),
+                      child: Stack(children: [
+                        NumberPicker(
+                          itemHeight: 100,
+                          selectedTextStyle: GoogleFonts.urbanist(
+                              color: const Color.fromARGB(255, 72, 173, 255),
+                              fontSize: 25,
+                              fontWeight: FontWeight.w800),
+                          textStyle: GoogleFonts.urbanist(
+                              color: const Color.fromARGB(255, 225, 217, 217),
+                              fontSize: 25),
+                          value: pointheight,
+                          minValue: 0,
+                          maxValue: 11,
+                          itemWidth: double.infinity,
+                          step: 1,
+                          axis: Axis.vertical,
+                          haptics: true,
+                          onChanged: (value) =>
+                              setState(() => pointheight = value),
+                        ),
+                        Positioned.fill(
+                          child: Center(
+                            child: Text(
+                              '    "',
+                              style: GoogleFonts.inder(
+                                  color: Colors.white, fontSize: 25),
+                            ),
+                          ),
+                        ),
+                      ]),
                     ),
                     // Text('data'),
                   ],

@@ -22,7 +22,9 @@ class _StartWorkoutScreenState extends State<StartWorkoutScreen> {
       });
     }
     await Future.delayed(const Duration(seconds: 1), () {
-      customNavPush(context, LateralBurpeeScreen());
+      // customNavPush(context, LateralBurpeeScreen());
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: ((context) => LateralBurpeeScreen())));
     });
   }
 

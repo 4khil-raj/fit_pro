@@ -45,7 +45,7 @@ class AuthRepository {
     if (response.statusCode == 200) {
       print(responseBody['accessToken']);
       saveJWStocken(responseBody['accessToken']);
-      return responseBody["status"];
+      return responseBody;
     } else {
       return responseBody["message"];
     }

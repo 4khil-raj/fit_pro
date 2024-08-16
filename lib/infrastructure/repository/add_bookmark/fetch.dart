@@ -25,14 +25,10 @@ class FetchBookMarkRepo {
 
           // Return a list with a single FetchBookModel object
           list.add(fetchBookModel);
-        } else {
-          print('Unexpected response structure: ${jsonResponse}');
-        }
-      } else {
-        print('Failed to load bookmarks. Status code: ${response.statusCode}');
-      }
+        } else {}
+      } else {}
     } catch (e) {
-      print('Error fetching bookmarks: $e');
+      throw Exception(e);
     }
     return list;
   }

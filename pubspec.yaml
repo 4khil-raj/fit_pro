@@ -72,7 +72,9 @@ dev_dependencies:
 flutter_icons:
   android: true
   ios: true
-  image_path: "assets/icons/IMG_3672.PNG"
+  image_path: "assets/icons/luncher_icon.png"
+  adaptive_icon_background: "#5F00B3"  # or path to a background image
+  adaptive_icon_foreground: "assets/icons/IMG_3672.PNG" 
   flutter_test:
     sdk: flutter
 

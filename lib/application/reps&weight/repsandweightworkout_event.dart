@@ -1,7 +1,7 @@
 part of 'repsandweightworkout_bloc.dart';
 
 @immutable
-sealed class RepsandweightworkoutEvent {}
+class RepsandweightworkoutEvent {}
 
 final class GetReps extends RepsandweightworkoutEvent {
   final int index;

@@ -21,7 +21,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    CategoriesRepositoryFetchTemap.fetchCompletedCategories();
+    // CategoriesRepositoryFetchTemap.fetchCompletedCategories();
     BlocProvider.of<WorkoutplansBloc>(context)
         .add(WorkoutPlanFetchRequestEvent());
     BlocProvider.of<UserfetchBloc>(context).add(UserFetchReq());

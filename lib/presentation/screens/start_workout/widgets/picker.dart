@@ -1,4 +1,5 @@
 import 'package:fit_pro/application/reps&weight/repsandweightworkout_bloc.dart';
+import 'package:fit_pro/application/superset_checker/supersetscreencheckbox_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -48,6 +49,12 @@ class _WeightAndRepsPickerScreenState extends State<WeightAndRepsPickerScreen> {
                               index: widget.index,
                               reps: value,
                               weight: _currentLbValue));
+
+                      BlocProvider.of<SupersetscreencheckboxBloc>(context).add(
+                          GetRepss(
+                              index: widget.index,
+                              reps: value,
+                              weight: _currentLbValue));
                     },
                   ),
                   // Positioned(
@@ -76,6 +83,11 @@ class _WeightAndRepsPickerScreenState extends State<WeightAndRepsPickerScreen> {
                     setState(() => _currentLbValue = value);
                     BlocProvider.of<RepsandweightworkoutBloc>(context).add(
                         GetReps(
+                            index: widget.index,
+                            reps: _currentIntValue,
+                            weight: value));
+                    BlocProvider.of<SupersetscreencheckboxBloc>(context).add(
+                        GetRepss(
                             index: widget.index,
                             reps: _currentIntValue,
                             weight: value));

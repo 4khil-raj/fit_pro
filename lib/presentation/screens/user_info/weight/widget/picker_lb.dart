@@ -1,3 +1,4 @@
+import 'package:fit_pro/presentation/screens/user_info/height/widget/number_picker_packege.dart';
 import 'package:fit_pro/presentation/screens/user_info/weight/weight.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -53,7 +54,7 @@ class _CmPickerWeightState extends State<LbPickerWeight> {
                 ),
               ),
               Flexible(
-                child: NumberPicker(
+                child: CustomNumberPicker(
                   itemHeight: 100,
                   selectedTextStyle: GoogleFonts.urbanist(
                       color: const Color.fromARGB(255, 72, 173, 255),
@@ -64,9 +65,9 @@ class _CmPickerWeightState extends State<LbPickerWeight> {
                       fontSize: 25),
                   value: weightL,
                   minValue: 0,
-                  maxValue: 15,
+                  maxValue: .5,
                   itemWidth: double.infinity,
-                  step: 1,
+                  step: .5,
                   axis: Axis.vertical,
                   haptics: true,
                   onChanged: (value) => setState(() => weightL = value),

@@ -7,6 +7,10 @@ final class CategoryFetchInitial extends CategoryFetchState {}
 
 final class CategoryFetched extends CategoryFetchState {
   final List<CategoryFetchModel> list;
+  final int index;
 
-  CategoryFetched({required this.list});
+  CategoryFetched({
+    required this.list,
+    required this.index,
+  });
 }
