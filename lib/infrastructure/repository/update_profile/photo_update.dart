@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:fit_pro/core/apis/apis.dart';
 import 'package:fit_pro/presentation/screens/auth/signin/signin.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart'; // for basename
@@ -7,7 +8,7 @@ class UserProfileUpdateRepo {
   // final String accessToken;
 
   Future<void> uploadProfilePic(File file) async {
-    final url = Uri.parse('http://13.60.105.223/api/v1/user/profile-pic');
+    final url = Uri.parse('${Apis.baseUrl}/user/profile-pic');
 
     var request = http.MultipartRequest('PUT', url);
 

@@ -5,6 +5,7 @@ import 'package:fit_pro/application/reps&weight/repsandweightworkout_bloc.dart';
 import 'package:fit_pro/application/superSetButtons/superset_buttons_bloc.dart';
 import 'package:fit_pro/application/wokout_screen_buttons/workout_screen_buttons_bloc.dart';
 import 'package:fit_pro/infrastructure/repository/temp_category/temp.dart';
+import 'package:fit_pro/presentation/screens/home/homeScreen/sub_pages/featured_plans/widgets/daily_task_builder.dart';
 import 'package:fit_pro/presentation/screens/start_workout/widgets/lateral_burpee.dart';
 import 'package:fit_pro/presentation/screens/start_workout/widgets/super_sets/super_set.dart';
 import 'package:fit_pro/presentation/widgets/custom_nav/customnav.dart';
@@ -109,8 +110,8 @@ class _TickButtonForLateralBurpeeState
               // BlocProvider.of<WorkoutScreenButtonsBloc>(context)
               //     .add(StartWrokoutButton());
               // () => stopWatchTimer.onStartTimer();
-              BlocProvider.of<RepsandweightworkoutBloc>(context).add(Checker(
-                  totalLength: widget.categoryState.list[0].exercises.length));
+              BlocProvider.of<RepsandweightworkoutBloc>(context)
+                  .add(Checker(totalLength: exerciseData.length));
               BlocProvider.of<WorkoutScreenButtonsBloc>(context)
                   .add(OneCompleateEvent());
             },

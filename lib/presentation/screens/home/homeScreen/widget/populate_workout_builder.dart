@@ -3,6 +3,7 @@ import 'package:fit_pro/application/exercises_fetch/exercisefetchbloc_bloc.dart'
 import 'package:fit_pro/application/superset_checker/supersetscreencheckbox_bloc.dart';
 import 'package:fit_pro/application/workout_fetch/workoutfetch_bloc.dart';
 import 'package:fit_pro/domain/models/exercise_fetch/model.dart';
+import 'package:fit_pro/presentation/screens/home/homeScreen/sub_pages/featured_plans/widgets/daily_task_builder.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/sub_pages/featured_plans/widgets/task_view.dart';
 import 'package:fit_pro/presentation/screens/start_workout/widgets/super_sets/super.dart';
 import 'package:fit_pro/presentation/widgets/custom_nav/customnav.dart';
@@ -334,6 +335,7 @@ class PopulateTaskBuilderScreen extends StatelessWidget {
     return BlocBuilder<ExercisefetchblocBloc, ExercisefetchblocState>(
       builder: (context, state) {
         if (state is SuccessState) {
+          exerciseData = state.exercises;
           List<ExerciseSubClass> allData = [
             ...state.exercises,
             ...state.superSet,

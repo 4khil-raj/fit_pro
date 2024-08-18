@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:fit_pro/application/category_bloc/category_fetch_bloc.dart';
+import 'package:fit_pro/presentation/screens/home/homeScreen/sub_pages/featured_plans/widgets/daily_task_builder.dart';
 import 'package:fit_pro/presentation/screens/start_workout/widgets/buttons.dart';
 import 'package:fit_pro/presentation/screens/start_workout/widgets/carousel.dart';
 import 'package:fit_pro/presentation/screens/start_workout/widgets/check_box_row.dart';
@@ -36,7 +37,7 @@ class LateralBurpeeScreen extends StatelessWidget {
               title: Column(
                 children: [
                   Text(
-                    state.list[0].exercises[state.index].name,
+                    exerciseData[state.index].name,
                     style: GoogleFonts.poppins(
                         color: Colors.white, fontWeight: FontWeight.w700),
                   ),
@@ -44,7 +45,7 @@ class LateralBurpeeScreen extends StatelessWidget {
                     height: 5,
                   ),
                   Text(
-                    "Execise ${state.list[0].exercises[state.index].exerciseNumber} of ${state.list[0].exercises.length}",
+                    "Execise ${exerciseData[state.index].exerciseNumber} of ${exerciseData.length}",
                     style: GoogleFonts.poppins(
                         fontSize: 16,
                         color: const Color.fromARGB(255, 216, 210, 210),
@@ -59,12 +60,10 @@ class LateralBurpeeScreen extends StatelessWidget {
                   height: 10,
                 ),
                 CarouselForWorkout(
-                  video: state.list[0].exercises[i].videoUrl,
+                  video: exerciseData[i].videoUrl,
                 ),
                 Expanded(
-                  child: CheckBoxSetRows(
-                    stateValue: state,
-                  ),
+                  child: CheckBoxSetRows(),
                 ),
                 // Spacer(),
                 TickButtonForLateralBurpee(

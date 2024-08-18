@@ -75,6 +75,7 @@
 //   }
 // }
 import 'dart:convert';
+import 'package:fit_pro/core/apis/apis.dart';
 import 'package:fit_pro/domain/models/exercise_fetch/model.dart';
 import 'package:fit_pro/presentation/screens/auth/signin/signin.dart';
 import 'package:http/http.dart' as http;
@@ -83,15 +84,12 @@ class ExerciseFetchRepo {
   static Future<List<List<ExerciseSubClass>>> fetchExercises(
       String workoutId) async {
     final response = await http.get(
-      Uri.parse('http://13.60.105.223/api/v1/workouts/$workoutId/exercises'),
+      Uri.parse('${Apis.baseUrl}/workouts/$workoutId/exercises'),
       headers: {
         'Authorization': 'Bearer $accesstocken',
       },
     );
-
-    print(response.body);
-    print('http://13.60.105.223/api/v1/workouts/$workoutId/exercises');
-
+    print(workoutId);
     if (response.statusCode == 200) {
       final Map<String, dynamic> jsonData = json.decode(response.body);
 

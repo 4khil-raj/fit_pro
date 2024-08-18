@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:fit_pro/core/apis/apis.dart';
 import 'package:fit_pro/domain/models/plan_overview/model.dart';
 import 'package:fit_pro/presentation/screens/auth/signin/signin.dart';
 import 'package:http/http.dart' as http;
@@ -7,7 +8,7 @@ class PlanOverViewRepo {
   static Future<List<PlanOverviewModel>> fetchWorkoutPlans(
       String planId) async {
     final response = await http.get(
-      Uri.parse("http://13.60.105.223/api/v1/plan/fetch?planID=$planId"),
+      Uri.parse("${Apis.baseUrl}/plan/fetch?planID=$planId"),
       headers: {
         'Authorization': 'Bearer $accesstocken',
       },

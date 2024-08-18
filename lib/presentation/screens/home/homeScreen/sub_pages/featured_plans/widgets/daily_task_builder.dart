@@ -9,6 +9,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
+List<ExerciseSubClass> exerciseData = [];
+
 class DailyTaskBuilderScreen extends StatelessWidget {
   DailyTaskBuilderScreen(
       {super.key,
@@ -27,10 +29,11 @@ class DailyTaskBuilderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<ExercisefetchblocBloc>(context).add(
-        ExerciseFetchRequestedEvent(workoutId: '66bb4d6ade49cf34b40933c9'));
+        ExerciseFetchRequestedEvent(workoutId: '66c0bada98dc9534f97c519e'));
     return BlocBuilder<ExercisefetchblocBloc, ExercisefetchblocState>(
       builder: (context, state) {
         if (state is SuccessState) {
+          exerciseData = state.exercises;
           List<ExerciseSubClass> allData = [
             ...state.exercises,
             ...state.superSet,
@@ -63,7 +66,8 @@ class DailyTaskBuilderScreen extends StatelessWidget {
                       initialVideoId: videoId!,
                       flags: const YoutubePlayerFlags(autoPlay: false));
                   //       return
-                  if (state.exercises.length == index) {
+                  if (state.exercises.length == index &&
+                      state.superSet.isNotEmpty) {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [

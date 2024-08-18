@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:fit_pro/core/apis/apis.dart';
 import 'package:fit_pro/domain/models/weeksmodel/model.dart';
 import 'package:fit_pro/presentation/screens/auth/signin/signin.dart';
 import 'package:http/http.dart' as http;
@@ -6,7 +7,7 @@ import 'package:http/http.dart' as http;
 class WeekFetchRepo {
   static Future<List<WeekModel>> fetchWeek(String weekId) async {
     final response = await http.get(
-      Uri.parse("http://13.60.105.223/api/v1/plan/week/$weekId"),
+      Uri.parse("${Apis.baseUrl}/plan/week/$weekId"),
       headers: {
         'Authorization': 'Bearer $accesstocken',
       },

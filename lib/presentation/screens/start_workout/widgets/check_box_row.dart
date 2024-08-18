@@ -2,6 +2,7 @@ import 'package:fit_pro/application/reps&weight/repsandweightworkout_bloc.dart';
 import 'package:fit_pro/application/category_bloc/category_fetch_bloc.dart';
 import 'package:fit_pro/application/superset_checker/supersetscreencheckbox_bloc.dart';
 import 'package:fit_pro/application/wokout_screen_buttons/workout_screen_buttons_bloc.dart';
+import 'package:fit_pro/presentation/screens/home/homeScreen/sub_pages/featured_plans/widgets/daily_task_builder.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/widget/populate_workout_builder.dart';
 import 'package:fit_pro/presentation/screens/start_workout/widgets/bottom_sheet.dart';
 import 'package:fit_pro/presentation/screens/start_workout/widgets/lateral_burpee.dart';
@@ -13,12 +14,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CheckBoxSetRows extends StatelessWidget {
-  const CheckBoxSetRows({super.key, required this.stateValue});
-  final CategoryFetched stateValue;
+  const CheckBoxSetRows({
+    super.key,
+  });
+  // final CategoryFetched stateValue;
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        itemCount: stateValue.list[0].exercises[i].sets,
+        itemCount: exerciseData[i].sets,
         itemBuilder: (context, index) {
           return Padding(
             padding:
@@ -38,16 +41,15 @@ class CheckBoxSetRows extends StatelessWidget {
                   //   customNavPush(
                   //       context, SuperSetScreen(categoryState: stateValue));
                   // }
-                  if (state.done.length ==
-                          stateValue.list[0].exercises[i].sets &&
-                      stateValue.list[0].exercises.length - 1 > i) {
+                  if (state.done.length == exerciseData[i].sets &&
+                      exerciseData.length - 1 > i) {
                     BlocProvider.of<CategoryFetchBloc>(context)
                         .add(NextWorkout(index: i));
                     BlocProvider.of<RepsandweightworkoutBloc>(context)
                         .add(ClearList());
                     // BlocProvider.of<WorkoutScreenButtonsBloc>(context)
                     //     .add(WorkoutScreenButtonsEvent());
-                  } else if (stateValue.list[0].exercises.length - 1 == i) {
+                  } else if (exerciseData.length - 1 == i) {
                     // BlocProvider.of<WorkoutScreenButtonsBloc>(context)
                     //     .add(WorkoutCompleateEvent());
 
