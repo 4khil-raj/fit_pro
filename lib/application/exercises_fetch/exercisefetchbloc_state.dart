@@ -22,3 +22,9 @@ final class ErrorState extends ExercisefetchblocState {
 
   ErrorState({required this.msg});
 }
+
+final class DataState extends ExercisefetchblocState {
+  DataState({required this.value, this.index});
+  final Map value;
+  final int? index;
+}

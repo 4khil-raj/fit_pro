@@ -111,7 +111,7 @@ class _TickButtonForLateralBurpeeState
               //     .add(StartWrokoutButton());
               // () => stopWatchTimer.onStartTimer();
               BlocProvider.of<RepsandweightworkoutBloc>(context)
-                  .add(Checker(totalLength: exerciseData.length));
+                  .add(Checker(totalLength: flattenedExercises.length));
               BlocProvider.of<WorkoutScreenButtonsBloc>(context)
                   .add(OneCompleateEvent());
             },

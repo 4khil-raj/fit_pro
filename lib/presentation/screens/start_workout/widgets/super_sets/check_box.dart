@@ -9,8 +9,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CheckBoxRowSuperSet extends StatefulWidget {
-  const CheckBoxRowSuperSet({super.key, required this.workoutState});
-  final SuccessState workoutState;
+  const CheckBoxRowSuperSet({
+    super.key,
+  });
+  // final SuccessState workoutState;
 
   @override
   State<CheckBoxRowSuperSet> createState() => _CheckBoxRowSuperSetState();
@@ -27,30 +29,31 @@ class _CheckBoxRowSuperSetState extends State<CheckBoxRowSuperSet> {
   bool tickmark = false;
   @override
   Widget build(BuildContext context) {
+    // j += 1;
+
     Future.delayed(Duration(seconds: 1), () {
       setState(() {});
     });
 
     return BlocBuilder<SupersetscreencheckboxBloc, SupersetscreencheckboxState>(
       builder: (context, state) {
-        j = widget.workoutState.index;
-
         if (state is Selected) {
-          if (state.done.length == widget.workoutState.superSet[j].sets &&
-              widget.workoutState.superSet.length - 1 > j) {
+          // j = state.index;
+          if (state.done.length == flattenedSupersets[j]['sets'] &&
+              flattenedSupersets.length - 1 > j) {
+            print('********************$j*****************');
             BlocProvider.of<ExercisefetchblocBloc>(context)
                 .add(NextWorkout(index: j));
             BlocProvider.of<SupersetscreencheckboxBloc>(context)
                 .add(ClearListt());
-          } else if (widget.workoutState.superSet.length - 1 == j &&
-              state.done.length == widget.workoutState.superSet[j].sets) {
+          } else if (flattenedSupersets.length - 1 == j &&
+              state.done.length == flattenedSupersets[j]['sets']) {
             BlocProvider.of<SupersetButtonsBloc>(context).add(Gobak());
           }
           return SizedBox(
             height: 370,
             child: ListView.builder(
-                itemCount: widget
-                    .workoutState.superSet[widget.workoutState.index].sets,
+                itemCount: flattenedSupersets[j]['sets'],
                 itemBuilder: (context, index) {
                   // if()
 
@@ -90,8 +93,7 @@ class _CheckBoxRowSuperSetState extends State<CheckBoxRowSuperSet> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              widget.workoutState
-                                  .superSet[widget.workoutState.index].name,
+                              flattenedSupersets[j]['name'],
                               style: GoogleFonts.poppins(
                                   color: Colors.blue,
                                   fontWeight: FontWeight.w600),
@@ -123,7 +125,7 @@ class _CheckBoxRowSuperSetState extends State<CheckBoxRowSuperSet> {
                                 ),
                               ],
                             )),
-                        widget.workoutState.superSet[j].weighted == 'No'
+                        flattenedSupersets[j]['weighted'] == 'No'
                             ? SizedBox()
                             : InkWell(
                                 onTap: () => weightAndReps(context, index),
@@ -151,7 +153,7 @@ class _CheckBoxRowSuperSetState extends State<CheckBoxRowSuperSet> {
         return SizedBox(
           height: 370,
           child: ListView.builder(
-              itemCount: widget.workoutState.superSet[j].sets,
+              itemCount: flattenedSupersets[j]['sets'],
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.all(12.0),
@@ -174,7 +176,7 @@ class _CheckBoxRowSuperSetState extends State<CheckBoxRowSuperSet> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            widget.workoutState.superSet[j].name,
+                            flattenedSupersets[j]['name'],
                             style: GoogleFonts.poppins(
                                 color: Colors.blue,
                                 fontWeight: FontWeight.w600),
@@ -196,7 +198,7 @@ class _CheckBoxRowSuperSetState extends State<CheckBoxRowSuperSet> {
                             '20 reps',
                             style: TextStyle(color: Colors.blue),
                           )),
-                      widget.workoutState.superSet[j].weighted == 'No'
+                      flattenedSupersets[j]['weighted'] == 'No'
                           ? SizedBox()
                           : InkWell(
                               onTap: () => weightAndReps(context, index),

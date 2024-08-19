@@ -81,8 +81,7 @@ import 'package:fit_pro/presentation/screens/auth/signin/signin.dart';
 import 'package:http/http.dart' as http;
 
 class ExerciseFetchRepo {
-  static Future<List<List<ExerciseSubClass>>> fetchExercises(
-      String workoutId) async {
+  static fetchExercises(String workoutId) async {
     final response = await http.get(
       Uri.parse('${Apis.baseUrl}/workouts/$workoutId/exercises'),
       headers: {
@@ -90,40 +89,43 @@ class ExerciseFetchRepo {
       },
     );
     print(workoutId);
+    print(jsonDecode(response.body));
+    print('[[[[[[[[[[[[[[[]]]]]]]]]]]]]]]');
     if (response.statusCode == 200) {
-      final Map<String, dynamic> jsonData = json.decode(response.body);
+      final jsonData = json.decode(response.body);
 
-      // Create three lists to store the ExerciseSubClass objects
-      List<ExerciseSubClass> exercisesList = [];
-      List<ExerciseSubClass> supersetList = [];
-      List<ExerciseSubClass> circuitList = [];
+      // // Create three lists to store the ExerciseSubClass objects
+      // List<ExerciseSubClass> exercisesList = [];
+      // List<ExerciseSubClass> supersetList = [];
+      // List<ExerciseSubClass> circuitList = [];
 
-      // Check if exercises data is present and add to the list
-      if (jsonData['exercises'] != null) {
-        exercisesList = List<ExerciseSubClass>.from(
-          jsonData['exercises']
-              .map((exercise) => ExerciseSubClass.fromJson(exercise)),
-        );
-      }
+      // // Check if exercises data is present and add to the list
+      // if (jsonData['exercises'] != null) {
+      //   exercisesList = List<ExerciseSubClass>.from(
+      //     jsonData['exercises']
+      //         .map((exercise) => ExerciseSubClass.fromJson(exercise)),
+      //   );
+      // }
 
-      // Check if superset data is present and add to the list
-      if (jsonData['superset'] != null) {
-        supersetList = List<ExerciseSubClass>.from(
-          jsonData['superset']
-              .map((superset) => ExerciseSubClass.fromJson(superset)),
-        );
-      }
+      // // Check if superset data is present and add to the list
+      // if (jsonData['superset'] != null) {
+      //   supersetList = List<ExerciseSubClass>.from(
+      //     jsonData['superset']
+      //         .map((superset) => ExerciseSubClass.fromJson(superset)),
+      //   );
+      // }
 
-      // Check if circuit data is present and add to the list
-      if (jsonData['circuit'] != null) {
-        circuitList = List<ExerciseSubClass>.from(
-          jsonData['circuit']
-              .map((circuit) => ExerciseSubClass.fromJson(circuit)),
-        );
-      }
+      // // Check if circuit data is present and add to the list
+      // if (jsonData['circuit'] != null) {
+      //   circuitList = List<ExerciseSubClass>.from(
+      //     jsonData['circuit']
+      //         .map((circuit) => ExerciseSubClass.fromJson(circuit)),
+      //   );
+      // }
 
       // Return the three lists
-      return [exercisesList, supersetList, circuitList];
+      // return [exercisesList, supersetList, circuitList];
+      return jsonData['data'];
     } else {
       throw Exception('Failed to load exercises');
     }

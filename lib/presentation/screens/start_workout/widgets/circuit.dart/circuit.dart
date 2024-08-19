@@ -1,9 +1,7 @@
-import 'package:fit_pro/application/category_bloc/category_fetch_bloc.dart';
 import 'package:fit_pro/application/exercises_fetch/exercisefetchbloc_bloc.dart';
 import 'package:fit_pro/presentation/screens/start_workout/widgets/carousel.dart';
 import 'package:fit_pro/presentation/screens/start_workout/widgets/circuit.dart/checkbox.dart';
 import 'package:fit_pro/presentation/screens/start_workout/widgets/super_sets/buttons.dart';
-import 'package:fit_pro/presentation/screens/start_workout/widgets/super_sets/check_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -47,7 +45,7 @@ class CircuitScreenWorkouts extends StatelessWidget {
                     height: 5,
                   ),
                   Text(
-                    '  Execise ${state.circute[state.index].exerciseNumber} of ${state.circute.length}',
+                    '  Execise ${state.index + 1} of ${state.circute.length}',
                     style: GoogleFonts.poppins(
                         fontSize: 16,
                         color: const Color.fromARGB(255, 216, 210, 210),
@@ -95,7 +93,6 @@ class CircuitScreenWorkouts extends StatelessWidget {
                 ),
                 Spacer(),
                 SuperSetButtons(
-                  workoutState: workoutState,
                   valu: false,
                 )
               ],

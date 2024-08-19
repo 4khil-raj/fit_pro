@@ -14,3 +14,8 @@ final class NextWorkout extends ExercisefetchblocEvent {
 
   NextWorkout({required this.index});
 }
+
+final class WorkoutInPlans extends ExercisefetchblocEvent {
+  final String workoutId;
+  WorkoutInPlans({required this.workoutId});
+}

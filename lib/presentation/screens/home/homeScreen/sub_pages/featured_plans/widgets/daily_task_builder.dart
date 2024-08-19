@@ -10,6 +10,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 List<ExerciseSubClass> exerciseData = [];
+String? dayId;
 
 class DailyTaskBuilderScreen extends StatelessWidget {
   DailyTaskBuilderScreen(
@@ -28,8 +29,9 @@ class DailyTaskBuilderScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<ExercisefetchblocBloc>(context).add(
-        ExerciseFetchRequestedEvent(workoutId: '66c0bada98dc9534f97c519e'));
+    BlocProvider.of<ExercisefetchblocBloc>(context).add(WorkoutInPlans(
+        workoutId: state.list[0].weeks[weekIndex].days[dayIndex].id));
+    dayId = state.list[0].weeks[weekIndex].days[dayIndex].id;
     return BlocBuilder<ExercisefetchblocBloc, ExercisefetchblocState>(
       builder: (context, state) {
         if (state is SuccessState) {
@@ -115,7 +117,8 @@ class DailyTaskBuilderScreen extends StatelessWidget {
                                                   )),
                                           borderRadius:
                                               BorderRadius.circular(10),
-                                          color: Colors.amber),
+                                          color: const Color.fromARGB(
+                                              255, 0, 0, 0)),
                                       // child: YoutubePlayer(
                                       //   controller: youtubePlayerController,
                                       //   showVideoProgressIndicator: true,
@@ -151,7 +154,7 @@ class DailyTaskBuilderScreen extends StatelessWidget {
                                           //     .categories[0]
                                           //     .exercises[index]
                                           //     .name,
-                                          allData[index].weighted,
+                                          '${allData[index].sets}| ${allData[index].setTime}',
                                           style: GoogleFonts.urbanist(
                                               fontWeight: FontWeight.bold,
                                               fontSize: 14,
@@ -225,7 +228,8 @@ class DailyTaskBuilderScreen extends StatelessWidget {
 
                                                 )),
                                         borderRadius: BorderRadius.circular(10),
-                                        color: Colors.amber),
+                                        color:
+                                            const Color.fromARGB(255, 0, 0, 0)),
                                     // child: YoutubePlayer(
                                     //   controller: youtubePlayerController,
                                     //   showVideoProgressIndicator: true,
@@ -238,20 +242,25 @@ class DailyTaskBuilderScreen extends StatelessWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(
-                                        allData[index].name
-                                        // state
-                                        //     .list[0]
-                                        //     .weeks[weekIndex]
-                                        //     .days[dayIndex]
-                                        //     .categories[0]
-                                        //     .subCategory
-                                        ,
-                                        style: GoogleFonts.urbanist(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16,
-                                            color: const Color.fromARGB(
-                                                255, 239, 236, 236)),
+                                      SizedBox(
+                                        width:
+                                            MediaQuery.of(context).size.width -
+                                                140,
+                                        child: Text(
+                                          allData[index].name
+                                          // state
+                                          //     .list[0]
+                                          //     .weeks[weekIndex]
+                                          //     .days[dayIndex]
+                                          //     .categories[0]
+                                          //     .subCategory
+                                          ,
+                                          style: GoogleFonts.urbanist(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16,
+                                              color: const Color.fromARGB(
+                                                  255, 239, 236, 236)),
+                                        ),
                                       ),
                                       Text(
                                         // state
@@ -261,7 +270,7 @@ class DailyTaskBuilderScreen extends StatelessWidget {
                                         //     .categories[0]
                                         //     .exercises[index]
                                         //     .name,
-                                        allData[index].weighted,
+                                        '${allData[index].sets} Sets | ${allData[index].setTime}',
                                         style: GoogleFonts.urbanist(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 14,

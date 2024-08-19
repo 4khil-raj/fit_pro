@@ -21,7 +21,7 @@ class CheckBoxSetRows extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        itemCount: exerciseData[i].sets,
+        itemCount: flattenedExercises[i]['sets'],
         itemBuilder: (context, index) {
           return Padding(
             padding:
@@ -41,15 +41,15 @@ class CheckBoxSetRows extends StatelessWidget {
                   //   customNavPush(
                   //       context, SuperSetScreen(categoryState: stateValue));
                   // }
-                  if (state.done.length == exerciseData[i].sets &&
-                      exerciseData.length - 1 > i) {
+                  if (state.done.length == flattenedExercises[i]['sets'] &&
+                      flattenedExercises.length - 1 > i) {
                     BlocProvider.of<CategoryFetchBloc>(context)
                         .add(NextWorkout(index: i));
                     BlocProvider.of<RepsandweightworkoutBloc>(context)
                         .add(ClearList());
                     // BlocProvider.of<WorkoutScreenButtonsBloc>(context)
                     //     .add(WorkoutScreenButtonsEvent());
-                  } else if (exerciseData.length - 1 == i) {
+                  } else if (flattenedExercises.length - 1 == i) {
                     // BlocProvider.of<WorkoutScreenButtonsBloc>(context)
                     //     .add(WorkoutCompleateEvent());
 

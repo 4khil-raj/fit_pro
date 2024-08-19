@@ -1,5 +1,6 @@
 import 'package:fit_pro/application/category_bloc/category_fetch_bloc.dart';
 import 'package:fit_pro/application/exercises_fetch/exercisefetchbloc_bloc.dart';
+import 'package:fit_pro/presentation/screens/home/homeScreen/widget/populate_workout_builder.dart';
 import 'package:fit_pro/presentation/screens/start_workout/widgets/carousel.dart';
 import 'package:fit_pro/presentation/screens/start_workout/widgets/circuit.dart/circuit.dart';
 import 'package:fit_pro/presentation/screens/start_workout/widgets/super_sets/buttons.dart';
@@ -11,26 +12,30 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 int j = 0;
+List<Map<String, dynamic>> flattenedSupersets = [];
 
 class SuperSetScreen extends StatelessWidget {
-  SuperSetScreen({super.key, required this.workoutState});
-  final SuccessState workoutState;
+  SuperSetScreen({
+    super.key,
+  });
+  // final SuccessState workoutState;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ExercisefetchblocBloc, ExercisefetchblocState>(
       builder: (context, state) {
-        if (state is SuccessState) {
-          if (state.superSet.isEmpty && state.circute.isEmpty) {
+        if (state is DataState) {
+          j = state.index ?? 0;
+          if (supersetList.isEmpty && circuitList.isEmpty) {
             Future.microtask(
                 () => Navigator.pop(context)); // Schedule pop on the next frame
             return SizedBox();
-          } else if (state.circute.isNotEmpty) {
+          } else if (circuitList.isNotEmpty) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
-              customNavReplacement(
-                  context,
-                  CircuitScreenWorkouts(
-                    workoutState: workoutState,
-                  ));
+              // customNavReplacement(
+              //     context,
+              //     CircuitScreenWorkouts(
+              //       workoutState: workoutState,
+              //     ));
             });
             return SizedBox();
           }
@@ -50,7 +55,7 @@ class SuperSetScreen extends StatelessWidget {
               title: Column(
                 children: [
                   Text(
-                    state.superSet[state.index].name,
+                    flattenedSupersets[j]['name'],
                     style: GoogleFonts.poppins(
                         color: Colors.white, fontWeight: FontWeight.w700),
                   ),
@@ -58,7 +63,7 @@ class SuperSetScreen extends StatelessWidget {
                     height: 5,
                   ),
                   Text(
-                    '  Execise ${state.superSet[state.index].exerciseNumber} of ${state.superSet.length}',
+                    '  Execise ${j + 1} of ${flattenedSupersets.length}',
                     style: GoogleFonts.poppins(
                         fontSize: 16,
                         color: const Color.fromARGB(255, 216, 210, 210),
@@ -74,7 +79,7 @@ class SuperSetScreen extends StatelessWidget {
                   height: 10,
                 ),
                 CarouselForWorkout(
-                  video: state.superSet[0].videoUrl,
+                  video: flattenedSupersets[j]['video_url'],
                 ),
                 Padding(
                   padding: const EdgeInsets.all(11.0),
@@ -86,12 +91,9 @@ class SuperSetScreen extends StatelessWidget {
                         fontSize: 18),
                   ),
                 ),
-                CheckBoxRowSuperSet(
-                  workoutState: state,
-                ),
-                Spacer(),
+                CheckBoxRowSuperSet(),
+                // Spacer(),
                 SuperSetButtons(
-                  workoutState: workoutState,
                   valu: true,
                 )
               ],

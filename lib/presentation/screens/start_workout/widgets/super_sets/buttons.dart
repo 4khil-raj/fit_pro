@@ -8,9 +8,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SuperSetButtons extends StatelessWidget {
-  const SuperSetButtons(
-      {super.key, required this.valu, required this.workoutState});
-  final SuccessState workoutState;
+  const SuperSetButtons({
+    super.key,
+    required this.valu,
+  });
+  // final SuccessState workoutState;
 
   Stream<int> countdown(int seconds) {
     return Stream.periodic(const Duration(seconds: 1), (x) => seconds - x - 1)
@@ -135,11 +137,7 @@ class SuperSetButtons extends StatelessWidget {
                 j = 0;
                 valu
                     ? WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-                        customNavReplacement(
-                            context,
-                            CircuitScreenWorkouts(
-                              workoutState: workoutState,
-                            ));
+                        // customNavReplacement(context, CircuitScreenWorkouts());
                       })
                     : Navigator.pop(context);
                 //

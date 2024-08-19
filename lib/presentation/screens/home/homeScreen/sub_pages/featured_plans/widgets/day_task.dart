@@ -118,7 +118,7 @@ class _DayTaskScreenState extends State<DayTaskScreen> {
             Padding(
               padding: const EdgeInsets.only(left: 6.0, top: 10),
               child: Text(
-                "${widget.appbarTitle} Challenge",
+                "${widget.appbarTitle.split('|')[0]} Challenge",
                 style: GoogleFonts.urbanist(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
@@ -128,8 +128,7 @@ class _DayTaskScreenState extends State<DayTaskScreen> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                widget.state!.list[0].weeks[widget.weekIndex]
-                    .days[widget.dayIndex].categories[0].subCategory,
+                "${widget.appbarTitle.split('|')[1]} | ${widget.state!.list[0].weeks[widget.weekIndex].days[widget.dayIndex].dayName}",
                 style: GoogleFonts.urbanist(
                     fontWeight: FontWeight.bold,
                     fontSize: 28,
@@ -143,8 +142,7 @@ class _DayTaskScreenState extends State<DayTaskScreen> {
               child: SizedBox(
                 width: double.infinity,
                 child: Text(
-                  widget.state!.list[0].weeks[widget.weekIndex]
-                      .days[widget.dayIndex].dayName,
+                  "  ${widget.state!.list[0].weeks[widget.weekIndex].days[widget.dayIndex].estimatedDuration}  ",
                   style: GoogleFonts.urbanist(
                       fontWeight: FontWeight.bold,
                       fontSize: 16,

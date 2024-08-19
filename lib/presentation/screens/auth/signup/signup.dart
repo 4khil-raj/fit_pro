@@ -35,8 +35,8 @@ class SignUpScreen extends StatelessWidget {
               BlocProvider.of<AuthBloc>(context).add(AuthEvent());
             } else if (state is Authenticated) {
               WidgetsBinding.instance.addPostFrameCallback((_) {
-                // customNavRemoveuntil(context, const BottomNavBar());
-                customNavPush(context, const UserInfoCollectingScreen());
+                customNavRemoveuntil(context, const BottomNavBar());
+                // customNavPush(context, const UserInfoCollectingScreen());
               });
               BlocProvider.of<AuthBloc>(context).add(AuthEvent());
             } else if (state is SignUpOtpState) {
