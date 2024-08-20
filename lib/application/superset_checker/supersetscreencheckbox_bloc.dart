@@ -55,10 +55,40 @@ class SupersetscreencheckboxBloc
     });
     on<ClearListt>((event, emit) {
       // emit(SupersetscreencheckboxInitial());
-      indexes.clear();
-      wrkDone.clear();
-      repslist.clear();
-      weightlist.clear();
+      indexes = [];
+      wrkDone = [];
+      repslist = [];
+      weightlist = [];
+      emit(Selected(
+        repsfulllist: repsfulllist,
+        weightfulllist: weightList,
+        repslist: repslist,
+        weightlist: weightlist,
+        done: wrkDone,
+        list: indexes,
+        isFinish: false,
+        index: 0,
+      ));
+    });
+    on<Checker>((event, emit) {
+      int i = 0;
+      for (i; i < event.totalLength; i++) {
+        if (!wrkDone.contains(i)) {
+          wrkDone.add(i);
+          indexes.add(i);
+          break;
+        }
+      }
+      emit(Selected(
+        repsfulllist: repsfulllist,
+        weightfulllist: weightList,
+        repslist: repslist,
+        weightlist: weightlist,
+        done: wrkDone,
+        list: indexes,
+        isFinish: false,
+        index: i,
+      ));
     });
   }
 }

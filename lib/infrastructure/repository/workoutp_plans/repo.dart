@@ -30,26 +30,19 @@ class WorkoutPlansFetchRepo {
         'Authorization': 'Bearer $accesstocken',
       },
     );
-    print(response.body);
-    print('=======================================');
-    print('=======================================');
-    print('=======================================');
-    print(response.statusCode);
+
     try {
       if (response.statusCode == 200) {
         Map<String, dynamic> jsonData = json.decode(response.body);
 
-        print(jsonData['plans'][0]['plan_name']);
         List<dynamic> plansJson = jsonData['plans'];
         List<WorkoutPlanModel> workoutPlans =
             plansJson.map((json) => WorkoutPlanModel.fromJson(json)).toList();
-        print("==================================>>>>>>>>>");
         return workoutPlans;
       } else {
         throw Exception('Failed to load workout plans');
       }
     } catch (e) {
-      print(e);
       return [];
     }
   }

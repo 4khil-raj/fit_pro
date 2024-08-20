@@ -12,7 +12,10 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class BookmarkStartWorkoutButton extends StatefulWidget {
-  const BookmarkStartWorkoutButton({super.key, required this.categoryId});
+  const BookmarkStartWorkoutButton({
+    super.key,
+    required this.categoryId,
+  });
   final String categoryId;
   @override
   State<BookmarkStartWorkoutButton> createState() =>
@@ -82,11 +85,7 @@ class _BookmarkStartWorkoutButtonState
                   setState(() {
                     endWorkout = true;
                   });
-                  // final response = await CategoryRepository()
-                  //     .fetchCategories(
-                  //         widget.stateValues.list[0].categories[0]);
-                  // print('========+++++++++++--------');
-                  // print(response[0].exercises[0].name);
+               
                 },
               ),
             ),

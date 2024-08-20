@@ -1,5 +1,6 @@
 import 'package:fit_pro/application/fetch_bookmark_day/fetch_bookmark_bloc.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/sub_pages/featured_plans/featured_plans.dart';
+import 'package:fit_pro/presentation/screens/home/homeScreen/sub_pages/featured_plans/widgets/daily_bookmar.dart';
 import 'package:fit_pro/presentation/widgets/custom_nav/customnav.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -50,15 +51,33 @@ class BookMarkScreenHome extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) => Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      height: 200,
-                      width: 180,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                            fit: BoxFit.cover,
-                            image: NetworkImage(
-                                state.list[0].bookmarks[index].dayBannerImage)),
-                        borderRadius: BorderRadius.circular(10),
+                    child: InkWell(
+                      onTap: () {
+                        customNavPush(
+                            context,
+                            BookmarkDayTaskScreen(
+                              lastTitle: state
+                                  .list[0].bookmarks[index].estimatedDuration,
+                              dayID: state.list[0].bookmarks[index].id,
+                              categoryId: state
+                                  .list[0].bookmarks[index].categories[index],
+                              subTitle:
+                                  state.list[0].bookmarks[index].dayOfWeek,
+                              title: state.list[0].bookmarks[index].dayName,
+                              videoLink:
+                                  state.list[0].bookmarks[index].introVideo,
+                            ));
+                      },
+                      child: Container(
+                        height: 200,
+                        width: 180,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                              fit: BoxFit.cover,
+                              image: NetworkImage(state
+                                  .list[0].bookmarks[index].dayBannerImage)),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
                       ),
                     ),
                   ),

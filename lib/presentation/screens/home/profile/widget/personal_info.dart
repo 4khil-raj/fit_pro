@@ -67,7 +67,7 @@ class PersonalInfomatiocEditScreen extends StatelessWidget {
                           ))
                     ]);
                   } else if (state is ErrorState) {
-                    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
                       return alerts(context, state.msg);
                     });
                   }

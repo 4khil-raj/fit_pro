@@ -3,6 +3,7 @@ import 'package:fit_pro/application/exercises_fetch/exercisefetchbloc_bloc.dart'
 import 'package:fit_pro/presentation/screens/home/homeScreen/widget/populate_workout_builder.dart';
 import 'package:fit_pro/presentation/screens/start_workout/widgets/carousel.dart';
 import 'package:fit_pro/presentation/screens/start_workout/widgets/circuit.dart/circuit.dart';
+import 'package:fit_pro/presentation/screens/start_workout/widgets/lateral_burpee.dart';
 import 'package:fit_pro/presentation/screens/start_workout/widgets/super_sets/buttons.dart';
 import 'package:fit_pro/presentation/screens/start_workout/widgets/super_sets/check_box.dart';
 import 'package:fit_pro/presentation/widgets/custom_nav/customnav.dart';
@@ -31,11 +32,7 @@ class SuperSetScreen extends StatelessWidget {
             return SizedBox();
           } else if (circuitList.isNotEmpty) {
             WidgetsBinding.instance.addPostFrameCallback((_) {
-              // customNavReplacement(
-              //     context,
-              //     CircuitScreenWorkouts(
-              //       workoutState: workoutState,
-              //     ));
+              customNavReplacement(context, CircuitScreenWorkouts());
             });
             return SizedBox();
           }
@@ -92,7 +89,7 @@ class SuperSetScreen extends StatelessWidget {
                   ),
                 ),
                 CheckBoxRowSuperSet(),
-                // Spacer(),
+                Spacer(),
                 SuperSetButtons(
                   valu: true,
                 )

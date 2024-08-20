@@ -162,9 +162,10 @@ class FeturedPlansSubScreen extends StatelessWidget {
     customNavPush(
         context,
         BookmarkDayTaskScreen(
+          lastTitle: bookmarkState!.list[0].bookmarks[index].estimatedDuration,
+          dayID: bookmarkState!.list[0].bookmarks[index].id,
           categoryId: bookmarkState!.list[0].bookmarks[index].categories[index],
-          bookmarkIndex: index,
-          subTitle: bookmarkState!.list[0].bookmarks[index].estimatedDuration,
+          subTitle: bookmarkState!.list[0].bookmarks[index].dayOfWeek,
           title: bookmarkState!.list[0].bookmarks[index].dayName,
           videoLink: bookmarkState!.list[0].bookmarks[index].introVideo,
         ));

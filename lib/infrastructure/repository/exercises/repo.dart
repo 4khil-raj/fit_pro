@@ -88,9 +88,7 @@ class ExerciseFetchRepo {
         'Authorization': 'Bearer $accesstocken',
       },
     );
-    print(workoutId);
-    print(jsonDecode(response.body));
-    print('[[[[[[[[[[[[[[[]]]]]]]]]]]]]]]');
+
     if (response.statusCode == 200) {
       final jsonData = json.decode(response.body);
 

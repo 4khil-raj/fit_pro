@@ -9,10 +9,10 @@ final class ExerciseFetchRequestedEvent extends ExercisefetchblocEvent {
   ExerciseFetchRequestedEvent({required this.workoutId});
 }
 
-final class NextWorkout extends ExercisefetchblocEvent {
+final class NextWorkouts extends ExercisefetchblocEvent {
   final int index;
 
-  NextWorkout({required this.index});
+  NextWorkouts({required this.index});
 }
 
 final class WorkoutInPlans extends ExercisefetchblocEvent {

@@ -43,7 +43,7 @@ class _CheckBoxRowSuperSetState extends State<CheckBoxRowSuperSet> {
               flattenedSupersets.length - 1 > j) {
             print('********************$j*****************');
             BlocProvider.of<ExercisefetchblocBloc>(context)
-                .add(NextWorkout(index: j));
+                .add(NextWorkouts(index: j));
             BlocProvider.of<SupersetscreencheckboxBloc>(context)
                 .add(ClearListt());
           } else if (flattenedSupersets.length - 1 == j &&
@@ -94,9 +94,13 @@ class _CheckBoxRowSuperSetState extends State<CheckBoxRowSuperSet> {
                           children: [
                             Text(
                               flattenedSupersets[j]['name'],
-                              style: GoogleFonts.poppins(
-                                  color: Colors.blue,
-                                  fontWeight: FontWeight.w600),
+                              style: state.done.contains(index)
+                                  ? GoogleFonts.poppins(
+                                      color: Color.fromARGB(255, 141, 136, 136),
+                                      fontWeight: FontWeight.w600)
+                                  : GoogleFonts.poppins(
+                                      color: Colors.blue,
+                                      fontWeight: FontWeight.w600),
                             ),
                             // const SizedBox(
                             //   width: 7,
@@ -117,11 +121,21 @@ class _CheckBoxRowSuperSetState extends State<CheckBoxRowSuperSet> {
                                   state.repsfulllist.containsKey(index)
                                       ? state.repsfulllist[index].toString()
                                       : '20',
-                                  style: TextStyle(color: Colors.blue),
+                                  style: state.done.contains(index)
+                                      ? GoogleFonts.poppins(
+                                          color: Color.fromARGB(
+                                              255, 141, 136, 136),
+                                          fontWeight: FontWeight.w600)
+                                      : TextStyle(color: Colors.blue),
                                 ),
                                 Text(
                                   ' reps',
-                                  style: TextStyle(color: Colors.blue),
+                                  style: state.done.contains(index)
+                                      ? GoogleFonts.poppins(
+                                          color: Color.fromARGB(
+                                              255, 141, 136, 136),
+                                          fontWeight: FontWeight.w600)
+                                      : TextStyle(color: Colors.blue),
                                 ),
                               ],
                             )),
@@ -136,11 +150,21 @@ class _CheckBoxRowSuperSetState extends State<CheckBoxRowSuperSet> {
                                           ? state.weightfulllist[index]
                                               .toString()
                                           : "10",
-                                      style: TextStyle(color: Colors.blue),
+                                      style: state.done.contains(index)
+                                          ? GoogleFonts.poppins(
+                                              color: Color.fromARGB(
+                                                  255, 141, 136, 136),
+                                              fontWeight: FontWeight.w600)
+                                          : TextStyle(color: Colors.blue),
                                     ),
                                     Text(
                                       ' kg',
-                                      style: TextStyle(color: Colors.blue),
+                                      style: state.done.contains(index)
+                                          ? GoogleFonts.poppins(
+                                              color: Color.fromARGB(
+                                                  255, 141, 136, 136),
+                                              fontWeight: FontWeight.w600)
+                                          : TextStyle(color: Colors.blue),
                                     )
                                   ],
                                 )),

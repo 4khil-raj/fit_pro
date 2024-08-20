@@ -9,12 +9,14 @@ import 'package:fit_pro/presentation/screens/start_workout/widgets/check_box_row
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 int i = 0;
 List<Map<String, dynamic>> flattenedExercises = [];
 
 class LateralBurpeeScreen extends StatelessWidget {
-  LateralBurpeeScreen({super.key});
+  LateralBurpeeScreen({super.key, required this.coolDown});
+  final bool coolDown;
 
   @override
   Widget build(BuildContext context) {
@@ -25,12 +27,30 @@ class LateralBurpeeScreen extends StatelessWidget {
           i = state.index;
 
 // Ensure exerciseList is not null
-          if (exerciseList != null) {
+          if (coolDown == false && exerciseList != null) {
             // Print the exerciseList to debug
+            flattenedExercises = [];
+
             print('exerciseList: $exerciseList');
 
             // Flatten the exerciseList if it's a nested list
             for (var item in exerciseList) {
+              print(
+                  'Item: $item'); // Print each item to check its type and contents
+              if (item is Map<String, dynamic>) {
+                flattenedExercises.add(item);
+              } else if (item is List) {
+                // If item is a nested list, you may need to flatten further
+                for (var subItem in item) {
+                  if (subItem is Map<String, dynamic>) {
+                    flattenedExercises.add(subItem);
+                  }
+                }
+              }
+            }
+          } else if (coolDown && coolDownList.isNotEmpty) {
+            flattenedExercises = [];
+            for (var item in coolDownList) {
               print(
                   'Item: $item'); // Print each item to check its type and contents
               if (item is Map<String, dynamic>) {
@@ -93,7 +113,9 @@ class LateralBurpeeScreen extends StatelessWidget {
                         ['video_url'], // Ensure key name matches
                   ),
                   Expanded(
-                    child: CheckBoxSetRows(),
+                    child: CheckBoxSetRows(
+                      cooldown: coolDown,
+                    ),
                   ),
                   // Spacer(),
                   TickButtonForLateralBurpee(
@@ -117,11 +139,14 @@ class LateralBurpeeScreen extends StatelessWidget {
           }
         }
         return Scaffold(
-          backgroundColor: const Color.fromARGB(255, 6, 2, 19),
-          body: Center(
-            child: CircularProgressIndicator(),
-          ),
-        );
+            backgroundColor: const Color.fromARGB(255, 6, 2, 19),
+            body: Center(
+              child: LoadingAnimationWidget.dotsTriangle(
+                  // secondRingColor: Colors.green,
+                  // thirdRingColor: Colors.blue,
+                  color: Color.fromARGB(255, 255, 255, 255),
+                  size: 62),
+            ));
       },
     );
   }

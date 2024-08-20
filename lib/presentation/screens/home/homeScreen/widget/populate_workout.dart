@@ -127,10 +127,8 @@ class _PopulateWorkoutScreenState extends State<PopulateWorkout> {
               height: 10,
             ),
             PopulateTaskBuilderScreen(
-              superset: false,
-              dayIndex: widget.index,
-              stateValues: widget.stateValues,
-              // workoutyoutubePlayerController: workoutyoutubePlayerController,
+              workout: true,
+              Id: widget.stateValues.list[widget.index].id,
             ),
             const SizedBox(
               height: 70,

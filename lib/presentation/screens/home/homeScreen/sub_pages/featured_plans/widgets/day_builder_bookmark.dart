@@ -29,7 +29,7 @@ class DailyTaskBuilderBookmarkScreen extends StatelessWidget {
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: InkWell(
-                onTap: () => taskViewSheet(context, youtubePlayerController),
+                // onTap: () => taskViewSheet(context, youtubePlayerController),
                 child: Container(
                   decoration: BoxDecoration(
                       color: const Color.fromARGB(255, 42, 41, 41),

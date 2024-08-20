@@ -5,6 +5,7 @@ import 'package:fit_pro/application/wokout_screen_buttons/workout_screen_buttons
 import 'package:fit_pro/presentation/screens/home/homeScreen/sub_pages/featured_plans/widgets/daily_task_builder.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/widget/populate_workout_builder.dart';
 import 'package:fit_pro/presentation/screens/start_workout/widgets/bottom_sheet.dart';
+import 'package:fit_pro/presentation/screens/start_workout/widgets/circuit.dart/circuit.dart';
 import 'package:fit_pro/presentation/screens/start_workout/widgets/lateral_burpee.dart';
 import 'package:fit_pro/presentation/screens/start_workout/widgets/super_sets/super.dart';
 import 'package:fit_pro/presentation/screens/start_workout/widgets/super_sets/super_set.dart';
@@ -16,7 +17,9 @@ import 'package:google_fonts/google_fonts.dart';
 class CheckBoxSetRows extends StatelessWidget {
   const CheckBoxSetRows({
     super.key,
+    required this.cooldown,
   });
+  final bool cooldown;
   // final CategoryFetched stateValue;
   @override
   Widget build(BuildContext context) {
@@ -49,13 +52,15 @@ class CheckBoxSetRows extends StatelessWidget {
                         .add(ClearList());
                     // BlocProvider.of<WorkoutScreenButtonsBloc>(context)
                     //     .add(WorkoutScreenButtonsEvent());
-                  } else if (flattenedExercises.length - 1 == i) {
+                  } else if (flattenedExercises.length - 1 == i &&
+                      state.done.length == flattenedExercises[i]['sets'] &&
+                      cooldown == false) {
                     // BlocProvider.of<WorkoutScreenButtonsBloc>(context)
                     //     .add(WorkoutCompleateEvent());
 
-                    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-                      BlocProvider.of<SupersetscreencheckboxBloc>(context)
-                          .add(ClearListt());
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      BlocProvider.of<RepsandweightworkoutBloc>(context)
+                          .add(ClearList());
                       j = 0;
 
                       return customNavReplacement(
@@ -63,6 +68,15 @@ class CheckBoxSetRows extends StatelessWidget {
                           SuperSetLunchScreen(
                             workoutID: exerciseGlobalId,
                           ));
+                    });
+                  } else if (flattenedExercises.length - 1 == i &&
+                      state.done.length == flattenedExercises[i]['sets'] &&
+                      cooldown == true) {
+                    // BlocProvider.of<WorkoutScreenButtonsBloc>(context)
+                    //     .add(WorkoutCompleateEvent());
+
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      return Navigator.pop(context);
                     });
                   }
 

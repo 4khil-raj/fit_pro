@@ -17,3 +17,9 @@ final class GetRepss extends SupersetscreencheckboxEvent {
 }
 
 final class ClearListt extends SupersetscreencheckboxEvent {}
+
+final class Checker extends SupersetscreencheckboxEvent {
+  final int totalLength;
+
+  Checker({required this.totalLength});
+}

@@ -6,6 +6,7 @@ import 'package:fit_pro/presentation/screens/bottom_nav/bottom_nav.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/sub_pages/featured_plans/widgets/bookmark_button.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/sub_pages/featured_plans/widgets/daily_task_builder.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/sub_pages/featured_plans/widgets/start_workout_button_plan.dart';
+import 'package:fit_pro/presentation/screens/home/homeScreen/widget/populate_workout_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -163,13 +164,18 @@ class _DayTaskScreenState extends State<DayTaskScreen> {
                     fontWeight: FontWeight.bold),
               ),
             ),
-            DailyTaskBuilderScreen(
-              superset: false,
-              dayIndex: widget.dayIndex,
-              weekIndex: widget.weekIndex,
-              state: widget.state!,
-              // youtubePlayerControllerdailyTask: youtubePlayerControllerdailyTask,
-            ),
+            PopulateTaskBuilderScreen(
+              Id: '${widget.state?.list[0].weeks[widget.weekIndex].days[widget.dayIndex].id}',
+              workout: false,
+            )
+
+            // DailyTaskBuilderScreen(
+            //   superset: false,
+            //   dayIndex: widget.dayIndex,
+            //   weekIndex: widget.weekIndex,
+            //   state: widget.state!,
+            //   // youtubePlayerControllerdailyTask: youtubePlayerControllerdailyTask,
+            // ),
             // Padding(
             //   padding: const EdgeInsets.all(8.0),
             //   child: Text(
@@ -206,6 +212,7 @@ class _DayTaskScreenState extends State<DayTaskScreen> {
             //   state: widget.state!,
             //   // youtubePlayerControllerdailyTask: youtubePlayerControllerdailyTask,
             // ),
+            ,
             SizedBox(
               height: 80,
             )

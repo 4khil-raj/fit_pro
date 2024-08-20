@@ -58,7 +58,7 @@ class RepsandweightworkoutBloc
       ));
     });
     on<WorkoutDone>((event, emit) {
-      // emit(RepsandweightworkoutInitial());
+      emit(RepsandweightworkoutInitial());
       wrkDone.add(event.indexdone);
       emit(Selectedd(
         repsfulllist: repsfulllist,

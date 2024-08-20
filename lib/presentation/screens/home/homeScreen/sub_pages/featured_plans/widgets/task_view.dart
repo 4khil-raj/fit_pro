@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-void taskViewSheet(BuildContext context, youtubePlayerController) {
+void taskViewSheet(BuildContext context, vido, title, discription) {
   showModalBottomSheet(
     context: context,
     isScrollControlled: true,
     builder: (context) {
+      final videoId = YoutubePlayer.convertUrlToId(vido);
+      final youtubePlayerController = YoutubePlayerController(
+          initialVideoId: videoId!,
+          flags: const YoutubePlayerFlags(autoPlay: false));
       return DraggableScrollableSheet(
         initialChildSize: 0.6,
         minChildSize: 0.6,
@@ -49,7 +53,7 @@ void taskViewSheet(BuildContext context, youtubePlayerController) {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
-                              "Lateral Burpee",
+                              "$title",
                               style: GoogleFonts.urbanist(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 20,
@@ -70,6 +74,7 @@ void taskViewSheet(BuildContext context, youtubePlayerController) {
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
                               "Kneel on the floor and put your hands on the floor in front of you. Keep your hands shoulder-width apart and your knees directly below your hips.Inhale deeply while curving your lower back and bringing your head up..... see more",
+                              // discription,
                               style: GoogleFonts.urbanist(
                                   fontWeight: FontWeight.w600,
                                   fontSize: 16,

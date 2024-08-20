@@ -2,6 +2,7 @@ import 'package:fit_pro/application/superSetButtons/superset_buttons_bloc.dart';
 import 'package:fit_pro/application/superset_checker/supersetscreencheckbox_bloc.dart';
 import 'package:fit_pro/application/exercises_fetch/exercisefetchbloc_bloc.dart';
 import 'package:fit_pro/presentation/screens/start_workout/widgets/bottom_sheet.dart';
+import 'package:fit_pro/presentation/screens/start_workout/widgets/circuit.dart/circuit.dart';
 import 'package:fit_pro/presentation/screens/start_workout/widgets/super_sets/super_set.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -9,8 +10,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CheckBoxRowCircuit extends StatefulWidget {
-  const CheckBoxRowCircuit({super.key, required this.workoutState});
-  final SuccessState workoutState;
+  const CheckBoxRowCircuit({
+    super.key,
+  });
+  // final SuccessState workoutState;
 
   @override
   State<CheckBoxRowCircuit> createState() => _CheckBoxRowCircuitState();
@@ -33,24 +36,24 @@ class _CheckBoxRowCircuitState extends State<CheckBoxRowCircuit> {
 
     return BlocBuilder<SupersetscreencheckboxBloc, SupersetscreencheckboxState>(
       builder: (context, state) {
-        j = widget.workoutState.index;
+        // j = widget.workoutState.index;
 
         if (state is Selected) {
-          if (state.done.length == widget.workoutState.circute[j].sets &&
-              widget.workoutState.circute.length - 1 > j) {
+          if (state.done.length == flattenedCircuits[j]['sets'] &&
+              flattenedCircuits.length - 1 > j) {
             BlocProvider.of<ExercisefetchblocBloc>(context)
-                .add(NextWorkout(index: j));
+                .add(NextWorkouts(index: j));
             BlocProvider.of<SupersetscreencheckboxBloc>(context)
                 .add(ClearListt());
-          } else if (widget.workoutState.circute.length - 1 == j &&
-              state.done.length == widget.workoutState.circute[j].sets) {
+          } else if (flattenedCircuits.length - 1 == j &&
+              state.done.length == flattenedCircuits[j]['sets']) {
             BlocProvider.of<SupersetButtonsBloc>(context).add(Gobak());
+            // flattenedCircuits = [];
           }
           return SizedBox(
             height: 370,
             child: ListView.builder(
-                itemCount:
-                    widget.workoutState.circute[widget.workoutState.index].sets,
+                itemCount: flattenedCircuits[j]['sets'],
                 itemBuilder: (context, index) {
                   // if()
 
@@ -90,11 +93,14 @@ class _CheckBoxRowCircuitState extends State<CheckBoxRowCircuit> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              widget.workoutState
-                                  .circute[widget.workoutState.index].name,
-                              style: GoogleFonts.poppins(
-                                  color: Colors.blue,
-                                  fontWeight: FontWeight.w600),
+                              flattenedCircuits[j]['name'],
+                              style: state.done.contains(index)
+                                  ? GoogleFonts.poppins(
+                                      color: Color.fromARGB(255, 141, 136, 136),
+                                      fontWeight: FontWeight.w600)
+                                  : GoogleFonts.poppins(
+                                      color: Colors.blue,
+                                      fontWeight: FontWeight.w600),
                             ),
                             // const SizedBox(
                             //   width: 7,
@@ -115,15 +121,25 @@ class _CheckBoxRowCircuitState extends State<CheckBoxRowCircuit> {
                                   state.repsfulllist.containsKey(index)
                                       ? state.repsfulllist[index].toString()
                                       : '20',
-                                  style: TextStyle(color: Colors.blue),
+                                  style: state.done.contains(index)
+                                      ? GoogleFonts.poppins(
+                                          color: Color.fromARGB(
+                                              255, 141, 136, 136),
+                                          fontWeight: FontWeight.w600)
+                                      : TextStyle(color: Colors.blue),
                                 ),
                                 Text(
                                   ' reps',
-                                  style: TextStyle(color: Colors.blue),
+                                  style: state.done.contains(index)
+                                      ? GoogleFonts.poppins(
+                                          color: Color.fromARGB(
+                                              255, 141, 136, 136),
+                                          fontWeight: FontWeight.w600)
+                                      : TextStyle(color: Colors.blue),
                                 ),
                               ],
                             )),
-                        widget.workoutState.circute[j].weighted == 'No'
+                        flattenedCircuits[j]['weighted'] == 'No'
                             ? SizedBox()
                             : InkWell(
                                 onTap: () => weightAndReps(context, index),
@@ -134,11 +150,21 @@ class _CheckBoxRowCircuitState extends State<CheckBoxRowCircuit> {
                                           ? state.weightfulllist[index]
                                               .toString()
                                           : "10",
-                                      style: TextStyle(color: Colors.blue),
+                                      style: state.done.contains(index)
+                                          ? GoogleFonts.poppins(
+                                              color: Color.fromARGB(
+                                                  255, 141, 136, 136),
+                                              fontWeight: FontWeight.w600)
+                                          : TextStyle(color: Colors.blue),
                                     ),
                                     Text(
                                       ' kg',
-                                      style: TextStyle(color: Colors.blue),
+                                      style: state.done.contains(index)
+                                          ? GoogleFonts.poppins(
+                                              color: Color.fromARGB(
+                                                  255, 141, 136, 136),
+                                              fontWeight: FontWeight.w600)
+                                          : TextStyle(color: Colors.blue),
                                     )
                                   ],
                                 )),
@@ -151,7 +177,7 @@ class _CheckBoxRowCircuitState extends State<CheckBoxRowCircuit> {
         return SizedBox(
           height: 370,
           child: ListView.builder(
-              itemCount: widget.workoutState.circute[j].sets,
+              itemCount: flattenedCircuits[j]['sets'],
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.all(12.0),
@@ -174,7 +200,7 @@ class _CheckBoxRowCircuitState extends State<CheckBoxRowCircuit> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            widget.workoutState.circute[j].name,
+                            flattenedCircuits[j]['name'],
                             style: GoogleFonts.poppins(
                                 color: Colors.blue,
                                 fontWeight: FontWeight.w600),
@@ -196,7 +222,7 @@ class _CheckBoxRowCircuitState extends State<CheckBoxRowCircuit> {
                             '20 reps',
                             style: TextStyle(color: Colors.blue),
                           )),
-                      widget.workoutState.circute[j].weighted == 'No'
+                      flattenedCircuits[j]['weighted'] == 'No'
                           ? SizedBox()
                           : InkWell(
                               onTap: () => weightAndReps(context, index),
