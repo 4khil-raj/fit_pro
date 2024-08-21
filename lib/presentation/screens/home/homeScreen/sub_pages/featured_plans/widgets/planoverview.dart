@@ -68,18 +68,16 @@ class PlanOverViewScreen extends StatelessWidget {
             ),
           ),
           SliverToBoxAdapter(
-            child: SizedBox(
-              height: MediaQuery.of(context).size.height -
-                  250, // Set a height that fits your content
-              child: ListView.builder(
-                  itemCount: state.list[0].weeks.length,
-                  itemBuilder: (context, index) {
-                    return WeekOneCarouselSlider(
-                      index: index,
-                      state: state,
-                    );
-                  }),
-            ),
+            child: ListView.builder(
+                shrinkWrap: true, // Adjusts to the content's height
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: state.list[0].weeks.length,
+                itemBuilder: (context, index) {
+                  return WeekOneCarouselSlider(
+                    index: index,
+                    state: state,
+                  );
+                }),
           ),
         ],
       ),
