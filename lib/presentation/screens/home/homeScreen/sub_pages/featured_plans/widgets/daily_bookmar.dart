@@ -115,6 +115,7 @@ class _DayTaskScreenState extends State<BookmarkDayTaskScreen> {
                   // ),
 
                   PopulateTaskBuilderScreen(
+                    isWorkout: false,
                     Id: widget.dayID,
                     workout: false,
                   ),

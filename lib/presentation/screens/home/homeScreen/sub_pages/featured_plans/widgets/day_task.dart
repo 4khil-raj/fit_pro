@@ -165,6 +165,7 @@ class _DayTaskScreenState extends State<DayTaskScreen> {
               ),
             ),
             PopulateTaskBuilderScreen(
+              isWorkout: false,
               Id: '${widget.state?.list[0].weeks[widget.weekIndex].days[widget.dayIndex].id}',
               workout: false,
             )

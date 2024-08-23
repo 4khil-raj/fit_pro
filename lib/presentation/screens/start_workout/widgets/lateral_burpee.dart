@@ -17,8 +17,8 @@ List<Map<String, dynamic>> flattenedExercises = [];
 class LateralBurpeeScreen extends StatelessWidget {
   LateralBurpeeScreen({super.key, required this.coolDown});
   final bool coolDown;
-
   @override
+  bool onetime = true;
   Widget build(BuildContext context) {
     return BlocBuilder<CategoryFetchBloc, CategoryFetchState>(
       builder: (context, state) {
@@ -45,6 +45,16 @@ class LateralBurpeeScreen extends StatelessWidget {
                   if (subItem is Map<String, dynamic>) {
                     flattenedExercises.add(subItem);
                   }
+                }
+              }
+            }
+            if (onetime) {
+              for (int i = 0; i < flattenedExercises.length; i++) {
+                if (flattenedExercises[i].containsValue(workoutIDq)) {
+                  BlocProvider.of<CategoryFetchBloc>(context)
+                      .add(NextWorkout(index: i - 1));
+                  onetime = false;
+                  break;
                 }
               }
             }

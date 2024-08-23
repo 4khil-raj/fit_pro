@@ -1,5 +1,14 @@
+import 'package:fit_pro/application/category_bloc/category_fetch_bloc.dart';
 import 'package:fit_pro/application/exercises_fetch/exercisefetchbloc_bloc.dart';
+import 'package:fit_pro/application/reps&weight/repsandweightworkout_bloc.dart';
+import 'package:fit_pro/application/wokout_screen_buttons/workout_screen_buttons_bloc.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/sub_pages/featured_plans/widgets/task_view.dart';
+import 'package:fit_pro/presentation/screens/home/homeScreen/widget/populate_workout.dart';
+import 'package:fit_pro/presentation/screens/start_workout/start_workout.dart';
+import 'package:fit_pro/presentation/screens/start_workout/widgets/circuit.dart/circuit.dart';
+import 'package:fit_pro/presentation/screens/start_workout/widgets/lateral_burpee.dart';
+import 'package:fit_pro/presentation/screens/start_workout/widgets/super_sets/super_set.dart';
+import 'package:fit_pro/presentation/widgets/custom_nav/customnav.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -14,11 +23,13 @@ List coolDownList = [];
 
 class PopulateTaskBuilderScreen extends StatelessWidget {
   PopulateTaskBuilderScreen({
+    required this.isWorkout,
     required this.workout,
     super.key,
     required this.Id,
   });
   final String Id;
+  final bool isWorkout;
   late YoutubePlayerController youtubePlayerController;
   final bool workout;
 
@@ -97,8 +108,8 @@ class PopulateTaskBuilderScreen extends StatelessWidget {
               NeverScrollableScrollPhysics(), // Disables internal scrolling
           itemCount: exercise.length,
           itemBuilder: (context, index) {
-            return exerciseContent(
-                context, exercise[index], title, index, exercise.length);
+            return exerciseContent(context, exercise[index], title, index,
+                exercise.length, isWorkout);
           },
         ),
       ],
@@ -106,62 +117,8 @@ class PopulateTaskBuilderScreen extends StatelessWidget {
   }
 }
 
-// exerciseContent(BuildContext context, Map<String, dynamic> exercise) {
-//   print(exerciseList.length);
-//   print('========-------------------==============---------------');
-//   return Padding(
-//     padding: const EdgeInsets.all(8.0),
-//     child: InkWell(
-//       // onTap: () => taskViewSheet(context, youtubePlayerController),
-//       child: Container(
-//         decoration: BoxDecoration(
-//             color: const Color.fromARGB(255, 42, 41, 41),
-//             borderRadius: BorderRadius.circular(10)),
-//         child: Row(
-//           children: [
-//             Padding(
-//               padding: const EdgeInsets.all(11.0),
-//               child: Container(
-//                 clipBehavior: Clip.antiAlias,
-//                 height: 80,
-//                 width: 80,
-//                 decoration: BoxDecoration(
-//                     image: DecorationImage(
-//                         fit: BoxFit.cover,
-//                         image: NetworkImage(exercise['image_url'])),
-//                     borderRadius: BorderRadius.circular(10)),
-//               ),
-//             ),
-//             Padding(
-//               padding: const EdgeInsets.all(10.0),
-//               child: Column(
-//                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 children: [
-//                   Text(
-//                     exercise['name'],
-//                     style: GoogleFonts.urbanist(
-//                         fontWeight: FontWeight.bold,
-//                         fontSize: 16,
-//                         color: const Color.fromARGB(255, 239, 236, 236)),
-//                   ),
-//                   Text(
-//                     '${exercise['sets']} Sets | ${exercise['set_time'] != null && exercise['set_time'].isNotEmpty ? exercise['set_time'] : '45 Sec'}',
-//                     style: GoogleFonts.urbanist(
-//                         fontWeight: FontWeight.bold,
-//                         fontSize: 14,
-//                         color: const Color.fromARGB(255, 186, 178, 178)),
-//                   ),
-//                 ],
-//               ),
-//             )
-//           ],
-//         ),
-//       ),
-//     ),
-//   );
-// }
 Widget exerciseContent(BuildContext context, Map<String, dynamic> exercise,
-    String title, int index, int totalCount) {
+    String title, int index, int totalCount, bool isWorkout) {
   bool isCircuitOrSuperset = title.toLowerCase().contains('circuit') ||
       title.toLowerCase().contains('superset');
 
@@ -171,8 +128,24 @@ Widget exerciseContent(BuildContext context, Map<String, dynamic> exercise,
       index + 1 < totalCount; // Ensure there is a next tile to pair with
 
   return InkWell(
-    onTap: () => taskViewSheet(
-        context, exercise['video_url'], exercise['name'], exercise['']),
+    onTap: () {
+      bool isCircuit = title.toLowerCase().contains('circuit');
+      bool isSuperset = title.toLowerCase().contains('superset');
+      bool isCool = title.toLowerCase().contains('cool');
+      if (isWorkout) {
+        if (isCool) {
+        } else if (isSuperset) {
+          supersetScre(context, index);
+        } else if (isCircuit) {
+          cicuitScreengo(context, index);
+        } else {
+          workoutScreen(context, index, exercise['_id']);
+        }
+      } else {
+        taskViewSheet(
+            context, exercise['video_url'], exercise['name'], exercise['']);
+      }
+    },
     child: Padding(
       padding: EdgeInsets.only(
           left: 8.0, right: 8.0, top: 8.0, bottom: shouldShowIcon ? 0 : 8.0),
@@ -214,7 +187,7 @@ Widget exerciseContent(BuildContext context, Map<String, dynamic> exercise,
                         ),
                       ),
                       Text(
-                        '${exercise['sets']} Sets | ${exercise['set_time'] != null && exercise['set_time'].isNotEmpty ? exercise['set_time'] : '45 Sec'}',
+                        '${exercise['sets']} Sets | ${exercise['time_based'] != null && exercise['time_based'].isNotEmpty ? exercise['time_based'] : '45 Seconds'}',
                         style: GoogleFonts.urbanist(
                           fontWeight: FontWeight.bold,
                           fontSize: 14,
@@ -249,4 +222,43 @@ Widget exerciseContent(BuildContext context, Map<String, dynamic> exercise,
       ),
     ),
   );
+}
+
+String workoutIDq = '';
+
+workoutScreen(context, index, String id) {
+  workoutIDq = id;
+  workoutyoutubePlayerController.pause();
+
+  BlocProvider.of<RepsandweightworkoutBloc>(context).add(ClearList());
+  BlocProvider.of<WorkoutScreenButtonsBloc>(context)
+      .add(WorkoutScreenButtonsEvent());
+  // categoryIdWorkout = categoryIdWorkout;
+
+  // BlocProvider.of<CategoryFetchBloc>(context)
+  //     .add(NextWorkout(index: index - 1));
+
+  // final response = await CategoryRepository()
+  //     .fetchCategories(
+  //         widget.stateValues.list[0].categories[0]);
+  // print('========+++++++++++--------');
+  // print(response[0].exercises[0].name);
+  customNavPush(
+      context,
+      LateralBurpeeScreen(
+        coolDown: false,
+      ));
+}
+
+void supersetScre(context, index) {
+  BlocProvider.of<ExercisefetchblocBloc>(context)
+      .add(NextWorkouts(index: index - 1));
+  customNavPush(context, SuperSetScreen());
+  ;
+}
+
+void cicuitScreengo(context, index) {
+  BlocProvider.of<ExercisefetchblocBloc>(context)
+      .add(NextWorkouts(index: index - 1));
+  customNavPush(context, CircuitScreenWorkouts());
 }

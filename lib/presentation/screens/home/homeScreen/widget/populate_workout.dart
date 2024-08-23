@@ -45,6 +45,7 @@ class _PopulateWorkoutScreenState extends State<PopulateWorkout> {
   bool bookmark = true;
   @override
   Widget build(BuildContext context) {
+    categoryIdWorkout = widget.categoryId;
     // BlocProvider.of<FetchBookmarkBloc>(context).add(FetchBookmarkReq(
     //     dayId: widget
     //         .state!.list[0].weeks[widget.weekIndex].days[widget.dayIndex].id));
@@ -127,6 +128,7 @@ class _PopulateWorkoutScreenState extends State<PopulateWorkout> {
               height: 10,
             ),
             PopulateTaskBuilderScreen(
+              isWorkout: true,
               workout: true,
               Id: widget.stateValues.list[widget.index].id,
             ),

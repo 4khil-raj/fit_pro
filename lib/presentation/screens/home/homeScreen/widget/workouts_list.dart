@@ -134,7 +134,7 @@ class WorkoutListScreens extends StatelessWidget {
         PopulateWorkout(
           stateValues: state,
           appbarTitle: 'Workouts',
-          categoryId: '',
+          categoryId: state.list[0].categories[0],
           index: index,
         ));
   }
