@@ -10,6 +10,8 @@ import 'package:fit_pro/presentation/widgets/custom_nav/customnav.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+bool doneEmitted = false;
+
 class SuperSetButtons extends StatefulWidget {
   const SuperSetButtons({
     super.key,
@@ -33,11 +35,14 @@ class _SuperSetButtonsState extends State<SuperSetButtons> {
     return BlocBuilder<SupersetButtonsBloc, SupersetButtonsState>(
       builder: (context, state) {
         if (state is DoneState) {
+          doneEmitted = true;
           return RestNowTimeButtonForLateralBurpee();
         } else if (state is Goback) {
           // flattenedCircuits = [];
           return GestureDetector(
               onTap: () {
+                BlocProvider.of<SupersetscreencheckboxBloc>(context)
+                    .add(ClearListt());
                 flattenedCircuits = [];
 
                 j = 0;
@@ -51,6 +56,7 @@ class _SuperSetButtonsState extends State<SuperSetButtons> {
                                 customNavReplacement(
                                     context,
                                     LateralBurpeeScreen(
+                                      workout: false,
                                       coolDown: true,
                                     ));
                               })

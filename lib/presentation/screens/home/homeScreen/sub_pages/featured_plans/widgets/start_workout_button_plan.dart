@@ -85,10 +85,11 @@ class _StartWorkoutPlanButtonState extends State<StartWorkoutPlanButton> {
                       .add(ClearList());
                   BlocProvider.of<WorkoutScreenButtonsBloc>(context)
                       .add(WorkoutScreenButtonsEvent());
-                  BlocProvider.of<CategoryFetchBloc>(context).add(
-                      CategoryFetchReq(
-                          id: widget.state.list[0].weeks[widget.weekIndex]
-                              .days[widget.dayIndex].categories[0].id));
+                  BlocProvider.of<CategoryFetchBloc>(context)
+                      .add(CategoryFetchReq(
+                    id: widget.state.list[0].weeks[widget.weekIndex]
+                        .days[widget.dayIndex].categories[0].id,
+                  ));
 
                   customNavPush(context, const StartWorkoutScreen());
                   await Future.delayed(const Duration(seconds: 2));

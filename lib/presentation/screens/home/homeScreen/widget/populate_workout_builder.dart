@@ -4,10 +4,8 @@ import 'package:fit_pro/application/reps&weight/repsandweightworkout_bloc.dart';
 import 'package:fit_pro/application/wokout_screen_buttons/workout_screen_buttons_bloc.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/sub_pages/featured_plans/widgets/task_view.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/widget/populate_workout.dart';
-import 'package:fit_pro/presentation/screens/start_workout/start_workout.dart';
-import 'package:fit_pro/presentation/screens/start_workout/widgets/circuit.dart/circuit.dart';
 import 'package:fit_pro/presentation/screens/start_workout/widgets/lateral_burpee.dart';
-import 'package:fit_pro/presentation/screens/start_workout/widgets/super_sets/super_set.dart';
+import 'package:fit_pro/presentation/screens/start_workout/widgets/super_sets/super.dart';
 import 'package:fit_pro/presentation/widgets/custom_nav/customnav.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -134,6 +132,7 @@ Widget exerciseContent(BuildContext context, Map<String, dynamic> exercise,
       bool isCool = title.toLowerCase().contains('cool');
       if (isWorkout) {
         if (isCool) {
+          coolDwonscre(context, index);
         } else if (isSuperset) {
           supersetScre(context, index);
         } else if (isCircuit) {
@@ -187,7 +186,7 @@ Widget exerciseContent(BuildContext context, Map<String, dynamic> exercise,
                         ),
                       ),
                       Text(
-                        '${exercise['sets']} Sets | ${exercise['time_based'] != null && exercise['time_based'].isNotEmpty ? exercise['time_based'] : '45 Seconds'}',
+                        '${exercise['sets']} Sets | ${exercise['set_time'] != null && exercise['set_time'].isNotEmpty ? exercise['set_time'] : '45 Seconds'}',
                         style: GoogleFonts.urbanist(
                           fontWeight: FontWeight.bold,
                           fontSize: 14,
@@ -235,8 +234,8 @@ workoutScreen(context, index, String id) {
       .add(WorkoutScreenButtonsEvent());
   // categoryIdWorkout = categoryIdWorkout;
 
-  // BlocProvider.of<CategoryFetchBloc>(context)
-  //     .add(NextWorkout(index: index - 1));
+  BlocProvider.of<CategoryFetchBloc>(context)
+      .add(NextWorkoutEvent(index: index - 1));
 
   // final response = await CategoryRepository()
   //     .fetchCategories(
@@ -246,19 +245,62 @@ workoutScreen(context, index, String id) {
   customNavPush(
       context,
       LateralBurpeeScreen(
+        workout: true,
         coolDown: false,
       ));
 }
+// void workoutScreen(BuildContext context, int index, String id) {
+//   workoutIDq = id;
+//   workoutyoutubePlayerController.pause();
+
+//   // Adjust the index by decrementing it by 1, similar to other methods
+//   index = index - 1;
+
+//   BlocProvider.of<RepsandweightworkoutBloc>(context).add(ClearList());
+//   BlocProvider.of<WorkoutScreenButtonsBloc>(context)
+//       .add(WorkoutScreenButtonsEvent());
+
+//   BlocProvider.of<CategoryFetchBloc>(context)
+//       .add(NextWorkoutEvent(index: index));
+
+//   customNavPush(
+//     context,
+//     LateralBurpeeScreen(
+//       workout: true,
+//       coolDown: false,
+//     ),
+//   );
+// }
 
 void supersetScre(context, index) {
-  BlocProvider.of<ExercisefetchblocBloc>(context)
-      .add(NextWorkouts(index: index - 1));
-  customNavPush(context, SuperSetScreen());
+  BlocProvider.of<ExercisefetchblocBloc>(context).add(NextWorkouts(
+      index:
+          //  index == 0 ? index :
+          index - 1));
+  customNavPush(context, SuperSetLunchScreen(workoutID: ''));
   ;
 }
 
 void cicuitScreengo(context, index) {
   BlocProvider.of<ExercisefetchblocBloc>(context)
       .add(NextWorkouts(index: index - 1));
-  customNavPush(context, CircuitScreenWorkouts());
+  customNavPush(
+      context,
+      SuperSetLunchScreen(
+        workoutID: '',
+      ));
+}
+
+void coolDwonscre(context, index) {
+  BlocProvider.of<RepsandweightworkoutBloc>(context).add(ClearList());
+  BlocProvider.of<WorkoutScreenButtonsBloc>(context)
+      .add(WorkoutScreenButtonsEvent());
+  BlocProvider.of<CategoryFetchBloc>(context)
+      .add(NextWorkoutEvent(index: index - 1));
+  customNavPush(
+      context,
+      LateralBurpeeScreen(
+        workout: false,
+        coolDown: true,
+      ));
 }

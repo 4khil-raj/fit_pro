@@ -5,12 +5,12 @@ sealed class CategoryFetchEvent {}
 
 final class CategoryFetchReq extends CategoryFetchEvent {
   final String id;
-
-  CategoryFetchReq({required this.id});
+  int? index;
+  CategoryFetchReq({required this.id, this.index});
 }
 
-final class NextWorkout extends CategoryFetchEvent {
+final class NextWorkoutEvent extends CategoryFetchEvent {
   final int index;
 
-  NextWorkout({required this.index});
+  NextWorkoutEvent({required this.index});
 }

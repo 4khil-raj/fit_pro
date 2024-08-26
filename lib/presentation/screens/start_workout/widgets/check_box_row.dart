@@ -7,8 +7,10 @@ import 'package:fit_pro/presentation/screens/home/homeScreen/widget/populate_wor
 import 'package:fit_pro/presentation/screens/start_workout/widgets/bottom_sheet.dart';
 import 'package:fit_pro/presentation/screens/start_workout/widgets/circuit.dart/circuit.dart';
 import 'package:fit_pro/presentation/screens/start_workout/widgets/lateral_burpee.dart';
+import 'package:fit_pro/presentation/screens/start_workout/widgets/super_sets/buttons.dart';
 import 'package:fit_pro/presentation/screens/start_workout/widgets/super_sets/super.dart';
 import 'package:fit_pro/presentation/screens/start_workout/widgets/super_sets/super_set.dart';
+import 'package:fit_pro/presentation/widgets/alerts/snack_bar.dart';
 import 'package:fit_pro/presentation/widgets/custom_nav/customnav.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,7 +26,7 @@ class CheckBoxSetRows extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-        itemCount: flattenedExercises[i]['sets'],
+        itemCount: flattenedExercises[ivalue]['sets'],
         itemBuilder: (context, index) {
           return Padding(
             padding:
@@ -44,16 +46,17 @@ class CheckBoxSetRows extends StatelessWidget {
                   //   customNavPush(
                   //       context, SuperSetScreen(categoryState: stateValue));
                   // }
-                  if (state.done.length == flattenedExercises[i]['sets'] &&
-                      flattenedExercises.length - 1 > i) {
+                  if (state.done.length == flattenedExercises[ivalue]['sets'] &&
+                      flattenedExercises.length - 1 > ivalue) {
                     BlocProvider.of<CategoryFetchBloc>(context)
-                        .add(NextWorkout(index: i));
+                        .add(NextWorkoutEvent(index: ivalue));
+
                     BlocProvider.of<RepsandweightworkoutBloc>(context)
                         .add(ClearList());
                     // BlocProvider.of<WorkoutScreenButtonsBloc>(context)
                     //     .add(WorkoutScreenButtonsEvent());
-                  } else if (flattenedExercises.length - 1 == i &&
-                      state.done.length == flattenedExercises[i]['sets'] &&
+                  } else if (flattenedExercises.length - 1 == ivalue &&
+                      state.done.length == flattenedExercises[ivalue]['sets'] &&
                       cooldown == false) {
                     // BlocProvider.of<WorkoutScreenButtonsBloc>(context)
                     //     .add(WorkoutCompleateEvent());
@@ -69,12 +72,13 @@ class CheckBoxSetRows extends StatelessWidget {
                             workoutID: exerciseGlobalId,
                           ));
                     });
-                  } else if (flattenedExercises.length - 1 == i &&
-                      state.done.length == flattenedExercises[i]['sets'] &&
+                  } else if (flattenedExercises.length - 1 == ivalue &&
+                      state.done.length == flattenedExercises[ivalue]['sets'] &&
                       cooldown == true) {
                     // BlocProvider.of<WorkoutScreenButtonsBloc>(context)
                     //     .add(WorkoutCompleateEvent());
-
+                    BlocProvider.of<RepsandweightworkoutBloc>(context)
+                        .add(ClearList());
                     WidgetsBinding.instance.addPostFrameCallback((_) {
                       return Navigator.pop(context);
                     });
@@ -90,17 +94,21 @@ class CheckBoxSetRows extends StatelessWidget {
                             )
                           : InkWell(
                               onTap: () {
-                                print('ond');
-                                BlocProvider.of<RepsandweightworkoutBloc>(
-                                        context)
-                                    .add(WorkoutDone(indexdone: index));
-                                BlocProvider.of<RepsandweightworkoutBloc>(
-                                        context)
-                                    .add(IconIndexPicker(index: index));
+                                if (doneEmitted == false) {
+                                  BlocProvider.of<RepsandweightworkoutBloc>(
+                                          context)
+                                      .add(WorkoutDone(indexdone: index));
+                                  BlocProvider.of<RepsandweightworkoutBloc>(
+                                          context)
+                                      .add(IconIndexPicker(index: index));
+                                  BlocProvider.of<WorkoutScreenButtonsBloc>(
+                                          context)
+                                      .add(OneCompleateEvent());
+                                } else {
+                                  homeSnackbar(
+                                      context, 'Take Rest...', Colors.red);
+                                }
                                 // BlocProvider.of<RepsandweightworkoutBloc>(context).add(G),
-                                // BlocProvider.of<WorkoutScreenButtonsBloc>(
-                                //         context)
-                                //     .add(OneCompleateEvent());
                               },
                               child: Icon(
                                 Icons.check_box_outline_blank_outlined,
@@ -134,7 +142,11 @@ class CheckBoxSetRows extends StatelessWidget {
                         ],
                       ),
                       InkWell(
-                          onTap: () => weightAndReps(context, index),
+                          onTap: () {
+                            state.done.contains(index)
+                                ? null
+                                : weightAndReps(context, index);
+                          },
                           child: state.list.contains(index)
                               ? Row(
                                   children: [
@@ -172,7 +184,11 @@ class CheckBoxSetRows extends StatelessWidget {
                                   style: TextStyle(color: Colors.blue),
                                 )),
                       InkWell(
-                          onTap: () => weightAndReps(context, index),
+                          onTap: () {
+                            state.done.contains(index)
+                                ? null
+                                : weightAndReps(context, index);
+                          },
                           child: state.list.contains(index)
                               ? Row(
                                   children: [
@@ -217,13 +233,17 @@ class CheckBoxSetRows extends StatelessWidget {
                   children: [
                     InkWell(
                       onTap: () {
-                        BlocProvider.of<RepsandweightworkoutBloc>(context)
-                            .add(WorkoutDone(indexdone: index));
-                        BlocProvider.of<RepsandweightworkoutBloc>(context)
-                            .add(IconIndexPicker(index: index));
-                        // BlocProvider.of<RepsandweightworkoutBloc>(context).add(G),
-                        BlocProvider.of<WorkoutScreenButtonsBloc>(context)
-                            .add(OneCompleateEvent());
+                        if (doneEmitted == false) {
+                          BlocProvider.of<RepsandweightworkoutBloc>(context)
+                              .add(WorkoutDone(indexdone: index));
+                          BlocProvider.of<RepsandweightworkoutBloc>(context)
+                              .add(IconIndexPicker(index: index));
+                          // BlocProvider.of<RepsandweightworkoutBloc>(context).add(G),
+                          BlocProvider.of<WorkoutScreenButtonsBloc>(context)
+                              .add(OneCompleateEvent());
+                        } else {
+                          homeSnackbar(context, 'Take Rest', Colors.red);
+                        }
                       },
                       child: Icon(
                         Icons.check_box_outline_blank_outlined,

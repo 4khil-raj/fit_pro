@@ -23,3 +23,8 @@ final class Checker extends SupersetscreencheckboxEvent {
 
   Checker({required this.totalLength});
 }
+
+final class ClearRepss extends SupersetscreencheckboxEvent {
+  final int index;
+  ClearRepss({required this.index});
+}

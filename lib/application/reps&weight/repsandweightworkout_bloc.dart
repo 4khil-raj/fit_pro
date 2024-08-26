@@ -42,6 +42,20 @@ class RepsandweightworkoutBloc
         index: event.index,
       ));
     });
+    on<ClearReps>((event, emit) {
+      repsfulllist.remove(event.index);
+      weightList.remove(event.index);
+      emit(Selectedd(
+        repsfulllist: repsfulllist,
+        weightfulllist: weightList,
+        repslist: repslist,
+        weightlist: weightlist,
+        done: wrkDone,
+        list: indexes,
+        isFinish: false,
+        index: event.index,
+      ));
+    });
 
     on<IconIndexPicker>((event, emit) {
       indexes.add(event.index);
@@ -76,6 +90,8 @@ class RepsandweightworkoutBloc
       wrkDone.clear();
       repslist.clear();
       weightlist.clear();
+      repsfulllist.clear();
+      repsfulllist.clear();
       emit(RepsandweightworkoutInitial());
     });
     on<Checker>((event, emit) {

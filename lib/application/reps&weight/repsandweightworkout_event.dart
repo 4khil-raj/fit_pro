@@ -29,3 +29,9 @@ final class Checker extends RepsandweightworkoutEvent {
 
   Checker({required this.totalLength});
 }
+
+final class ClearReps extends RepsandweightworkoutEvent {
+  final int index;
+
+  ClearReps({required this.index});
+}

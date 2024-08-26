@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:fit_pro/application/image_pic/imagepicker_bloc.dart';
+import 'package:fit_pro/application/user_fetch/userfetch_bloc.dart';
 import 'package:fit_pro/domain/models/profile_update/update.dart';
 import 'package:fit_pro/infrastructure/repository/update_profile/photo_update.dart';
 import 'package:fit_pro/infrastructure/repository/update_profile/update_profile.dart';
@@ -13,16 +14,26 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class PersonalInfomatiocEditScreen extends StatelessWidget {
-  PersonalInfomatiocEditScreen({super.key});
-  final nameController = TextEditingController();
-  final emailController = TextEditingController();
-  final genderController = TextEditingController();
-  final ageController = TextEditingController();
-  final heightController = TextEditingController();
-  final weightController = TextEditingController();
+  final UserFetched states;
+
+  PersonalInfomatiocEditScreen({super.key, required this.states});
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController genderController = TextEditingController();
+  TextEditingController ageController = TextEditingController();
+  TextEditingController heightController = TextEditingController();
+  TextEditingController weightController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    nameController.text = states.usermodel.user?.name ?? "User";
+    emailController.text = states.usermodel.user?.email ?? 'email';
+    genderController.text = states.usermodel.user?.gender ?? 'null';
+    ageController.text = states.usermodel.user?.age.toString() ?? '';
+    heightController.text =
+        states.usermodel.user?.height.value.toString() ?? '';
+    weightController.text =
+        states.usermodel.user?.weight.value.toString() ?? '';
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 6, 2, 19),
       appBar: AppBar(
@@ -54,6 +65,8 @@ class PersonalInfomatiocEditScreen extends StatelessWidget {
                           bottom: 1,
                           right: 5,
                           child: CircleAvatar(
+                            backgroundImage: NetworkImage(
+                                states.usermodel.user?.profilePic ?? ''),
                             backgroundColor:
                                 const Color.fromARGB(255, 57, 196, 247),
                             child: IconButton(

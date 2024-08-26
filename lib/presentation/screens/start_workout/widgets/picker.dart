@@ -5,6 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:numberpicker/numberpicker.dart';
 
+int weightpickvalue = 0;
+int repspickvalue = 1;
+
 class WeightAndRepsPickerScreen extends StatefulWidget {
   const WeightAndRepsPickerScreen({super.key, required this.index});
   final int index;
@@ -35,7 +38,7 @@ class _WeightAndRepsPickerScreenState extends State<WeightAndRepsPickerScreen> {
                     textStyle: GoogleFonts.urbanist(
                         color: const Color.fromARGB(255, 225, 217, 217),
                         fontSize: 25),
-                    value: _currentIntValue,
+                    value: repspickvalue,
                     minValue: 1,
                     maxValue: 200,
                     itemWidth: double.infinity,
@@ -43,18 +46,18 @@ class _WeightAndRepsPickerScreenState extends State<WeightAndRepsPickerScreen> {
                     axis: Axis.vertical,
                     haptics: true,
                     onChanged: (value) {
-                      setState(() => _currentIntValue = value);
-                      BlocProvider.of<RepsandweightworkoutBloc>(context).add(
-                          GetReps(
-                              index: widget.index,
-                              reps: value,
-                              weight: _currentLbValue));
+                      setState(() => repspickvalue = value);
+                      // BlocProvider.of<RepsandweightworkoutBloc>(context).add(
+                      //     GetReps(
+                      //         index: widget.index,
+                      //         reps: value,
+                      //         weight: _currentLbValue));
 
-                      BlocProvider.of<SupersetscreencheckboxBloc>(context).add(
-                          GetRepss(
-                              index: widget.index,
-                              reps: value,
-                              weight: _currentLbValue));
+                      // BlocProvider.of<SupersetscreencheckboxBloc>(context).add(
+                      //     GetRepss(
+                      //         index: widget.index,
+                      //         reps: value,
+                      //         weight: _currentLbValue));
                     },
                   ),
                   // Positioned(
@@ -72,7 +75,7 @@ class _WeightAndRepsPickerScreenState extends State<WeightAndRepsPickerScreen> {
                   textStyle: GoogleFonts.urbanist(
                       color: const Color.fromARGB(255, 225, 217, 217),
                       fontSize: 25),
-                  value: _currentLbValue,
+                  value: weightpickvalue,
                   minValue: 0,
                   maxValue: 100,
                   itemWidth: double.infinity,
@@ -80,17 +83,17 @@ class _WeightAndRepsPickerScreenState extends State<WeightAndRepsPickerScreen> {
                   axis: Axis.vertical,
                   haptics: true,
                   onChanged: (value) {
-                    setState(() => _currentLbValue = value);
-                    BlocProvider.of<RepsandweightworkoutBloc>(context).add(
-                        GetReps(
-                            index: widget.index,
-                            reps: _currentIntValue,
-                            weight: value));
-                    BlocProvider.of<SupersetscreencheckboxBloc>(context).add(
-                        GetRepss(
-                            index: widget.index,
-                            reps: _currentIntValue,
-                            weight: value));
+                    setState(() => weightpickvalue = value);
+                    // BlocProvider.of<RepsandweightworkoutBloc>(context).add(
+                    //     GetReps(
+                    //         index: widget.index,
+                    //         reps: _currentIntValue,
+                    //         weight: value));
+                    // BlocProvider.of<SupersetscreencheckboxBloc>(context).add(
+                    //     GetRepss(
+                    //         index: widget.index,
+                    //         reps: _currentIntValue,
+                    //         weight: value));
                   },
                 ),
               ),

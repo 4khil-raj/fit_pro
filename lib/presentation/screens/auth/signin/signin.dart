@@ -21,12 +21,13 @@ class SignupOrSignin extends StatelessWidget {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   bool rememberme = false;
-  bool obsecure = false;
+  bool obsecure = true;
   bool social = false;
   bool other = false;
   bool signup;
   @override
   Widget build(BuildContext context) {
+    obsecure = true;
     BlocProvider.of<UserInfoBloc>(context).add(UserInfoEvent());
     return SafeArea(
         child: Scaffold(

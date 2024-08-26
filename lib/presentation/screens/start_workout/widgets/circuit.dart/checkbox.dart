@@ -3,7 +3,9 @@ import 'package:fit_pro/application/superset_checker/supersetscreencheckbox_bloc
 import 'package:fit_pro/application/exercises_fetch/exercisefetchbloc_bloc.dart';
 import 'package:fit_pro/presentation/screens/start_workout/widgets/bottom_sheet.dart';
 import 'package:fit_pro/presentation/screens/start_workout/widgets/circuit.dart/circuit.dart';
+import 'package:fit_pro/presentation/screens/start_workout/widgets/super_sets/buttons.dart';
 import 'package:fit_pro/presentation/screens/start_workout/widgets/super_sets/super_set.dart';
+import 'package:fit_pro/presentation/widgets/alerts/snack_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -76,13 +78,18 @@ class _CheckBoxRowCircuitState extends State<CheckBoxRowCircuit> {
                               )
                             : InkWell(
                                 onTap: () {
-                                  BlocProvider.of<SupersetButtonsBloc>(context)
-                                      .add(Done());
-                                  BlocProvider.of<SupersetscreencheckboxBloc>(
-                                          context)
-                                      .add(SuperSetCompletedWorkout(
-                                          index: index));
-                                  print(index);
+                                  if (doneEmitted == false) {
+                                    BlocProvider.of<SupersetButtonsBloc>(
+                                            context)
+                                        .add(Done());
+                                    BlocProvider.of<SupersetscreencheckboxBloc>(
+                                            context)
+                                        .add(SuperSetCompletedWorkout(
+                                            index: index));
+                                  } else {
+                                    homeSnackbar(
+                                        context, 'Take Rest', Colors.red);
+                                  }
                                 },
                                 child: Icon(
                                   Icons.check_box_outline_blank_outlined,
@@ -114,7 +121,11 @@ class _CheckBoxRowCircuitState extends State<CheckBoxRowCircuit> {
                           ],
                         ),
                         InkWell(
-                            onTap: () => weightAndReps(context, index),
+                            onTap: () {
+                              state.done.contains(index)
+                                  ? null
+                                  : weightAndReps(context, index);
+                            },
                             child: Row(
                               children: [
                                 Text(
@@ -142,7 +153,11 @@ class _CheckBoxRowCircuitState extends State<CheckBoxRowCircuit> {
                         flattenedCircuits[j]['weighted'] == 'No'
                             ? SizedBox()
                             : InkWell(
-                                onTap: () => weightAndReps(context, index),
+                                onTap: () {
+                                  state.done.contains(index)
+                                      ? null
+                                      : weightAndReps(context, index);
+                                },
                                 child: Row(
                                   children: [
                                     Text(

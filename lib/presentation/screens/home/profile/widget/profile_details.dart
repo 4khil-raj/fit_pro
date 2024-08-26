@@ -41,12 +41,13 @@ class ProfileDetailsScreen extends StatelessWidget {
               ),
               SizedBox(
                 child: Text(
-                  "Heignt: ${state.usermodel.user?.height.value} . Weight: ${state.usermodel.user?.weight.value}${state.usermodel.user?.weight.unit}",
+                  "Height: ${state.usermodel.user?.height.value ?? 'N/A'} ${state.usermodel.user?.height.unit.toLowerCase().contains('cm') == true ? 'Ft' : 'Cm'} | Weight: ${state.usermodel.user?.weight.value ?? 'N/A'} ${state.usermodel.user?.weight.unit ?? ''}",
                   style: const TextStyle(
-                      fontSize: 13.5,
-                      color: Color.fromARGB(255, 211, 202, 202)),
+                    fontSize: 13.5,
+                    color: Color.fromARGB(255, 211, 202, 202),
+                  ),
                 ),
-              ),
+              )
             ],
           ),
           const Spacer(),
@@ -54,7 +55,11 @@ class ProfileDetailsScreen extends StatelessWidget {
             padding: const EdgeInsets.only(right: 8.0),
             child: IconButton(
                 onPressed: () {
-                  customNavPush(context, PersonalInfomatiocEditScreen());
+                  customNavPush(
+                      context,
+                      PersonalInfomatiocEditScreen(
+                        states: state,
+                      ));
                 },
                 icon: const Icon(
                   Icons.edit_outlined,

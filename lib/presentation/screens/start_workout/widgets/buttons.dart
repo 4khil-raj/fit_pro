@@ -7,6 +7,7 @@ import 'package:fit_pro/application/wokout_screen_buttons/workout_screen_buttons
 import 'package:fit_pro/infrastructure/repository/temp_category/temp.dart';
 import 'package:fit_pro/presentation/screens/home/homeScreen/sub_pages/featured_plans/widgets/daily_task_builder.dart';
 import 'package:fit_pro/presentation/screens/start_workout/widgets/lateral_burpee.dart';
+import 'package:fit_pro/presentation/screens/start_workout/widgets/super_sets/buttons.dart';
 import 'package:fit_pro/presentation/screens/start_workout/widgets/super_sets/super_set.dart';
 import 'package:fit_pro/presentation/widgets/custom_nav/customnav.dart';
 import 'package:flutter/material.dart';
@@ -77,6 +78,7 @@ class _TickButtonForLateralBurpeeState
             },
           );
         } else if (state is OneCompleateState) {
+          doneEmitted = true;
           return const RestNowTimeButtonForLateralBurpee();
         } else if (state is WorkoutCompleted) {
           return InkWell(
@@ -167,6 +169,7 @@ class _RestNowTimeButtonForLateralBurpeeState
           _remainingTime--;
         });
       } else {
+        doneEmitted = false;
         BlocProvider.of<WorkoutScreenButtonsBloc>(context)
             .add(WorkoutScreenButtonsEvent());
         BlocProvider.of<SupersetButtonsBloc>(context)
@@ -272,6 +275,7 @@ class _RestNowTimeButtonForLateralBurpeeState
         Expanded(
           child: InkWell(
             onTap: () {
+              doneEmitted = false;
               BlocProvider.of<WorkoutScreenButtonsBloc>(context)
                   .add(WorkoutScreenButtonsEvent());
 

@@ -114,7 +114,9 @@ void weightAndReps(context, index) {
                                       SizedBox(
                                         height: 10,
                                       ),
-                                      BottomSheetButtons()
+                                      BottomSheetButtons(
+                                        index: index,
+                                      )
                                     ])))));
               });
             });

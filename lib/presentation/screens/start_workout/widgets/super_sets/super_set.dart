@@ -22,6 +22,10 @@ class SuperSetScreen extends StatelessWidget {
   // final SuccessState workoutState;
   @override
   Widget build(BuildContext context) {
+    doneEmitted = false;
+
+    BlocProvider.of<ExercisefetchblocBloc>(context)
+        .add(NextWorkouts(index: -1));
     return BlocBuilder<ExercisefetchblocBloc, ExercisefetchblocState>(
       builder: (context, state) {
         if (state is DataState) {
@@ -52,7 +56,7 @@ class SuperSetScreen extends StatelessWidget {
               title: Column(
                 children: [
                   Text(
-                    flattenedSupersets[j]['name'],
+                    flattenedSupersets[state.index ?? 0]['name'],
                     style: GoogleFonts.poppins(
                         color: Colors.white, fontWeight: FontWeight.w700),
                   ),
@@ -76,7 +80,7 @@ class SuperSetScreen extends StatelessWidget {
                   height: 10,
                 ),
                 CarouselForWorkout(
-                  video: flattenedSupersets[j]['video_url'],
+                  video: flattenedSupersets[state.index ?? 0]['video_url'],
                 ),
                 Padding(
                   padding: const EdgeInsets.all(11.0),

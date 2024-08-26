@@ -23,13 +23,14 @@ class CircuitScreenWorkouts extends StatelessWidget {
   // final SuccessState workoutState;
   @override
   Widget build(BuildContext context) {
+    doneEmitted = false;
     return BlocBuilder<ExercisefetchblocBloc, ExercisefetchblocState>(
       builder: (context, state) {
         if (state is DataState) {
           j = state.index ?? 0;
           if (coolDownList.isNotEmpty && flattenedCircuits.isEmpty) {
             BlocProvider.of<CategoryFetchBloc>(context)
-                .add(NextWorkout(index: -1));
+                .add(NextWorkoutEvent(index: -1));
             BlocProvider.of<SupersetscreencheckboxBloc>(context)
                 .add(ClearListt());
             //call exercise screen here with boolean
@@ -37,6 +38,7 @@ class CircuitScreenWorkouts extends StatelessWidget {
               customNavReplacement(
                   context,
                   LateralBurpeeScreen(
+                    workout: false,
                     coolDown: true,
                   ));
             });

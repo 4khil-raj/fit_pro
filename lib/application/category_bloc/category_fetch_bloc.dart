@@ -25,7 +25,11 @@ class CategoryFetchBloc extends Bloc<CategoryFetchEvent, CategoryFetchState> {
         print(e);
       }
     });
-    on<NextWorkout>((event, emit) async {
+    on<NextWorkoutEvent>((event, emit) async {
+      print(
+          'ithanu index===================================[[[[[[[[[[[[[[[]]]]]]]]]]]]]]]${event.index}');
+      print(
+          'ithanu index===================================[[[[[[[[[[[[[[[]]]]]]]]]]]]]]]');
       emit(CategoryFetchInitial());
       await Future.delayed(Duration(seconds: 1));
       emit(CategoryFetched(list: response, index: event.index + 1));

@@ -2,7 +2,9 @@ import 'package:fit_pro/application/superSetButtons/superset_buttons_bloc.dart';
 import 'package:fit_pro/application/superset_checker/supersetscreencheckbox_bloc.dart';
 import 'package:fit_pro/application/exercises_fetch/exercisefetchbloc_bloc.dart';
 import 'package:fit_pro/presentation/screens/start_workout/widgets/bottom_sheet.dart';
+import 'package:fit_pro/presentation/screens/start_workout/widgets/super_sets/buttons.dart';
 import 'package:fit_pro/presentation/screens/start_workout/widgets/super_sets/super_set.dart';
+import 'package:fit_pro/presentation/widgets/alerts/snack_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -49,6 +51,9 @@ class _CheckBoxRowSuperSetState extends State<CheckBoxRowSuperSet> {
           } else if (flattenedSupersets.length - 1 == j &&
               state.done.length == flattenedSupersets[j]['sets']) {
             BlocProvider.of<SupersetButtonsBloc>(context).add(Gobak());
+            // BlocProvider.of<SupersetscreencheckboxBloc>(context)
+            //     .add(ClearListt());
+            // j = 0;
           }
           return SizedBox(
             height: 370,
@@ -67,7 +72,7 @@ class _CheckBoxRowSuperSetState extends State<CheckBoxRowSuperSet> {
                                 onTap: () {
                                   // BlocProvider.of<SupersetscreencheckboxBloc>(context)
                                   //     .add(CompletedWorkout(index: index));
-                                  print(index);
+                                  // print(index);
                                 },
                                 child: Icon(
                                   Icons.check_box,
@@ -76,13 +81,18 @@ class _CheckBoxRowSuperSetState extends State<CheckBoxRowSuperSet> {
                               )
                             : InkWell(
                                 onTap: () {
-                                  BlocProvider.of<SupersetButtonsBloc>(context)
-                                      .add(Done());
-                                  BlocProvider.of<SupersetscreencheckboxBloc>(
-                                          context)
-                                      .add(SuperSetCompletedWorkout(
-                                          index: index));
-                                  print(index);
+                                  if (doneEmitted == false) {
+                                    BlocProvider.of<SupersetButtonsBloc>(
+                                            context)
+                                        .add(Done());
+                                    BlocProvider.of<SupersetscreencheckboxBloc>(
+                                            context)
+                                        .add(SuperSetCompletedWorkout(
+                                            index: index));
+                                  } else {
+                                    homeSnackbar(
+                                        context, 'Take Rest', Colors.red);
+                                  }
                                 },
                                 child: Icon(
                                   Icons.check_box_outline_blank_outlined,
@@ -114,7 +124,11 @@ class _CheckBoxRowSuperSetState extends State<CheckBoxRowSuperSet> {
                           ],
                         ),
                         InkWell(
-                            onTap: () => weightAndReps(context, index),
+                            onTap: () {
+                              state.done.contains(index)
+                                  ? null
+                                  : weightAndReps(context, index);
+                            },
                             child: Row(
                               children: [
                                 Text(
@@ -142,7 +156,11 @@ class _CheckBoxRowSuperSetState extends State<CheckBoxRowSuperSet> {
                         flattenedSupersets[j]['weighted'] == 'No'
                             ? SizedBox()
                             : InkWell(
-                                onTap: () => weightAndReps(context, index),
+                                onTap: () {
+                                  state.done.contains(index)
+                                      ? null
+                                      : weightAndReps(context, index);
+                                },
                                 child: Row(
                                   children: [
                                     Text(

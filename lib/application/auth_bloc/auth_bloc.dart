@@ -74,10 +74,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           emit(Authenticated());
           //   // print(response['message']);
         } else {
-          // emit(AuthError(message: response));
+          emit(AuthError(message: response));
         }
       } catch (e) {
-        emit(AuthError(message: e.toString()));
+        emit(AuthError(message: 'Invalid Email or Password'));
       }
     });
     //sign out

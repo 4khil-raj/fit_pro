@@ -55,6 +55,8 @@ class SupersetscreencheckboxBloc
     });
     on<ClearListt>((event, emit) {
       // emit(SupersetscreencheckboxInitial());
+      weightList.clear();
+      repsfulllist.clear();
       indexes = [];
       wrkDone = [];
       repslist = [];
@@ -68,6 +70,20 @@ class SupersetscreencheckboxBloc
         list: indexes,
         isFinish: false,
         index: 0,
+      ));
+    });
+    on<ClearRepss>((event, emit) {
+      repsfulllist.remove(event.index);
+      weightList.remove(event.index);
+      emit(Selected(
+        repsfulllist: repsfulllist,
+        weightfulllist: weightList,
+        repslist: repslist,
+        weightlist: weightlist,
+        done: wrkDone,
+        list: indexes,
+        isFinish: false,
+        index: event.index,
       ));
     });
     on<Checker>((event, emit) {

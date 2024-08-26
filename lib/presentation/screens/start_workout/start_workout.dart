@@ -28,6 +28,7 @@ class _StartWorkoutScreenState extends State<StartWorkoutScreen> {
           context,
           MaterialPageRoute(
               builder: ((context) => LateralBurpeeScreen(
+                    workout: false,
                     coolDown: false,
                   ))));
     });
