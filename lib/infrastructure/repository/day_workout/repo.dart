@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:fit_pro/core/apis/apis.dart';
-import 'package:fit_pro/domain/models/exercise_fetch/model.dart';
 import 'package:fit_pro/presentation/screens/auth/signin/signin.dart';
 import 'package:http/http.dart' as http;
 
@@ -14,7 +13,6 @@ class DayWorkoutRepo {
           'Authorization': 'Bearer $accesstocken',
         },
       );
-      print(jsonDecode(response.body));
 
       if (response.statusCode == 200) {
         final Map<String, dynamic> jsonData = json.decode(response.body);
@@ -24,8 +22,7 @@ class DayWorkoutRepo {
         throw Exception('Failed to load exercises');
       }
     } catch (e) {
-      print(e.toString());
-      return [];
+      throw Exception(e.toString());
     }
   }
 }

@@ -42,24 +42,24 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => StartWorkoutBloc()),
         BlocProvider(create: (context) => AuthBloc()),
         BlocProvider(create: (context) => UserInfoBloc()),
+        BlocProvider(create: (context) => UserfetchBloc()),
         BlocProvider(create: (context) => BottomNavBloc()),
-        BlocProvider(create: (context) => ForgetpasswordBloc()),
+        BlocProvider(create: (context) => FetchweekBloc()),
+        BlocProvider(create: (context) => StartWorkoutBloc()),
         BlocProvider(create: (context) => WorkoutplansBloc()),
         BlocProvider(create: (context) => PlanOverviewBloc()),
-        BlocProvider(create: (context) => FetchweekBloc()),
-        BlocProvider(create: (context) => UserfetchBloc()),
-        BlocProvider(create: (context) => FetchBookmarkBloc()),
         BlocProvider(create: (context) => ImagepickerBloc()),
-        BlocProvider(create: (context) => CategoryFetchBloc()),
         BlocProvider(create: (context) => WorkoutfetchBloc()),
+        BlocProvider(create: (context) => CategoryFetchBloc()),
+        BlocProvider(create: (context) => FetchBookmarkBloc()),
+        BlocProvider(create: (context) => ForgetpasswordBloc()),
+        BlocProvider(create: (context) => SupersetButtonsBloc()),
+        BlocProvider(create: (context) => ExercisefetchblocBloc()),
         BlocProvider(create: (context) => RepsandweightworkoutBloc()),
         BlocProvider(create: (context) => WorkoutScreenButtonsBloc()),
-        BlocProvider(create: (context) => ExercisefetchblocBloc()),
         BlocProvider(create: (context) => SupersetscreencheckboxBloc()),
-        BlocProvider(create: (context) => SupersetButtonsBloc())
       ],
       child: MaterialApp(
         scrollBehavior:

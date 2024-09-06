@@ -40,7 +40,6 @@ class SupersetscreencheckboxBloc
       ));
     });
     on<SuperSetCompletedWorkout>((event, emit) {
-      print('clicked');
       wrkDone.add(event.index);
       emit(Selected(
         repsfulllist: repsfulllist,

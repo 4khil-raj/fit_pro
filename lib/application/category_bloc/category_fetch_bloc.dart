@@ -18,18 +18,13 @@ class CategoryFetchBloc extends Bloc<CategoryFetchEvent, CategoryFetchState> {
     on<CategoryFetchReq>((event, emit) async {
       try {
         response = await CategoryRepository().fetchCategories(event.id);
-        // print(response[0].exercises[0].name);
         categorylist = response;
         emit(CategoryFetched(list: response, index: 0));
       } catch (e) {
-        print(e);
+        throw Exception(e.toString());
       }
     });
     on<NextWorkoutEvent>((event, emit) async {
-      print(
-          'ithanu index===================================[[[[[[[[[[[[[[[]]]]]]]]]]]]]]]${event.index}');
-      print(
-          'ithanu index===================================[[[[[[[[[[[[[[[]]]]]]]]]]]]]]]');
       emit(CategoryFetchInitial());
       await Future.delayed(Duration(seconds: 1));
       emit(CategoryFetched(list: response, index: event.index + 1));

@@ -16,8 +16,6 @@ class SuperSetLunchScreen extends StatelessWidget {
     if (supersetList != null) {
       flattenedSupersets = [];
       flattenedCircuits = [];
-      // Print the exerciseList to debug
-      print('exerciseList: $supersetList');
 
       // Flatten the exerciseList if it's a nested list
       for (var item in supersetList) {
@@ -38,7 +36,6 @@ class SuperSetLunchScreen extends StatelessWidget {
     }
     if (circuitList != null) {
       // Print the exerciseList to debug
-      print('exerciseList: $circuitList');
 
       // Flatten the exerciseList if it's a nested list
       for (var item in circuitList) {

@@ -32,7 +32,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           emit(AuthError(message: response));
         }
       } catch (e) {
-        print(e);
+        throw Exception(e.toString());
       }
     });
     //remember me
@@ -49,7 +49,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       if (respose == "faild") {
         emit(AuthError(message: "Invalid OTP"));
       } else {
-        print(respose);
         saveJWStocken(respose);
         emit(SignUpAuthSuccessState(google: false, other: false));
       }
@@ -72,7 +71,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         if (response['status'] == 200) {
           saveJWStocken(response['accessToken']);
           emit(Authenticated());
-          //   // print(response['message']);
         } else {
           emit(AuthError(message: response));
         }

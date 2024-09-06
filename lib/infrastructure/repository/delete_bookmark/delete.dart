@@ -23,9 +23,7 @@ class DeleteBookMarkRepo {
         customSnackbar(context, body['message'], Colors.red);
         BlocProvider.of<FetchBookmarkBloc>(context)
             .add(FetchBookmarkReq(dayId: dayID));
-      } else {
-        print(json.decode(response.body));
-      }
+      } else {}
     } catch (e) {
       print(e);
     }

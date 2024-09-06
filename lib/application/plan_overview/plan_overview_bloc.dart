@@ -18,7 +18,7 @@ class PlanOverviewBloc extends Bloc<PlanOverviewEvent, PlanOverviewState> {
         final response = await PlanOverViewRepo.fetchWorkoutPlans(event.planId);
         emit(PlanFetchDone(list: response));
       } catch (e) {
-        print(e);
+        throw Exception(e.toString());
       }
     });
   }

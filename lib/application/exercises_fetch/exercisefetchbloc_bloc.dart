@@ -32,7 +32,6 @@ class ExercisefetchblocBloc
         emit(DataState(value: response));
       } catch (e) {
         emit(ErrorState(msg: e.toString()));
-        print(e);
       }
     });
 
@@ -50,7 +49,6 @@ class ExercisefetchblocBloc
         emit(DataState(value: response));
       } catch (e) {
         emit(ErrorState(msg: e.toString()));
-        print(e);
       }
     });
     on<NextWorkouts>((event, emit) async {
